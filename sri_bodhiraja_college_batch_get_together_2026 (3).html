@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SRI BODHIRAJA COLLEGE // BATCH GET-TOGETHER 2026</title>
+  
+  <!-- Tech & Futuristic Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800;900&family=Rajdhani:wght@500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-dark: #070102;
+      --bg-maroon-deep: #140206;
+      --bg-card: rgba(26, 3, 8, 0.78);
+      --bg-card-hover: rgba(38, 5, 12, 0.88);
+      --maroon-neon: #ff1a4b;
+      --maroon-glow: rgba(255, 26, 75, 0.45);
+      --gold-cyber: #ffd15c;
+      --gold-neon: #ffb800;
+      --gold-glow: rgba(255, 209, 92, 0.35);
+      --emerald-cyber: #10b981;
+      --emerald-glow: rgba(16, 185, 129, 0.4);
+      --text-main: #fcecef;
+      --text-muted: #c98894;
+      --text-dim: #8b555e;
+      --border-cyber: rgba(255, 26, 75, 0.28);
+      --border-gold: rgba(255, 209, 92, 0.35);
+      --scanline-color: rgba(255, 26, 75, 0.035);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Space Grotesk', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Ambient cyber backdrop */
+    .cyber-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      background: 
+        radial-gradient(circle at 50% 10%, rgba(145, 12, 35, 0.55) 0%, transparent 60%),
+        radial-gradient(circle at 85% 65%, rgba(100, 7, 22, 0.45) 0%, transparent 50%),
+        radial-gradient(circle at 12% 85%, rgba(255, 209, 92, 0.1) 0%, transparent 45%),
+        linear-gradient(rgba(7, 1, 2, 0.96), rgba(7, 1, 2, 0.96));
+    }
+
+    .cyber-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: 45px 45px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 26, 75, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 26, 75, 0.05) 1px, transparent 1px);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .scanlines {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        var(--scanline-color) 3px,
+        var(--scanline-color) 4px
+      );
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0.7;
+    }
+
+    canvas#particle-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .page-container {
+      position: relative;
+      z-index: 10;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.8rem;
+      position: relative;
+    }
+
+    .hud-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.4rem 1.3rem;
+      background: rgba(45, 5, 13, 0.85);
+      border: 1px solid var(--border-gold);
+      border-radius: 4px;
+      font-family: 'Orbitron', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--gold-cyber);
+      box-shadow: 0 0 18px rgba(255, 209, 92, 0.25);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      position: relative;
+      clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    }
+
+    .blinking-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--maroon-neon);
+      box-shadow: 0 0 10px var(--maroon-neon);
+      animation: pulseDot 1.4s infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.2; transform: scale(0.7); }
+    }
+
+    .main-title {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.1rem, 5.5vw, 4.2rem);
+      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #ffffff;
+      text-shadow: 0 0 25px rgba(255, 26, 75, 0.65);
+      margin-bottom: 0.8rem;
+    }
+
+    .main-title span {
+      background: linear-gradient(135deg, #ffffff 15%, #ffd15c 50%, #ff1a4b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: block;
+    }
+
+    .sub-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .countdown-wrapper {
+      margin: 2.5rem auto 3.5rem;
+      max-width: 820px;
+      background: rgba(22, 2, 7, 0.82);
+      border: 1px solid var(--border-cyber);
+      border-radius: 12px;
+      backdrop-filter: blur(14px);
+      padding: 1.5rem 1.2rem;
+      box-shadow: 0 0 35px rgba(255, 26, 75, 0.18), inset 0 0 15px rgba(255, 26, 75, 0.08);
+      position: relative;
+    }
+
+    .countdown-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 0.8rem 0.8rem;
+      border-bottom: 1px solid rgba(255, 26, 75, 0.2);
+      font-family: 'Orbitron', monospace;
+      font-size: 0.75rem;
+      color: var(--gold-cyber);
+      letter-spacing: 0.15em;
+    }
+
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      padding-top: 1.2rem;
+    }
+
+    .countdown-box {
+      text-align: center;
+      background: rgba(43, 6, 14, 0.7);
+      border: 1px solid rgba(255, 209, 92, 0.25);
+      border-radius: 8px;
+      padding: 1.1rem 0.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .countdown-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold-cyber), transparent);
+    }
+
+    .countdown-num {
+      font-family: 'Orbitron', monospace;
+      font-weight: 800;
+      font-size: clamp(1.8rem, 4vw, 2.9rem);
+      line-height: 1;
+      color: #ffffff;
+      text-shadow: 0 0 15px var(--maroon-glow);
+    }
+
+    .countdown-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      margin-top: 0.55rem;
+      text-transform: uppercase;
+    }
+
+    .ticket-terminal {
+      position: relative;
+      background: linear-gradient(145deg, rgba(38, 4, 11, 0.94), rgba(16, 2, 5, 0.98));
+      border: 2px solid var(--gold-cyber);
+      border-radius: 16px;
+      padding: 2.4rem 2rem;
+      margin-bottom: 3.5rem;
+      box-shadow: 0 0 45px rgba(255, 209, 92, 0.2), inset 0 0 25px rgba(255, 26, 75, 0.12);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+    }
+
+    .terminal-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.2rem;
+      border-bottom: 1px dashed rgba(255, 209, 92, 0.35);
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .terminal-title-group h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.35rem, 2.5vw, 1.95rem);
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.06em;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .terminal-badge {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      color: var(--emerald-cyber);
+      background: rgba(16, 185, 129, 0.14);
+      border: 1px solid var(--emerald-cyber);
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      display: inline-block;
+      margin-top: 0.35rem;
+    }
+
+    .ticket-price-box {
+      background: rgba(10, 1, 3, 0.9);
+      border: 1px solid var(--border-gold);
+      border-radius: 10px;
+      padding: 0.85rem 1.8rem;
+      text-align: right;
+      box-shadow: 0 0 20px rgba(255, 209, 92, 0.16);
+    }
+
+    .price-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .price-amount {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.7rem, 3.2vw, 2.3rem);
+      font-weight: 900;
+      color: var(--gold-cyber);
+      text-shadow: 0 0 15px rgba(255, 209, 92, 0.6);
+      line-height: 1.1;
+    }
+
+    .price-sub {
+      font-size: 0.75rem;
+      color: #ffd8a8;
+      letter-spacing: 0.05em;
+    }
+
+    /* Dual Bank Accounts Grid */
+    .bank-accounts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .bank-holo-card {
+      background: rgba(18, 2, 6, 0.85);
+      border: 1px solid rgba(255, 209, 92, 0.32);
+      border-radius: 12px;
+      padding: 1.6rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6), 0 8px 25px rgba(0, 0, 0, 0.4);
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .bank-holo-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--gold-cyber);
+    }
+
+    .bank-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid rgba(255, 26, 75, 0.2);
+    }
+
+    .bank-tag {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.72rem;
+      color: var(--gold-cyber);
+      letter-spacing: 0.14em;
+    }
+
+    .bank-brand-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.06em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .bank-info-row {
+      margin-bottom: 1.1rem;
+    }
+
+    .bank-info-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.2rem;
+    }
+
+    .bank-info-val {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.03em;
+    }
+
+    .account-copy-box {
+      background: #0d0104;
+      border: 1px solid var(--maroon-neon);
+      border-radius: 8px;
+      padding: 0.65rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      margin-top: 0.3rem;
+      box-shadow: 0 0 12px rgba(255, 26, 75, 0.15);
+    }
+
+    .account-digits {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      color: var(--gold-cyber);
+      text-shadow: 0 0 10px rgba(255, 209, 92, 0.4);
+    }
+
+    .btn-copy-acc {
+      background: rgba(255, 26, 75, 0.2);
+      border: 1px solid var(--maroon-neon);
+      color: #ffffff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.5rem 0.85rem;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .btn-copy-acc:hover {
+      background: var(--maroon-neon);
+      box-shadow: 0 0 15px var(--maroon-glow);
+      transform: translateY(-2px);
+    }
+
+    /* Clearance Protocol Instructions */
+    .clearance-guidelines {
+      background: rgba(14, 1, 4, 0.7);
+      border: 1px solid rgba(255, 26, 75, 0.25);
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .steps-horizontal {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 0.8rem;
+      align-items: flex-start;
+      background: rgba(30, 4, 10, 0.55);
+      border: 1px solid rgba(255, 26, 75, 0.18);
+      border-radius: 8px;
+      padding: 0.85rem;
+    }
+
+    .step-badge {
+      font-family: 'Orbitron', monospace;
+      font-weight: 800;
+      font-size: 0.8rem;
+      background: var(--maroon-neon);
+      color: #ffffff;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 0 8px var(--maroon-glow);
+    }
+
+    .step-text {
+      font-size: 0.88rem;
+      color: #f0c9cf;
+      line-height: 1.4;
+    }
+
+    .step-text strong {
+      color: #ffffff;
+    }
+
+    .btn-send-slip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7rem;
+      background: linear-gradient(135deg, #22c55e, #15803d);
+      color: #ffffff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      padding: 1.1rem 1.6rem;
+      border-radius: 8px;
+      box-shadow: 0 0 25px rgba(34, 197, 94, 0.35);
+      border: 1px solid #4ade80;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .btn-send-slip:hover {
+      background: #16a34a;
+      box-shadow: 0 0 35px rgba(34, 197, 94, 0.65);
+      transform: translateY(-2px);
+    }
+
+    .hud-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.8rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .cyber-card {
+      position: relative;
+      background: var(--bg-card);
+      border: 1px solid var(--border-cyber);
+      border-radius: 12px;
+      backdrop-filter: blur(16px);
+      padding: 2.2rem 1.8rem;
+      transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cyber-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 100% 0%, rgba(255, 26, 75, 0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .cyber-card:hover {
+      transform: translateY(-6px);
+      background: var(--bg-card-hover);
+      border-color: var(--maroon-neon);
+      box-shadow: 0 15px 35px rgba(255, 26, 75, 0.22), 0 0 20px rgba(255, 26, 75, 0.1);
+    }
+
+    .corner-clip {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-color: var(--gold-cyber);
+      pointer-events: none;
+    }
+    .top-left { top: 6px; left: 6px; border-top: 2px solid; border-left: 2px solid; }
+    .bottom-right { bottom: 6px; right: 6px; border-bottom: 2px solid; border-right: 2px solid; }
+
+    .card-indicator {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--gold-cyber);
+      letter-spacing: 0.12em;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .card-icon {
+      font-size: 2.4rem;
+      margin-bottom: 0.9rem;
+      display: inline-block;
+      filter: drop-shadow(0 0 10px rgba(255, 209, 92, 0.5));
+    }
+
+    .card-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.7rem;
+    }
+
+    .card-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--gold-cyber);
+      margin-bottom: 0.5rem;
+    }
+
+    .card-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 1.2rem;
+      flex-grow: 1;
+    }
+
+    .stealth-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #000000;
+      border: 1px solid rgba(255, 26, 75, 0.5);
+      box-shadow: inset 0 0 10px rgba(255, 26, 75, 0.2);
+      border-radius: 6px;
+      padding: 0.5rem 0.9rem;
+      font-family: 'Orbitron', monospace;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #ffffff;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+      width: fit-content;
+    }
+
+    .btn-cyber {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.9rem 1.4rem;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .btn-map {
+      background: linear-gradient(135deg, rgba(255, 26, 75, 0.15), rgba(43, 5, 12, 0.8));
+      color: #ffffff;
+      border: 1px solid var(--maroon-neon);
+      box-shadow: 0 0 15px rgba(255, 26, 75, 0.2);
+    }
+
+    .btn-map:hover {
+      background: var(--maroon-neon);
+      color: #ffffff;
+      box-shadow: 0 0 25px rgba(255, 26, 75, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .directory-section {
+      background: linear-gradient(180deg, rgba(28, 3, 9, 0.85) 0%, rgba(14, 1, 4, 0.95) 100%);
+      border: 1px solid var(--border-gold);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      margin-bottom: 3.5rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .directory-header {
+      text-align: center;
+      margin-bottom: 2.2rem;
+    }
+
+    .directory-header h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.3rem, 2.5vw, 1.85rem);
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+
+    .directory-header p {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+    }
+
+    .organizers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.3rem;
+    }
+
+    .organizer-card {
+      background: rgba(18, 2, 6, 0.75);
+      border: 1px solid rgba(255, 26, 75, 0.22);
+      border-radius: 10px;
+      padding: 1.2rem 1.3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+      transition: all 0.25s ease;
+    }
+
+    .organizer-card:hover {
+      border-color: var(--gold-cyber);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(255, 209, 92, 0.12);
+    }
+
+    .org-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .org-avatar-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .org-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, rgba(255, 26, 75, 0.2), rgba(43, 6, 14, 0.9));
+      border: 1px solid var(--maroon-neon);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', monospace;
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--gold-cyber);
+    }
+
+    .org-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.04em;
+    }
+
+    .org-role {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .org-num-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #090103;
+      border: 1px solid rgba(255, 209, 92, 0.2);
+      border-radius: 6px;
+      padding: 0.55rem 0.8rem;
+    }
+
+    .org-phone {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--gold-cyber);
+      letter-spacing: 0.08em;
+    }
+
+    .btn-copy-mini {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.8rem;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-copy-mini:hover {
+      color: #ffffff;
+      background: rgba(255, 26, 75, 0.2);
+    }
+
+    .btn-wa-direct {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: rgba(37, 211, 102, 0.12);
+      border: 1px solid #25d366;
+      color: #4ade80;
+      text-decoration: none;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 0.65rem 1rem;
+      border-radius: 6px;
+      transition: all 0.25s ease;
+    }
+
+    .btn-wa-direct:hover {
+      background: #25d366;
+      color: #072611;
+      box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .support-terminal-bar {
+      margin-bottom: 2.5rem;
+      background: linear-gradient(90deg, rgba(35, 4, 10, 0.8), rgba(12, 1, 3, 0.95));
+      border: 1px solid rgba(255, 209, 92, 0.35);
+      border-radius: 10px;
+      padding: 1.1rem 1.8rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .support-info-text {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-main);
+      letter-spacing: 0.04em;
+    }
+
+    .support-info-text .icon-wrench {
+      font-size: 1.3rem;
+      color: var(--gold-cyber);
+    }
+
+    .support-info-text strong {
+      color: var(--gold-cyber);
+    }
+
+    .support-btn-group {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .btn-support-wa {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #25d366;
+      color: #05230e;
+      text-decoration: none;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      padding: 0.55rem 1.1rem;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      box-shadow: 0 0 12px rgba(37, 211, 102, 0.3);
+    }
+
+    .btn-support-wa:hover {
+      background: #1eb956;
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(37, 211, 102, 0.6);
+    }
+
+    .cyber-toast {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #0d0104;
+      border: 1px solid var(--gold-cyber);
+      box-shadow: 0 0 20px rgba(255, 209, 92, 0.5);
+      color: #ffffff;
+      padding: 0.9rem 1.4rem;
+      border-radius: 8px;
+      font-family: 'Orbitron', monospace;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      z-index: 1000;
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .cyber-toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    footer {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 26, 75, 0.15);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+    }
+
+    footer span.highlight {
+      color: var(--gold-cyber);
+      font-weight: 700;
+    }
+
+    @media (max-width: 860px) {
+      .clearance-guidelines {
+        grid-template-columns: 1fr;
+      }
+      .ticket-terminal {
+        padding: 1.8rem 1.4rem;
+      }
+      .support-terminal-bar {
+        flex-direction: column;
+        text-align: center;
+      }
+      .support-info-text {
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+      .countdown-grid {
+        gap: 0.5rem;
+      }
+      .countdown-num {
+        font-size: 1.5rem;
+      }
+      .countdown-label {
+        font-size: 0.65rem;
+      }
+      .page-container {
+        padding: 2rem 1rem 4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Cyber Graphics & Particle Layer -->
+  <div class="cyber-bg"></div>
+  <div class="cyber-grid"></div>
+  <div class="scanlines"></div>
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Notification Toast -->
+  <div id="cyber-toast" class="cyber-toast">
+    <span>⚡</span>
+    <span id="toast-msg">Copied to Clipboard!</span>
+  </div>
+
+  <div class="page-container">
+    
+    <header>
+      <div class="hud-badge">
+        <span class="blinking-dot"></span>
+        <span>Reunion Protocol // SRI BODHIRAJA COLLEGE</span>
+      </div>
+
+      <h1 class="main-title">
+        ANNUAL BATCH
+        <span>GET-TOGETHER 2026</span>
+      </h1>
+
+      <p class="sub-title">
+        SYNCHRONIZING MEMORIES • CELEBRATING THE BROTHERHOOD • FORGING THE FUTURE
+      </p>
+    </header>
+
+    <section class="countdown-wrapper">
+      <div class="countdown-header">
+        <span>// TARGET EVENT HORIZON</span>
+        <span id="countdown-status">STATUS: TIMELINE ACTIVE</span>
+      </div>
+      <div class="countdown-grid">
+        <div class="countdown-box">
+          <div class="countdown-num" id="days">--</div>
+          <div class="countdown-label">Days</div>
+        </div>
+        <div class="countdown-box">
+          <div class="countdown-num" id="hours">--</div>
+          <div class="countdown-label">Hours</div>
+        </div>
+        <div class="countdown-box">
+          <div class="countdown-num" id="minutes">--</div>
+          <div class="countdown-label">Minutes</div>
+        </div>
+        <div class="countdown-box">
+          <div class="countdown-num" id="seconds">--</div>
+          <div class="countdown-label">Seconds</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ticket-terminal" id="payment-terminal">
+      <div class="corner-clip top-left"></div>
+      <div class="corner-clip bottom-right"></div>
+      
+      <div class="terminal-header">
+        <div class="terminal-title-group">
+          <h2>🎟️ TICKET PASS & CLEARANCE</h2>
+          <span class="terminal-badge">SECURE BANK TRANSFER PORTAL</span>
+        </div>
+        <div class="ticket-price-box">
+          <div class="price-label">Ticket Fee / Entry</div>
+          <div class="price-amount">LKR 6,000</div>
+          <div class="price-sub">PER PERSON // FULL ACCESS</div>
+        </div>
+      </div>
+
+      <!-- Dual Bank Accounts Grid -->
+      <div class="bank-accounts-grid">
+        
+        <!-- Account 1: Commercial Bank -->
+        <div class="bank-holo-card">
+          <div>
+            <div class="bank-card-header">
+              <span class="bank-tag">GATEWAY // 01</span>
+              <span style="font-size: 0.72rem; color: #4ade80; font-family: 'Orbitron', monospace;">ONLINE / CDM</span>
+            </div>
+            
+            <div class="bank-brand-title">
+              🏛️ Commercial Bank
+            </div>
+
+            <div class="bank-info-row">
+              <div class="bank-info-label">Account Beneficiary Name</div>
+              <div class="bank-info-val">R.k. Seneth Randunu</div>
+            </div>
+
+            <div class="bank-info-row">
+              <div class="bank-info-label">Account Number (Tap To Copy)</div>
+              <div class="account-copy-box">
+                <span class="account-digits" id="bank-acc-1">8031525615</span>
+                <button type="button" class="btn-copy-acc" id="copy-btn-1" onclick="copyData('8031525615', 'copy-btn-1', 'Commercial Bank Acc Copied!')">
+                  <span>📋 COPY ACC</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div style="font-size: 0.78rem; color: #d698a2; border-top: 1px dashed rgba(255, 26, 75, 0.2); padding-top: 0.6rem;">
+            * Verified Commercial Bank personal account
+          </div>
+        </div>
+
+        <!-- Account 2: BOC (Bank of Ceylon) -->
+        <div class="bank-holo-card">
+          <div>
+            <div class="bank-card-header">
+              <span class="bank-tag">GATEWAY // 02</span>
+              <span style="font-size: 0.72rem; color: #ffd15c; font-family: 'Orbitron', monospace;">BOC DIGI / CDM</span>
+            </div>
+            
+            <div class="bank-brand-title">
+              🏛️ Bank of Ceylon (BOC)
+            </div>
+
+            <div class="bank-info-row">
+              <div class="bank-info-label">Account Beneficiary Name</div>
+              <div class="bank-info-val">HMBBPemarathna</div>
+            </div>
+
+            <div class="bank-info-row">
+              <div class="bank-info-label">Account Number (Tap To Copy)</div>
+              <div class="account-copy-box">
+                <span class="account-digits" id="bank-acc-2">73019351</span>
+                <button type="button" class="btn-copy-acc" id="copy-btn-2" onclick="copyData('73019351', 'copy-btn-2', 'BOC Bank Acc Copied!')">
+                  <span>📋 COPY ACC</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div style="font-size: 0.78rem; color: #d698a2; border-top: 1px dashed rgba(255, 26, 75, 0.2); padding-top: 0.6rem;">
+            * Verified Bank of Ceylon (BOC) personal account
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Payment Verification Procedure -->
+      <div class="clearance-guidelines">
+        <div class="steps-horizontal">
+          <div class="step-item">
+            <div class="step-badge">1</div>
+            <div class="step-text">
+              Transfer <strong>LKR 6,000</strong> to either Commercial Bank or BOC above.
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-badge">2</div>
+            <div class="step-text">
+              Save the digital <strong>receipt, e-slip, or reference screenshot</strong>.
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-badge">3</div>
+            <div class="step-text">
+              Send the slip with your <strong>full name</strong> to any organizer via WhatsApp.
+            </div>
+          </div>
+        </div>
+
+        <a 
+          href="https://wa.me/94710715130?text=Hi%2C%20I%20have%20transferred%20the%20LKR%206%2C000%20ticket%20fee%20for%20the%20Sri%20Bodhiraja%20College%20Get-Together%202026.%20Here%20is%20my%20payment%20slip%3A" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="btn-send-slip"
+        >
+          <span>📤 SUBMIT SLIP VIA WHATSAPP</span> &rarr;
+        </a>
+      </div>
+    </section>
+
+    <main class="hud-grid">
+      
+      <!-- Date Card -->
+      <article class="cyber-card">
+        <div class="corner-clip top-left"></div>
+        <div class="corner-clip bottom-right"></div>
+        <div class="card-indicator">SYS.PARAM // 01</div>
+        <div class="card-icon">⚡</div>
+        <h2 class="card-title">WHEN</h2>
+        <div class="card-value">15th of October 2026</div>
+        <p class="card-desc">
+          Lock in your coordinates and clear your schedule. The session initiates in late afternoon.
+        </p>
+      </article>
+
+      <!-- Location Card -->
+      <article class="cyber-card">
+        <div class="corner-clip top-left"></div>
+        <div class="corner-clip bottom-right"></div>
+        <div class="card-indicator">SYS.PARAM // 02</div>
+        <div class="card-icon">📍</div>
+        <h2 class="card-title">LOCATION</h2>
+        <div class="card-value">Confirmed Venue</div>
+        <p class="card-desc">
+          Pinpoint GPS navigation locked. Tap below to launch your destination directly into Google Maps.
+        </p>
+        <a 
+          href="https://maps.app.goo.gl/VDsBdRY1WF9CARMa9" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="btn-cyber btn-map"
+        >
+          <span>🛰 Open Google Maps</span> &rarr;
+        </a>
+      </article>
+
+      <!-- Dress Code Card -->
+      <article class="cyber-card">
+        <div class="corner-clip top-left"></div>
+        <div class="corner-clip bottom-right"></div>
+        <div class="card-indicator">SYS.PARAM // 03</div>
+        <div class="card-icon">🕶️</div>
+        <h2 class="card-title">DRESS CODE</h2>
+        <div class="stealth-pill">
+          <span>⬛</span>
+          <span>BLACK ATTIRE</span>
+        </div>
+        <div class="card-value" style="font-size: 1rem; color: #ffffff;">SMART CASUAL</div>
+        <p class="card-desc">
+          Stealth aesthetics only. Sleek all-black smart-casual wear required across the floor.
+        </p>
+      </article>
+
+    </main>
+
+    <section class="directory-section">
+      <div class="directory-header">
+        <h2>📡 ORGANIZING COMMITTEE COMMS DIRECTORY</h2>
+        <p>Ping any organizing member directly on WhatsApp for tickets, transport, or inquiries</p>
+      </div>
+
+      <div class="organizers-grid">
+        
+        <!-- Binudi -->
+        <div class="organizer-card">
+          <div class="org-top">
+            <div class="org-avatar-group">
+              <div class="org-avatar">B</div>
+              <div>
+                <div class="org-name">Binudi</div>
+                <div class="org-role">Organizing Committee</div>
+              </div>
+            </div>
+          </div>
+          <div class="org-num-row">
+            <span class="org-phone">+94 71 071 5130</span>
+            <button class="btn-copy-mini" onclick="copyData('+94710715130', null, 'Binudi\'s Number Copied!')" title="Copy Number">📋</button>
+          </div>
+          <a href="https://wa.me/94710715130" target="_blank" rel="noopener noreferrer" class="btn-wa-direct">
+            <span>💬 Chat on WhatsApp</span>
+          </a>
+        </div>
+
+        <!-- Sanula -->
+        <div class="organizer-card">
+          <div class="org-top">
+            <div class="org-avatar-group">
+              <div class="org-avatar">S</div>
+              <div>
+                <div class="org-name">Sanula</div>
+                <div class="org-role">Organizing Committee</div>
+              </div>
+            </div>
+          </div>
+          <div class="org-num-row">
+            <span class="org-phone">+94 77 202 2589</span>
+            <button class="btn-copy-mini" onclick="copyData('+94772022589', null, 'Sanula\'s Number Copied!')" title="Copy Number">📋</button>
+          </div>
+          <a href="https://wa.me/94772022589" target="_blank" rel="noopener noreferrer" class="btn-wa-direct">
+            <span>💬 Chat on WhatsApp</span>
+          </a>
+        </div>
+
+        <!-- Malindu -->
+        <div class="organizer-card">
+          <div class="org-top">
+            <div class="org-avatar-group">
+              <div class="org-avatar">M</div>
+              <div>
+                <div class="org-name">Malindu</div>
+                <div class="org-role">Organizing Committee</div>
+              </div>
+            </div>
+          </div>
+          <div class="org-num-row">
+            <span class="org-phone">+94 76 387 4989</span>
+            <button class="btn-copy-mini" onclick="copyData('+94763874989', null, 'Malindu\'s Number Copied!')" title="Copy Number">📋</button>
+          </div>
+          <a href="https://wa.me/94763874989" target="_blank" rel="noopener noreferrer" class="btn-wa-direct">
+            <span>💬 Chat on WhatsApp</span>
+          </a>
+        </div>
+
+        <!-- Sithil -->
+        <div class="organizer-card">
+          <div class="org-top">
+            <div class="org-avatar-group">
+              <div class="org-avatar">S</div>
+              <div>
+                <div class="org-name">Sithil</div>
+                <div class="org-role">Organizing Committee</div>
+              </div>
+            </div>
+          </div>
+          <div class="org-num-row">
+            <span class="org-phone">+94 76 021 2854</span>
+            <button class="btn-copy-mini" onclick="copyData('+94760212854', null, 'Sithil\'s Number Copied!')" title="Copy Number">📋</button>
+          </div>
+          <a href="https://wa.me/94760212854" target="_blank" rel="noopener noreferrer" class="btn-wa-direct">
+            <span>💬 Chat on WhatsApp</span>
+          </a>
+        </div>
+
+        <!-- Seneth -->
+        <div class="organizer-card">
+          <div class="org-top">
+            <div class="org-avatar-group">
+              <div class="org-avatar">S</div>
+              <div>
+                <div class="org-name">Seneth</div>
+                <div class="org-role">Organizing Committee</div>
+              </div>
+            </div>
+          </div>
+          <div class="org-num-row">
+            <span class="org-phone">077 348 5204</span>
+            <button class="btn-copy-mini" onclick="copyData('0773485204', null, 'Seneth\'s Number Copied!')" title="Copy Number">📋</button>
+          </div>
+          <a href="https://wa.me/94773485204" target="_blank" rel="noopener noreferrer" class="btn-wa-direct">
+            <span>💬 Chat on WhatsApp</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="support-terminal-bar">
+      <div class="support-info-text">
+        <span class="icon-wrench">🛠️</span>
+        <span>Inform any site errors - <strong>Yovindu</strong> (0761830582)</span>
+      </div>
+      <div class="support-btn-group">
+        <a href="https://wa.me/94761830582?text=Hi%20Yovindu%2C%20reporting%20an%20issue%20with%20the%20Batch%20Get-Together%20website%3A" target="_blank" rel="noopener noreferrer" class="btn-support-wa">
+          <span>💬 Report via WhatsApp</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>
+        SRI BODHIRAJA COLLEGE • <span class="highlight">BATCH GET-TOGETHER 2026</span> • ALL RIGHTS RESERVED
+      </p>
+      <p style="margin-top: 0.4rem; font-size: 0.85rem; color: #835259;">
+        TRANSMISSION ENCRYPTED // TICKET PASS LKR 6,000 // SEE YOU ON 15TH OCTOBER 2026
+      </p>
+    </footer>
+
+  </div>
+
+  <script>
+    // Universal Copy Function with iframe fallback
+    function copyData(textToCopy, btnId, successMessage) {
+      const copyBtn = btnId ? document.getElementById(btnId) : null;
+      const toast = document.getElementById("cyber-toast");
+      const toastMsg = document.getElementById("toast-msg");
+
+      const tempInput = document.createElement("input");
+      tempInput.value = textToCopy;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      tempInput.setSelectionRange(0, 99999);
+      
+      try {
+        document.execCommand("copy");
+      } catch (err) {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(textToCopy);
+        }
+      }
+      document.body.removeChild(tempInput);
+
+      if (copyBtn) {
+        const originalHtml = copyBtn.innerHTML;
+        copyBtn.innerHTML = "<span>✓ COPIED</span>";
+        copyBtn.style.background = "#22c55e";
+        copyBtn.style.borderColor = "#4ade80";
+        setTimeout(() => {
+          copyBtn.innerHTML = originalHtml;
+          copyBtn.style.background = "";
+          copyBtn.style.borderColor = "";
+        }, 2200);
+      }
+
+      if (toast) {
+        if (toastMsg && successMessage) {
+          toastMsg.innerText = successMessage;
+        }
+        toast.classList.add("show");
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, 2500);
+      }
+    }
+
+    // Countdown Timer logic for October 15, 2026
+    const targetDate = new Date("October 15, 2026 16:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      const daysEl = document.getElementById("days");
+      const hoursEl = document.getElementById("hours");
+      const minutesEl = document.getElementById("minutes");
+      const secondsEl = document.getElementById("seconds");
+      const statusEl = document.getElementById("countdown-status");
+
+      if (distance < 0) {
+        daysEl.innerText = "00";
+        hoursEl.innerText = "00";
+        minutesEl.innerText = "00";
+        secondsEl.innerText = "00";
+        if (statusEl) statusEl.innerText = "STATUS: EVENT IN PROGRESS";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      daysEl.innerText = String(days).padStart(2, '0');
+      hoursEl.innerText = String(hours).padStart(2, '0');
+      minutesEl.innerText = String(minutes).padStart(2, '0');
+      secondsEl.innerText = String(seconds).padStart(2, '0');
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // High performance cyber floating particle animation
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let particles = [];
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.size = Math.random() * 2 + 0.8;
+        this.speedY = -(Math.random() * 0.4 + 0.15);
+        this.speedX = (Math.random() - 0.5) * 0.25;
+        this.alpha = Math.random() * 0.6 + 0.2;
+        this.color = Math.random() > 0.4 ? '255, 26, 75' : '255, 209, 92';
+      }
+
+      update() {
+        this.y += this.speedY;
+        this.x += this.speedX;
+
+        if (this.y < 0) {
+          this.y = height;
+          this.x = Math.random() * width;
+        }
+      }
+
+      draw() {
+        ctx.fillStyle = `rgba(${this.color}, ${this.alpha})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < 45; i++) {
+      particles.push(new Particle());
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach((p) => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateParticles);
+    }
+
+    window.onload = function () {
+      animateParticles();
+    };
+  </script>
+</body>
+</html>
