@@ -31,7 +31,6 @@
       --border-gold: rgba(255, 209, 92, 0.38);
     }
 
-    /* Reset & Prevent horizontal scroll shaking on all devices */
     *, *::before, *::after {
       margin: 0;
       padding: 0;
@@ -49,7 +48,6 @@
       line-height: 1.5;
     }
 
-    /* Background Ambient Gradients */
     .cyber-ambient {
       position: fixed;
       top: 0;
@@ -89,7 +87,6 @@
       pointer-events: none;
     }
 
-    /* Main Container with fluid responsive padding */
     .page-wrapper {
       position: relative;
       z-index: 10;
@@ -99,7 +96,6 @@
       padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 3.5vw, 2rem) 4rem;
     }
 
-    /* Header Section */
     header {
       text-align: center;
       margin-bottom: clamp(1.8rem, 4vw, 2.8rem);
@@ -172,14 +168,14 @@
       padding: 0 0.5rem;
     }
 
-    /* Live Countdown HUD - 2x2 on mobile, 4x1 on desktop */
+    /* Live Countdown HUD */
     .countdown-card {
       background: var(--bg-maroon-card);
       border: 1px solid var(--border-cyber);
       border-radius: 14px;
       backdrop-filter: blur(14px);
       padding: 1.2rem;
-      margin-bottom: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 1.5rem;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 26, 75, 0.08);
     }
 
@@ -249,7 +245,60 @@
       text-transform: uppercase;
     }
 
-    /* Ticket & Payment Clearance Section */
+    /* --- BUDGET PROGRESS BAR STYLES --- */
+    .budget-card {
+      background: var(--bg-maroon-card);
+      border: 1px solid var(--border-gold);
+      border-radius: 14px;
+      backdrop-filter: blur(14px);
+      padding: 1.2rem;
+      margin-bottom: clamp(2rem, 5vw, 3rem);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 209, 92, 0.08);
+    }
+
+    .budget-bar-track {
+      width: 100%;
+      height: 26px;
+      background: rgba(10, 1, 3, 0.95);
+      border: 1px solid var(--border-cyber);
+      border-radius: 13px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+      margin: 0.8rem 0;
+    }
+
+    .budget-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #ff1a4b 0%, #ffd15c 50%, #22c55e 100%);
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 10px;
+      transition: width 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+      min-width: 2.8rem;
+    }
+
+    .budget-bar-fill span {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #080103;
+    }
+
+    .budget-stats-row {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    /* Ticket & Clearance Section */
     .terminal-section {
       background: linear-gradient(160deg, rgba(34, 4, 10, 0.95), rgba(15, 2, 5, 0.98));
       border: 1.5px solid var(--gold-cyber);
@@ -332,7 +381,6 @@
       text-shadow: 0 0 12px rgba(255, 209, 92, 0.45);
     }
 
-    /* Dual Bank Accounts Grid */
     .bank-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -390,7 +438,6 @@
       word-break: break-word;
     }
 
-    /* Responsive Copy Account Bar */
     .account-bar {
       background: #080103;
       border: 1px solid var(--maroon-neon);
@@ -436,7 +483,6 @@
       transform: scale(0.96);
     }
 
-    /* Steps and WhatsApp slip button */
     .verification-block {
       background: rgba(12, 1, 3, 0.8);
       border: 1px solid rgba(255, 26, 75, 0.25);
@@ -514,7 +560,7 @@
       box-shadow: 0 0 25px rgba(34, 197, 94, 0.6);
     }
 
-    /* 3 Details Cards (When, Where, Dress Code) */
+    /* 3 Details Cards */
     .details-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -824,7 +870,7 @@
       box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
     }
 
-    /* Toast Notification for Mobile Feedback */
+    /* Toast Notification */
     .cyber-toast {
       position: fixed;
       bottom: 20px;
@@ -855,7 +901,6 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* Footer */
     footer {
       text-align: center;
       padding-top: 1.8rem;
@@ -878,7 +923,6 @@
   <div class="grid-overlay"></div>
   <canvas id="particle-canvas"></canvas>
 
-  <!-- Interactive Cyber Toast -->
   <div id="cyber-toast" class="cyber-toast">
     <span>⚡</span>
     <span id="toast-text">Copied to Clipboard!</span>
@@ -902,6 +946,7 @@
       </p>
     </header>
 
+    <!-- Countdown Section -->
     <section class="countdown-card" aria-label="Event Countdown">
       <div class="countdown-top-bar">
         <span>// TARGET EVENT HORIZON</span>
@@ -927,6 +972,32 @@
       </div>
     </section>
 
+    <!-- 🎯 1. BUDGET TRACKER SECTION (ADDED HERE) -->
+    <section class="budget-card" aria-label="Event Treasury Progress">
+      <div class="countdown-top-bar" style="margin-bottom: 0.6rem;">
+        <span>// TREASURY CLEARANCE TARGET</span>
+        <span id="budget-status" style="color: var(--gold-cyber);">CALCULATING...</span>
+      </div>
+
+      <div class="budget-bar-track">
+        <div class="budget-bar-fill" id="budget-fill" style="width: 0%;">
+          <span id="budget-pct">0%</span>
+        </div>
+      </div>
+
+      <div class="budget-stats-row">
+        <div>
+          <span style="color: var(--text-muted);">COLLECTED: </span>
+          <strong id="stat-collected" style="color: #4ade80; font-family: 'Orbitron', monospace;">LKR 0</strong>
+        </div>
+        <div>
+          <span style="color: var(--text-muted);">TARGET: </span>
+          <strong id="stat-target" style="color: var(--gold-cyber); font-family: 'Orbitron', monospace;">LKR 300,000</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tickets Section -->
     <section class="terminal-section" id="tickets">
       <div class="terminal-header">
         <div class="terminal-title">
@@ -940,10 +1011,8 @@
         </div>
       </div>
 
-      <!-- Bank Details Grid -->
       <div class="bank-grid">
-        
-        <!-- Account 1: Commercial Bank -->
+        <!-- Commercial Bank -->
         <article class="bank-card">
           <div>
             <div style="display: flex; justify-content: space-between; font-family: 'Orbitron', monospace; font-size: 0.7rem; color: var(--gold-cyber); margin-bottom: 0.6rem;">
@@ -973,7 +1042,7 @@
           </div>
         </article>
 
-        <!-- Account 2: BOC (Bank of Ceylon) -->
+        <!-- BOC -->
         <article class="bank-card">
           <div>
             <div style="display: flex; justify-content: space-between; font-family: 'Orbitron', monospace; font-size: 0.7rem; color: var(--gold-cyber); margin-bottom: 0.6rem;">
@@ -1002,10 +1071,8 @@
             * Verified Bank of Ceylon (BOC) personal account
           </div>
         </article>
-
       </div>
 
-      <!-- Verification Instructions -->
       <div class="verification-block">
         <div class="steps-list">
           <div class="step-box">
@@ -1033,9 +1100,8 @@
       </div>
     </section>
 
+    <!-- Details Section -->
     <main class="details-grid">
-      
-      <!-- Date Card -->
       <article class="detail-card">
         <div>
           <div class="detail-card-head">SYS.PARAM // 01</div>
@@ -1047,7 +1113,6 @@
         </div>
       </article>
 
-      <!-- Location Card -->
       <article class="detail-card">
         <div>
           <div class="detail-card-head">SYS.PARAM // 02</div>
@@ -1067,7 +1132,6 @@
         </a>
       </article>
 
-      <!-- Dress Code Card -->
       <article class="detail-card">
         <div>
           <div class="detail-card-head">SYS.PARAM // 03</div>
@@ -1084,9 +1148,9 @@
           </p>
         </div>
       </article>
-
     </main>
 
+    <!-- Committee Section -->
     <section class="directory-panel">
       <div class="directory-title-wrap">
         <h2>📡 ORGANIZING COMMITTEE DIRECTORY</h2>
@@ -1094,7 +1158,6 @@
       </div>
 
       <div class="committee-grid">
-        
         <!-- Binudi -->
         <div class="member-item">
           <div class="member-top">
@@ -1184,10 +1247,10 @@
             <span>💬 Chat on WhatsApp</span>
           </a>
         </div>
-
       </div>
     </section>
 
+    <!-- Support Bar -->
     <section class="support-bar">
       <div class="support-info">
         <span>🛠️ Inform any site errors - <strong>Yovindu</strong> (0761830582)</span>
@@ -1214,26 +1277,68 @@
   </div>
 
   <script>
-    // Robust Copy to Clipboard function with fallback
-    function copyValue(text, btnElementId, successNotice) {
+    // =========================================================================
+    // 🛠️ ADMIN SETTINGS: EDIT THESE TWO LINES ON GITHUB WHEN SOMEONE PAYS!
+    // =========================================================================
+    const TARGET_BUDGET = 300000;  // Your goal in LKR
+    const PAID_TICKETS  = 0;       // Change this number (e.g. 1, 2, 5, 10...)
+    // =========================================================================
+
+    function initBudgetTracker() {
+      const TICKET_PRICE = 6000;
+      const currentTotal = PAID_TICKETS * TICKET_PRICE;
+      const pct = Math.min(100, Math.round((currentTotal / TARGET_BUDGET) * 100));
+
+      const statCollected = document.getElementById("stat-collected");
+      const statTarget = document.getElementById("stat-target");
+      const budgetPct = document.getElementById("budget-pct");
+      const budgetFill = document.getElementById("budget-fill");
+      const budgetStatus = document.getElementById("budget-status");
+
+      if (statCollected) statCollected.innerText = `LKR ${currentTotal.toLocaleString()}`;
+      if (statTarget) statTarget.innerText = `LKR ${TARGET_BUDGET.toLocaleString()}`;
+      if (budgetPct) budgetPct.innerText = `${pct}%`;
+      
+      setTimeout(() => {
+        if (budgetFill) budgetFill.style.width = `${pct}%`;
+      }, 200);
+
+      if (budgetStatus) {
+        if (pct >= 100) {
+          budgetStatus.innerText = "TARGET 100% SECURED 🎯";
+          budgetStatus.style.color = "#4ade80";
+        } else {
+          budgetStatus.innerText = `STATUS: ${PAID_TICKETS} PASSES CLEARED (${pct}%)`;
+        }
+      }
+    }
+
+    // Modern Clipboard Handler
+    async function copyValue(text, btnElementId, successNotice) {
       const btn = btnElementId ? document.getElementById(btnElementId) : null;
       const toast = document.getElementById("cyber-toast");
       const toastText = document.getElementById("toast-text");
 
-      const input = document.createElement("input");
-      input.setAttribute("value", text);
-      document.body.appendChild(input);
-      input.select();
-      input.setSelectionRange(0, 99999);
-
-      try {
-        document.execCommand("copy");
-      } catch (e) {
-        if (navigator.clipboard) {
-          navigator.clipboard.writeText(text);
+      let success = false;
+      if (navigator.clipboard && window.isSecureContext) {
+        try {
+          await navigator.clipboard.writeText(text);
+          success = true;
+        } catch (err) {
+          success = false;
         }
       }
-      document.body.removeChild(input);
+
+      if (!success) {
+        const input = document.createElement("input");
+        input.setAttribute("value", text);
+        document.body.appendChild(input);
+        input.select();
+        try {
+          document.execCommand("copy");
+        } catch (e) {}
+        document.body.removeChild(input);
+      }
 
       if (btn) {
         const prevText = btn.innerHTML;
@@ -1256,7 +1361,7 @@
       }
     }
 
-    // Dynamic Live Countdown calculation to October 15, 2026
+    // Countdown Timer
     const targetTimestamp = new Date("October 15, 2026 16:00:00").getTime();
 
     function refreshCountdown() {
@@ -1270,10 +1375,10 @@
       const statusEl = document.getElementById("countdown-status");
 
       if (difference <= 0) {
-        daysEl.innerText = "00";
-        hoursEl.innerText = "00";
-        minutesEl.innerText = "00";
-        secondsEl.innerText = "00";
+        if (daysEl) daysEl.innerText = "00";
+        if (hoursEl) hoursEl.innerText = "00";
+        if (minutesEl) minutesEl.innerText = "00";
+        if (secondsEl) secondsEl.innerText = "00";
         if (statusEl) statusEl.innerText = "STATUS: EVENT IN SESSION";
         return;
       }
@@ -1283,16 +1388,16 @@
       const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
       const s = Math.floor((difference % (1000 * 60)) / 1000);
 
-      daysEl.innerText = String(d).padStart(2, '0');
-      hoursEl.innerText = String(h).padStart(2, '0');
-      minutesEl.innerText = String(m).padStart(2, '0');
-      secondsEl.innerText = String(s).padStart(2, '0');
+      if (daysEl) daysEl.innerText = String(d).padStart(2, '0');
+      if (hoursEl) hoursEl.innerText = String(h).padStart(2, '0');
+      if (minutesEl) minutesEl.innerText = String(m).padStart(2, '0');
+      if (secondsEl) secondsEl.innerText = String(s).padStart(2, '0');
     }
 
     setInterval(refreshCountdown, 1000);
     refreshCountdown();
 
-    // Mobile-optimized low-CPU particle canvas
+    // Particle Background
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
     let pWidth, pHeight;
@@ -1303,7 +1408,13 @@
       pHeight = canvas.height = window.innerHeight;
     }
 
-    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+      particlesArray.forEach(p => {
+        if (p.x > pWidth) p.x = Math.random() * pWidth;
+        if (p.y > pHeight) p.y = Math.random() * pHeight;
+      });
+    });
     resizeCanvas();
 
     class CyberParticle {
@@ -1335,7 +1446,6 @@
       }
     }
 
-    // Adjust particle count for battery performance on mobile
     const count = window.innerWidth < 600 ? 25 : 45;
     for (let i = 0; i < count; i++) {
       particlesArray.push(new CyberParticle());
@@ -1352,6 +1462,7 @@
 
     window.onload = function () {
       renderParticles();
+      initBudgetTracker();
     };
   </script>
 </body>
