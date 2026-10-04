@@ -133,13 +133,101 @@
       pointer-events: none;
     }
 
+    /* =========================================================================
+       STICKY HUD NAVIGATION BAR & TABS
+       ========================================================================= */
+    .hud-navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(14, 2, 5, 0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1.5px solid var(--border-gold);
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.7);
+      padding: 0.6rem 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 0.45rem;
+      max-width: 1080px;
+      width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      justify-content: flex-start;
+      padding: 0.1rem 0;
+    }
+
+    .nav-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    @media (min-width: 680px) {
+      .nav-tabs {
+        justify-content: center;
+        gap: 0.8rem;
+      }
+    }
+
+    .nav-tab-btn {
+      background: rgba(28, 4, 9, 0.8);
+      border: 1px solid rgba(255, 26, 75, 0.35);
+      color: var(--text-muted);
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(0.72rem, 2.2vw, 0.82rem);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 0.55rem 0.95rem;
+      border-radius: 6px;
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: all 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    .nav-tab-btn:hover {
+      color: #ffffff;
+      border-color: var(--gold-cyber);
+      background: rgba(255, 209, 92, 0.15);
+    }
+
+    .nav-tab-btn.active {
+      color: #0b0103;
+      background: var(--gold-cyber);
+      border-color: #ffffff;
+      box-shadow: 0 0 18px rgba(255, 209, 92, 0.5);
+      font-weight: 900;
+    }
+
     .page-wrapper {
       position: relative;
       z-index: 10;
       width: 100%;
       max-width: 1080px;
       margin: 0 auto;
-      padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 3.5vw, 2rem) 4rem;
+      padding: clamp(1.2rem, 3.5vw, 2.5rem) clamp(1rem, 3.5vw, 2rem) 4rem;
+    }
+
+    /* Tab Switcher */
+    .tab-view {
+      display: none;
+      animation: tabFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .tab-view.active {
+      display: block;
+    }
+
+    @keyframes tabFadeIn {
+      0% { opacity: 0; transform: translateY(14px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     /* Tech Corners */
@@ -185,20 +273,7 @@
       box-shadow: 0 0 8px var(--maroon-neon);
     }
 
-    /* Scroll Motion Element */
-    .reveal-elem {
-      opacity: 0;
-      transform: translateY(32px) scale(0.98);
-      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: opacity, transform;
-    }
-
-    .reveal-elem.visible {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-
-    /* Floating Header Controls */
+    /* Header Controls */
     .top-action-bar {
       display: flex;
       justify-content: center;
@@ -222,7 +297,6 @@
       color: var(--gold-cyber);
       box-shadow: 0 0 18px rgba(255, 209, 92, 0.25);
       text-transform: uppercase;
-      word-break: break-word;
       animation: hudFloat 3.8s ease-in-out infinite alternate;
     }
 
@@ -279,7 +353,6 @@
       color: #ffffff;
       text-shadow: 0 0 25px rgba(255, 26, 75, 0.6);
       margin-bottom: 0.75rem;
-      word-break: break-word;
       text-align: center;
     }
 
@@ -309,19 +382,18 @@
       text-align: center;
     }
 
-    /* Countdown HUD */
-    .countdown-card {
+    /* Cards Style */
+    .card-panel {
       background: var(--bg-maroon-card);
-      border: 1px solid var(--border-cyber);
+      border: 1px solid var(--border-gold);
       border-radius: 14px;
       backdrop-filter: blur(16px);
       padding: 1.3rem;
-      margin: 2rem 0 1.5rem;
-      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6), inset 0 0 18px rgba(255, 26, 75, 0.1);
-      position: relative;
-      overflow: hidden;
+      margin-bottom: 1.8rem;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
     }
 
+    /* Countdown HUD */
     .countdown-top-bar {
       display: flex;
       flex-wrap: wrap;
@@ -357,13 +429,12 @@
       padding: 0.95rem 0.4rem;
       text-align: center;
       position: relative;
-      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.3s ease, border-color 0.3s ease;
     }
 
     .countdown-box:hover {
       transform: translateY(-4px);
       border-color: var(--gold-cyber);
-      box-shadow: 0 6px 18px rgba(255, 209, 92, 0.25);
     }
 
     .countdown-box::before {
@@ -426,18 +497,6 @@
     }
 
     /* Budget Progress Bar */
-    .budget-card {
-      background: var(--bg-maroon-card);
-      border: 1px solid var(--border-gold);
-      border-radius: 14px;
-      backdrop-filter: blur(16px);
-      padding: 1.3rem;
-      margin-bottom: clamp(2rem, 5vw, 3rem);
-      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6), inset 0 0 18px rgba(255, 209, 92, 0.1);
-      position: relative;
-      overflow: hidden;
-    }
-
     .budget-bar-track {
       width: 100%;
       height: 28px;
@@ -445,9 +504,8 @@
       border: 1px solid var(--border-cyber);
       border-radius: 14px;
       overflow: hidden;
-      position: relative;
-      box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.9);
       margin: 0.9rem 0;
+      box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.9);
     }
 
     .budget-bar-fill {
@@ -477,76 +535,7 @@
       color: #080103;
     }
 
-    .budget-stats-row {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-    }
-
-    /* Ticket Pass & Clearance Section */
-    .terminal-section {
-      background: linear-gradient(160deg, rgba(35, 4, 10, 0.96), rgba(15, 2, 5, 0.98));
-      border: 1.5px solid var(--gold-cyber);
-      border-radius: 16px;
-      padding: clamp(1.2rem, 3.5vw, 2.2rem);
-      margin-bottom: clamp(2rem, 5vw, 3.2rem);
-      box-shadow: 0 0 35px rgba(255, 209, 92, 0.18), inset 0 0 25px rgba(255, 26, 75, 0.12);
-      position: relative;
-      animation: borderPulse 4s infinite alternate ease-in-out;
-    }
-
-    @keyframes borderPulse {
-      0% { border-color: rgba(255, 209, 92, 0.35); box-shadow: 0 0 20px rgba(255, 209, 92, 0.12); }
-      100% { border-color: var(--gold-cyber); box-shadow: 0 0 38px rgba(255, 209, 92, 0.32); }
-    }
-
-    .terminal-header {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-      padding-bottom: 1.2rem;
-      border-bottom: 1px dashed rgba(255, 209, 92, 0.35);
-    }
-
-    @media (min-width: 680px) {
-      .terminal-header {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-      }
-    }
-
-    .terminal-title h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: clamp(1.2rem, 3vw, 1.75rem);
-      font-weight: 800;
-      color: #ffffff;
-      letter-spacing: 0.05em;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .terminal-status-tag {
-      display: inline-block;
-      font-family: 'Orbitron', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.12em;
-      color: #4ade80;
-      background: rgba(34, 197, 94, 0.15);
-      border: 1px solid rgba(74, 222, 128, 0.4);
-      padding: 0.22rem 0.65rem;
-      border-radius: 4px;
-      margin-top: 0.35rem;
-    }
-
-    /* Interactive Pass Calculator */
+    /* Pass Calculator */
     .calculator-hud {
       background: rgba(10, 1, 3, 0.95);
       border: 1.5px solid var(--border-gold);
@@ -613,26 +602,7 @@
       text-align: center;
     }
 
-    .calc-total-box {
-      text-align: right;
-    }
-
-    .calc-total-lbl {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .calc-total-val {
-      font-family: 'Orbitron', monospace;
-      font-size: clamp(1.4rem, 3.8vw, 1.9rem);
-      font-weight: 900;
-      color: var(--gold-cyber);
-      text-shadow: 0 0 15px rgba(255, 209, 92, 0.4);
-    }
-
+    /* Bank Cards */
     .bank-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -656,42 +626,12 @@
       justify-content: space-between;
       gap: 1rem;
       box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.7);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
-      overflow: hidden;
+      transition: all 0.3s ease;
     }
 
     .bank-card:hover {
       border-color: var(--gold-cyber);
-      transform: translateY(-5px);
-      box-shadow: 0 12px 28px rgba(255, 209, 92, 0.22), inset 0 0 20px rgba(0, 0, 0, 0.7);
-    }
-
-    .bank-card-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .bank-field-label {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      margin-bottom: 0.15rem;
-    }
-
-    .bank-field-value {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #ffffff;
-      word-break: break-word;
+      transform: translateY(-4px);
     }
 
     .account-bar {
@@ -704,7 +644,6 @@
       justify-content: space-between;
       gap: 0.5rem;
       margin-top: 0.3rem;
-      box-shadow: 0 0 10px rgba(255, 26, 75, 0.15);
     }
 
     .account-num-text {
@@ -713,8 +652,6 @@
       font-weight: 800;
       letter-spacing: 0.1em;
       color: var(--gold-cyber);
-      overflow-x: auto;
-      white-space: nowrap;
     }
 
     .btn-copy-action {
@@ -731,79 +668,12 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.3rem;
-      flex-shrink: 0;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.2s ease;
     }
 
     .btn-copy-action:hover {
       background: rgba(255, 26, 75, 0.45);
       transform: scale(1.05);
-      box-shadow: 0 0 15px rgba(255, 26, 75, 0.5);
-    }
-
-    .verification-block {
-      background: rgba(12, 1, 3, 0.85);
-      border: 1px solid rgba(255, 26, 75, 0.28);
-      border-radius: 10px;
-      padding: 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-    }
-
-    .steps-list {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.8rem;
-    }
-
-    @media (min-width: 680px) {
-      .steps-list {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    .step-box {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.7rem;
-      background: rgba(30, 4, 10, 0.6);
-      border: 1px solid rgba(255, 26, 75, 0.2);
-      border-radius: 6px;
-      padding: 0.8rem;
-      font-size: 0.85rem;
-      color: #edd1d5;
-      line-height: 1.4;
-      transition: all 0.25s ease;
-    }
-
-    .step-box:hover {
-      border-color: var(--gold-cyber);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(255, 26, 75, 0.2);
-    }
-
-    .step-idx {
-      background: var(--maroon-neon);
-      color: #ffffff;
-      font-family: 'Orbitron', monospace;
-      font-size: 0.75rem;
-      font-weight: 800;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      box-shadow: 0 0 8px var(--maroon-neon);
-    }
-
-    .action-buttons-wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
     }
 
     .btn-upload-slip {
@@ -824,14 +694,14 @@
       box-shadow: 0 0 25px rgba(34, 197, 94, 0.4);
       border: 1px solid #4ade80;
       text-align: center;
-      word-break: break-word;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 100%;
+      transition: all 0.25s ease;
     }
 
     .btn-upload-slip:hover {
       background: #16a34a;
       box-shadow: 0 0 35px rgba(34, 197, 94, 0.7);
-      transform: translateY(-3px);
+      transform: translateY(-2px);
     }
 
     /* Paid Poll Callout Box */
@@ -843,27 +713,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.8rem;
-      box-shadow: 0 0 20px rgba(255, 209, 92, 0.18);
-    }
-
-    .poll-warning-banner {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(255, 26, 75, 0.15);
-      border: 1px solid var(--maroon-neon);
-      border-radius: 6px;
-      padding: 0.5rem 0.85rem;
-      font-family: 'Orbitron', monospace;
-      font-size: clamp(0.68rem, 2vw, 0.76rem);
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      color: #ffb3be;
-      line-height: 1.35;
-    }
-
-    .poll-warning-banner strong {
-      color: #ff335f;
+      margin-top: 1.2rem;
     }
 
     .btn-poll-action {
@@ -882,237 +732,55 @@
       min-height: 50px;
       border-radius: 8px;
       border: 1px solid var(--gold-cyber);
-      box-shadow: 0 0 18px rgba(255, 209, 92, 0.22);
       text-align: center;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      word-break: break-word;
+      transition: all 0.25s ease;
     }
 
     .btn-poll-action:hover {
       background: var(--gold-cyber);
       color: #0d0104;
       box-shadow: 0 0 32px rgba(255, 209, 92, 0.6);
-      transform: translateY(-3px);
-    }
-
-    /* 3 Details Cards */
-    .details-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.3rem;
-      margin-bottom: clamp(2rem, 5vw, 3.2rem);
-    }
-
-    @media (min-width: 640px) {
-      .details-grid {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      }
-    }
-
-    .detail-card {
-      background: var(--bg-maroon-card);
-      border: 1px solid var(--border-cyber);
-      border-radius: 12px;
-      padding: 1.5rem 1.3rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 0.85rem;
-      backdrop-filter: blur(14px);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .detail-card:hover {
-      border-color: var(--maroon-neon);
-      transform: translateY(-5px);
-      box-shadow: 0 12px 28px rgba(255, 26, 75, 0.25);
-    }
-
-    .detail-card-head {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.72rem;
-      color: var(--gold-cyber);
-      letter-spacing: 0.12em;
-    }
-
-    .detail-card h3 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.2rem;
-      font-weight: 800;
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .detail-highlight {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--gold-cyber);
-    }
-
-    .detail-desc {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.45;
-    }
-
-    .stealth-pill-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      background: #000000;
-      border: 1px solid rgba(255, 26, 75, 0.5);
-      box-shadow: inset 0 0 10px rgba(255, 26, 75, 0.3);
-      border-radius: 6px;
-      padding: 0.45rem 0.85rem;
-      font-family: 'Orbitron', monospace;
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: #ffffff;
-      width: fit-content;
-    }
-
-    .btn-maps-action {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      text-decoration: none;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      padding: 0.85rem 1.2rem;
-      min-height: 46px;
-      border-radius: 6px;
-      background: linear-gradient(135deg, rgba(255, 26, 75, 0.22), rgba(43, 5, 12, 0.85));
-      color: #ffffff;
-      border: 1px solid var(--maroon-neon);
-      box-shadow: 0 0 18px rgba(255, 26, 75, 0.25);
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .btn-maps-action:hover {
-      background: var(--maroon-neon);
-      box-shadow: 0 0 30px rgba(255, 26, 75, 0.65);
       transform: translateY(-2px);
     }
 
-    /* MEDIA SHOWCASE SECTIONS WITH KINETIC SCROLL PARALLAX */
-    .showcase-section {
-      background: linear-gradient(180deg, rgba(26, 3, 8, 0.94) 0%, rgba(12, 1, 4, 0.98) 100%);
-      border: 1px solid var(--border-gold);
-      border-radius: 16px;
-      padding: clamp(1.2rem, 3.5vw, 2.3rem);
-      margin-bottom: clamp(2rem, 5vw, 3.2rem);
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.65), inset 0 0 25px rgba(255, 209, 92, 0.08);
-    }
-
-    .showcase-header {
-      text-align: center;
-      margin-bottom: 1.8rem;
-    }
-
-    .showcase-header h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: clamp(1.15rem, 3.2vw, 1.65rem);
-      font-weight: 800;
-      color: #ffffff;
-      letter-spacing: 0.05em;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      margin-bottom: 0.35rem;
-    }
-
-    .showcase-header p {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: clamp(0.9rem, 2.2vw, 1.05rem);
-      color: var(--text-muted);
-      max-width: 620px;
-      margin: 0 auto;
-    }
-
+    /* Photo Galleries in Tabs with Parallax */
     .photo-grid-4 {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-    }
-
-    @media (min-width: 720px) {
-      .photo-grid-4 {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 1.3rem;
-      }
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1.4rem;
     }
 
     .photo-card {
       background: rgba(14, 1, 4, 0.9);
       border: 1px solid rgba(255, 26, 75, 0.32);
-      border-radius: 10px;
+      border-radius: 12px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
       position: relative;
-    }
-
-    .photo-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -130%;
-      width: 80%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 209, 92, 0.3), rgba(255, 26, 75, 0.45), transparent);
-      transform: skewX(-25deg);
-      z-index: 5;
-      pointer-events: none;
-      transition: none;
-    }
-
-    .photo-card:hover::before {
-      left: 150%;
-      transition: 0.8s ease-in-out;
+      transition: transform 0.35s ease, border-color 0.3s ease;
     }
 
     .photo-card:hover {
-      transform: translateY(-8px) scale(1.02);
+      transform: translateY(-6px);
       border-color: var(--gold-cyber);
-      box-shadow: 0 16px 32px rgba(255, 209, 92, 0.3);
+      box-shadow: 0 14px 28px rgba(255, 209, 92, 0.25);
     }
 
     .photo-img-wrap {
       width: 100%;
-      height: 220px;
+      height: 240px;
       overflow: hidden;
       position: relative;
       background: #000;
     }
 
-    @media (min-width: 720px) {
-      .photo-img-wrap {
-        height: 200px;
-      }
-    }
-
     .photo-img-wrap.portrait {
-      height: 290px;
+      height: 340px;
     }
 
-    @media (min-width: 720px) {
-      .photo-img-wrap.portrait {
-        height: 310px;
-      }
-    }
-
-    /* KINETIC PARALLAX IMAGE STYLING */
     .photo-card img {
       width: 100%;
       height: 115%;
@@ -1123,48 +791,25 @@
       transition: transform 0.15s ease-out;
     }
 
-    .photo-card:hover img {
-      transform: scale(1.08);
-    }
-
     .photo-tag {
-      padding: 0.7rem 0.85rem;
+      padding: 0.75rem 0.9rem;
       background: rgba(18, 2, 5, 0.95);
       font-family: 'Rajdhani', sans-serif;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       font-weight: 700;
       color: var(--text-main);
       display: flex;
       align-items: center;
       justify-content: space-between;
       border-top: 1px solid rgba(255, 26, 75, 0.2);
-      letter-spacing: 0.05em;
     }
 
-    .photo-tag span.badge-mini {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.62rem;
-      color: var(--gold-cyber);
-      background: rgba(255, 209, 92, 0.12);
-      border: 1px solid rgba(255, 209, 92, 0.35);
-      padding: 0.15rem 0.4rem;
-      border-radius: 4px;
-    }
-
-    /* FAQ ACCORDION SECTION */
-    .faq-section {
-      background: linear-gradient(180deg, rgba(22, 2, 6, 0.95) 0%, rgba(10, 1, 3, 0.98) 100%);
-      border: 1px solid var(--border-cyber);
-      border-radius: 14px;
-      padding: clamp(1.2rem, 3.5vw, 2.2rem);
-      margin-bottom: clamp(2rem, 5vw, 3.2rem);
-    }
-
+    /* FAQ Accordion */
     .faq-accordion {
       display: flex;
       flex-direction: column;
       gap: 0.8rem;
-      margin-top: 1.5rem;
+      margin-top: 1.4rem;
     }
 
     .faq-item {
@@ -1187,7 +832,7 @@
       border: none;
       color: #ffffff;
       font-family: 'Orbitron', sans-serif;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       font-weight: 700;
       text-align: left;
       cursor: pointer;
@@ -1220,11 +865,52 @@
     }
 
     .faq-item.open .faq-answer {
-      max-height: 150px;
+      max-height: 160px;
       padding: 0 1.2rem 1.2rem;
     }
 
-    /* Cyber Lightbox Modal */
+    /* Committee Grid */
+    .committee-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.1rem;
+      margin-top: 1.2rem;
+    }
+
+    .member-item {
+      background: rgba(16, 2, 5, 0.88);
+      border: 1px solid rgba(255, 26, 75, 0.25);
+      border-radius: 10px;
+      padding: 1.15rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .btn-member-wa {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: rgba(37, 211, 102, 0.12);
+      border: 1px solid #25d366;
+      color: #4ade80;
+      text-decoration: none;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 0.65rem 0.9rem;
+      border-radius: 6px;
+      transition: all 0.25s ease;
+    }
+
+    .btn-member-wa:hover {
+      background: #25d366;
+      color: #072611;
+      box-shadow: 0 0 20px rgba(37, 211, 102, 0.5);
+    }
+
+    /* Lightbox Modal */
     .cyber-modal {
       position: fixed;
       top: 0;
@@ -1240,7 +926,7 @@
       padding: 1.5rem;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: opacity 0.35s ease;
     }
 
     .cyber-modal.active {
@@ -1257,12 +943,6 @@
       border-radius: 12px;
       overflow: hidden;
       background: #000;
-      transform: scale(0.9);
-      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .cyber-modal.active .modal-content-wrap {
-      transform: scale(1);
     }
 
     .modal-content-wrap img {
@@ -1280,7 +960,6 @@
       color: var(--gold-cyber);
       text-align: center;
       border-top: 1px solid rgba(255, 26, 75, 0.3);
-      letter-spacing: 0.08em;
     }
 
     .btn-close-modal {
@@ -1297,240 +976,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Orbitron', monospace;
       font-weight: 800;
-      font-size: 1rem;
-      transition: transform 0.2s ease, background 0.2s ease;
       z-index: 10;
     }
 
-    .btn-close-modal:hover {
-      background: #ff1a4b;
-      transform: scale(1.1) rotate(90deg);
-    }
-
-    /* Committee Directory */
-    .directory-panel {
-      background: linear-gradient(180deg, rgba(28, 3, 9, 0.92) 0%, rgba(14, 1, 4, 0.98) 100%);
-      border: 1px solid var(--border-gold);
-      border-radius: 14px;
-      padding: clamp(1.2rem, 3vw, 2.2rem);
-      margin-bottom: 2.5rem;
-    }
-
-    .directory-title-wrap {
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .directory-title-wrap h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: clamp(1.15rem, 3.2vw, 1.6rem);
-      font-weight: 800;
-      color: #ffffff;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.3rem;
-    }
-
-    .directory-title-wrap p {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: clamp(0.9rem, 2.2vw, 1.05rem);
-      color: var(--text-muted);
-    }
-
-    .committee-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.1rem;
-    }
-
-    @media (min-width: 600px) {
-      .committee-grid {
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      }
-    }
-
-    .member-item {
-      background: rgba(16, 2, 5, 0.88);
-      border: 1px solid rgba(255, 26, 75, 0.25);
-      border-radius: 10px;
-      padding: 1.15rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.9rem;
-      transition: all 0.3s ease;
-    }
-
-    .member-item:hover {
-      border-color: var(--gold-cyber);
-      transform: translateY(-4px);
-      box-shadow: 0 10px 22px rgba(255, 26, 75, 0.25);
-    }
-
-    .member-top {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .member-avatar {
-      width: 42px;
-      height: 42px;
-      border-radius: 8px;
-      background: linear-gradient(135deg, rgba(255, 26, 75, 0.3), rgba(43, 6, 14, 0.95));
-      border: 1px solid var(--maroon-neon);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Orbitron', monospace;
-      font-weight: 800;
-      color: var(--gold-cyber);
-      font-size: 1.05rem;
-      flex-shrink: 0;
-      box-shadow: 0 0 10px rgba(255, 26, 75, 0.3);
-    }
-
-    .member-name {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #ffffff;
-    }
-
-    .member-role {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .member-num-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: #090103;
-      border: 1px solid rgba(255, 209, 92, 0.2);
-      border-radius: 6px;
-      padding: 0.55rem 0.8rem;
-    }
-
-    .member-phone-txt {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.86rem;
-      font-weight: 600;
-      color: var(--gold-cyber);
-      letter-spacing: 0.05em;
-    }
-
-    .btn-copy-small {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-size: 0.9rem;
-      padding: 0.25rem 0.4rem;
-      border-radius: 4px;
-      min-height: 36px;
-      min-width: 36px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s ease;
-    }
-
-    .btn-copy-small:hover {
-      color: #ffffff;
-      background: rgba(255, 26, 75, 0.25);
-      transform: scale(1.1);
-    }
-
-    .btn-member-wa {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      background: rgba(37, 211, 102, 0.12);
-      border: 1px solid #25d366;
-      color: #4ade80;
-      text-decoration: none;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.76rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      padding: 0.65rem 0.9rem;
-      min-height: 44px;
-      border-radius: 6px;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .btn-member-wa:hover {
-      background: #25d366;
-      color: #072611;
-      box-shadow: 0 0 20px rgba(37, 211, 102, 0.5);
-      transform: translateY(-2px);
-    }
-
-    /* Bug Reporting / Support Bar */
-    .support-bar {
-      background: linear-gradient(90deg, rgba(38, 4, 11, 0.9), rgba(12, 1, 3, 0.98));
-      border: 1px solid rgba(255, 209, 92, 0.4);
-      border-radius: 10px;
-      padding: 1.1rem 1.3rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      align-items: center;
-      text-align: center;
-      margin-bottom: 2.2rem;
-    }
-
-    @media (min-width: 640px) {
-      .support-bar {
-        flex-direction: row;
-        justify-content: space-between;
-        text-align: left;
-      }
-    }
-
-    .support-info {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-main);
-    }
-
-    .support-info strong {
-      color: var(--gold-cyber);
-    }
-
-    .btn-support-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      background: #25d366;
-      color: #05240e;
-      text-decoration: none;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.76rem;
-      font-weight: 800;
-      letter-spacing: 0.05em;
-      padding: 0.65rem 1.15rem;
-      min-height: 44px;
-      border-radius: 6px;
-      white-space: nowrap;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .btn-support-link:hover {
-      background: #1eb956;
-      box-shadow: 0 0 25px rgba(37, 211, 102, 0.65);
-      transform: translateY(-2px);
-    }
-
-    /* Toast Notification */
     .cyber-toast {
       position: fixed;
       bottom: 20px;
@@ -1563,17 +1012,11 @@
 
     footer {
       text-align: center;
-      padding-top: 1.8rem;
+      padding-top: 2rem;
       border-top: 1px solid rgba(255, 26, 75, 0.22);
       font-family: 'Rajdhani', sans-serif;
       font-size: 0.9rem;
       color: var(--text-muted);
-      letter-spacing: 0.06em;
-    }
-
-    footer .school-brand {
-      color: var(--gold-cyber);
-      font-weight: 700;
     }
   </style>
 </head>
@@ -1603,9 +1046,29 @@
     </div>
   </div>
 
+  <!-- =========================================================================
+       STICKY TOP HUD NAVIGATION MENU
+       ========================================================================= -->
+  <nav class="hud-navbar">
+    <div class="nav-tabs">
+      <button class="nav-tab-btn active" onclick="switchTab('tab-overview', this)">
+        <span>🏠</span> OVERVIEW
+      </button>
+      <button class="nav-tab-btn" onclick="switchTab('tab-hotel', this)">
+        <span>🏨</span> HOTEL & VENUE
+      </button>
+      <button class="nav-tab-btn" onclick="switchTab('tab-dresscode', this)">
+        <span>🕶️</span> DRESS CODE
+      </button>
+      <button class="nav-tab-btn" onclick="switchTab('tab-committee', this)">
+        <span>👥</span> COMMITTEE & FAQ
+      </button>
+    </div>
+  </nav>
+
   <div class="page-wrapper">
     
-    <header class="reveal-elem">
+    <header>
       <div class="top-action-bar">
         <div class="hud-badge">
           <span class="blinking-dot"></span>
@@ -1626,539 +1089,499 @@
       </p>
     </header>
 
-    <!-- Countdown Section with One-Tap Calendar Sync -->
-    <section class="countdown-card tech-box reveal-elem" aria-label="Event Countdown">
-      <div class="countdown-top-bar">
-        <span>// TARGET EVENT HORIZON</span>
-        <span id="countdown-status">STATUS: TIMELINE ACTIVE</span>
-      </div>
-      <div class="countdown-grid">
-        <div class="countdown-box">
-          <div class="countdown-number" id="days">--</div>
-          <div class="countdown-tag">Days</div>
-        </div>
-        <div class="countdown-box">
-          <div class="countdown-number" id="hours">--</div>
-          <div class="countdown-tag">Hours</div>
-        </div>
-        <div class="countdown-box">
-          <div class="countdown-number" id="minutes">--</div>
-          <div class="countdown-tag">Minutes</div>
-        </div>
-        <div class="countdown-box">
-          <div class="countdown-number" id="seconds">--</div>
-          <div class="countdown-tag">Seconds</div>
-        </div>
-      </div>
+    <!-- =========================================================================
+         TAB 1: OVERVIEW (Countdown, Budget, Tickets & Calculator, Details)
+         ========================================================================= -->
+    <div id="tab-overview" class="tab-view active">
       
-      <div class="cal-btn-wrap">
-        <a 
-          href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sri+Bodhiraja+College+Batch+Get-Together+2026&dates=20261015T103000Z/20261015T183000Z&details=Annual+Batch+Reunion.+Theme:+All+Black+Smart+Casual.+Ticket:+LKR+6,000.&location=Sri+Bodhiraja+College+Reunion+Venue" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          class="btn-cal-sync"
-          onclick="playBeep('confirm')"
-        >
-          <span>🗓️ Sync to Google Calendar</span> &rarr;
-        </a>
-      </div>
-    </section>
-
-    <!-- Budget Tracker Section -->
-    <section class="budget-card tech-box reveal-elem" aria-label="Event Treasury Progress">
-      <div class="countdown-top-bar" style="margin-bottom: 0.6rem;">
-        <span>// TREASURY CLEARANCE TARGET [KINDLY SETTLE THE PAYMENT BEFORE OCTOBER 6TH]</span>
-        <span id="budget-status" style="color: var(--gold-cyber);">CALCULATING...</span>
-      </div>
-
-      <div class="budget-bar-track">
-        <div class="budget-bar-fill" id="budget-fill" style="width: 0%;">
-          <span id="budget-pct">0%</span>
+      <!-- Countdown Section with One-Tap Calendar Sync -->
+      <section class="card-panel tech-box" aria-label="Event Countdown">
+        <div class="countdown-top-bar">
+          <span>// TARGET EVENT HORIZON</span>
+          <span id="countdown-status">STATUS: TIMELINE ACTIVE</span>
         </div>
-      </div>
-
-      <div class="budget-stats-row">
-        <div>
-          <span style="color: var(--text-muted);">COLLECTED: </span>
-          <strong id="stat-collected" style="color: #4ade80; font-family: 'Orbitron', monospace;">LKR 0</strong>
-        </div>
-        <div>
-          <span style="color: var(--text-muted);">TARGET: </span>
-          <strong id="stat-target" style="color: var(--gold-cyber); font-family: 'Orbitron', monospace;">LKR 300,000</strong>
-        </div>
-      </div>
-    </section>
-
-    <!-- Tickets & Interactive Pass Calculator -->
-    <section class="terminal-section tech-box reveal-elem" id="tickets">
-      <div class="terminal-header">
-        <div class="terminal-title">
-          <h2>🎟️ TICKET PASS & CLEARANCE</h2>
-          <span class="terminal-status-tag">SECURE BANK TRANSFER PORTAL</span>
-        </div>
-        <div class="price-badge-box">
-          <div class="price-caption">Pass Rate</div>
-          <div class="price-value">LKR 6,000</div>
-          <div style="font-size: 0.72rem; color: #ffbe2e;">PER PERSON // FULL ACCESS</div>
-        </div>
-      </div>
-
-      <div class="calculator-hud tech-box">
-        <div class="calculator-row">
-          <div>
-            <div style="font-family: 'Orbitron', monospace; font-size: 0.85rem; color: #ffffff; margin-bottom: 0.25rem;">
-              SELECT PASSES (TICKETS)
-            </div>
-            <div style="font-size: 0.8rem; color: var(--text-muted);">Paying for yourself or multiple batchmates?</div>
+        <div class="countdown-grid">
+          <div class="countdown-box">
+            <div class="countdown-number" id="days">--</div>
+            <div class="countdown-tag">Days</div>
           </div>
-          <div class="counter-control">
-            <button class="btn-counter" onclick="changePasses(-1)">−</button>
-            <span class="counter-val" id="calc-qty">1</span>
-            <button class="btn-counter" onclick="changePasses(1)">+</button>
+          <div class="countdown-box">
+            <div class="countdown-number" id="hours">--</div>
+            <div class="countdown-tag">Hours</div>
+          </div>
+          <div class="countdown-box">
+            <div class="countdown-number" id="minutes">--</div>
+            <div class="countdown-tag">Minutes</div>
+          </div>
+          <div class="countdown-box">
+            <div class="countdown-number" id="seconds">--</div>
+            <div class="countdown-tag">Seconds</div>
           </div>
         </div>
-
-        <div class="calculator-row" style="border-top: 1px dashed rgba(255, 209, 92, 0.25); padding-top: 0.8rem;">
-          <div class="calc-total-lbl">Total Payable Amount:</div>
-          <div class="calc-total-val" id="calc-total">LKR 6,000</div>
-        </div>
-      </div>
-
-      <div class="bank-grid">
-        <!-- Commercial Bank -->
-        <article class="bank-card tech-box">
-          <div>
-            <div style="display: flex; justify-content: space-between; font-family: 'Orbitron', monospace; font-size: 0.7rem; color: var(--gold-cyber); margin-bottom: 0.6rem;">
-              <span>GATEWAY // 01</span>
-              <span style="color: #4ade80;">ONLINE / CDM</span>
-            </div>
-            
-            <h3 class="bank-card-title">🏛️ Commercial Bank</h3>
-            
-            <div style="margin-top: 0.8rem;">
-              <div class="bank-field-label">Account Beneficiary</div>
-              <div class="bank-field-value">R.k. Seneth Randunu</div>
-            </div>
-
-            <div style="margin-top: 0.8rem;">
-              <div class="bank-field-label">Account Number (Tap To Copy)</div>
-              <div class="account-bar">
-                <span class="account-num-text" id="acc-val-1">8031525615</span>
-                <button type="button" class="btn-copy-action" id="btn-copy-1" onclick="copyValue('8031525615', 'btn-copy-1', 'Commercial Bank Acc Copied!')">
-                  📋 COPY
-                </button>
-              </div>
-            </div>
-          </div>
-          <div style="font-size: 0.75rem; color: var(--text-muted); border-top: 1px dashed rgba(255, 26, 75, 0.2); padding-top: 0.5rem;">
-            * Verified Commercial Bank personal account
-          </div>
-        </article>
-
-        <!-- BOC -->
-        <article class="bank-card tech-box">
-          <div>
-            <div style="display: flex; justify-content: space-between; font-family: 'Orbitron', monospace; font-size: 0.7rem; color: var(--gold-cyber); margin-bottom: 0.6rem;">
-              <span>GATEWAY // 02</span>
-              <span style="color: var(--gold-cyber);">BOC DIGI / CDM</span>
-            </div>
-            
-            <h3 class="bank-card-title">🏛️ Bank of Ceylon (BOC)</h3>
-            
-            <div style="margin-top: 0.8rem;">
-              <div class="bank-field-label">Account Beneficiary</div>
-              <div class="bank-field-value">HMBBPemarathna</div>
-            </div>
-
-            <div style="margin-top: 0.8rem;">
-              <div class="bank-field-label">Account Number (Tap To Copy)</div>
-              <div class="account-bar">
-                <span class="account-num-text" id="acc-val-2">73019351</span>
-                <button type="button" class="btn-copy-action" id="btn-copy-2" onclick="copyValue('73019351', 'btn-copy-2', 'BOC Bank Acc Copied!')">
-                  📋 COPY
-                </button>
-              </div>
-            </div>
-          </div>
-          <div style="font-size: 0.75rem; color: var(--text-muted); border-top: 1px dashed rgba(255, 26, 75, 0.2); padding-top: 0.5rem;">
-            * Verified Bank of Ceylon (BOC) personal account
-          </div>
-        </article>
-      </div>
-
-      <div class="verification-block">
-        <div class="steps-list">
-          <div class="step-box">
-            <span class="step-idx">1</span>
-            <span>Transfer amount to either Commercial Bank or BOC.</span>
-          </div>
-          <div class="step-box">
-            <span class="step-idx">2</span>
-            <span>Save your electronic <strong>receipt or payment screenshot</strong>.</span>
-          </div>
-          <div class="step-box">
-            <span class="step-idx">3</span>
-            <span>Send the slip with your <strong>full name</strong> to WhatsApp.</span>
-          </div>
-        </div>
-
-        <div class="action-buttons-wrap">
-          <!-- WhatsApp Dynamic Slip Submission -->
+        
+        <div class="cal-btn-wrap">
           <a 
-            id="dynamic-slip-btn"
-            href="https://wa.me/94710715130?text=Hi%2C%20I%20have%20transferred%20the%20LKR%206%2C000%20fee%20(1%20pass)%20for%20the%20Sri%20Bodhiraja%20College%20Get-Together%202026.%20Here%20is%20my%20slip%3A" 
+            href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sri+Bodhiraja+College+Batch+Get-Together+2026&dates=20261015T103000Z/20261015T183000Z&details=Annual+Batch+Reunion.+Theme:+All+Black+Smart+Casual.+Ticket:+LKR+6,000.&location=Sri+Bodhiraja+College+Reunion+Venue" 
             target="_blank" 
             rel="noopener noreferrer" 
-            class="btn-upload-slip"
+            class="btn-cal-sync"
             onclick="playBeep('confirm')"
           >
-            <span id="slip-btn-text">📤 SUBMIT 1 PASS SLIP VIA WHATSAPP (LKR 6,000)</span> &rarr;
+            <span>🗓️ Sync to Google Calendar</span> &rarr;
           </a>
+        </div>
+      </section>
 
-          <!-- Google Form Paid Poll -->
-          <div class="poll-callout-box tech-box">
-            <div class="poll-warning-banner">
-              <span>⚠️</span>
-              <span><strong>IMPORTANT NOTICE:</strong> Do NOT open or submit this link if you haven't paid yet! Only access and submit this poll <strong>AFTER</strong> your transfer is completed.</span>
+      <!-- Budget Tracker Section -->
+      <section class="card-panel tech-box" aria-label="Event Treasury Progress">
+        <div class="countdown-top-bar" style="margin-bottom: 0.6rem;">
+          <span>// TREASURY CLEARANCE TARGET [KINDLY SETTLE PAYMENT BEFORE OCTOBER 6TH]</span>
+          <span id="budget-status" style="color: var(--gold-cyber);">CALCULATING...</span>
+        </div>
+
+        <div class="budget-bar-track">
+          <div class="budget-bar-fill" id="budget-fill" style="width: 0%;">
+            <span id="budget-pct">0%</span>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; flex-wrap:wrap; font-family:'Rajdhani', sans-serif; font-size:0.95rem; font-weight:600;">
+          <div>
+            <span style="color: var(--text-muted);">COLLECTED: </span>
+            <strong id="stat-collected" style="color: #4ade80; font-family: 'Orbitron', monospace;">LKR 0</strong>
+          </div>
+          <div>
+            <span style="color: var(--text-muted);">TARGET: </span>
+            <strong id="stat-target" style="color: var(--gold-cyber); font-family: 'Orbitron', monospace;">LKR 300,000</strong>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tickets & Interactive Pass Calculator -->
+      <section class="card-panel tech-box" id="tickets">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px dashed rgba(255,209,92,0.35); padding-bottom:1.2rem; margin-bottom:1.4rem; flex-wrap:wrap; gap:1rem;">
+          <div>
+            <h2 style="font-family:'Orbitron', sans-serif; font-size:1.35rem; color:#fff;">🎟️ TICKET PASS & CLEARANCE</h2>
+            <span style="color:#4ade80; background:rgba(34,197,94,0.15); border:1px solid rgba(74,222,128,0.4); padding:0.2rem 0.6rem; border-radius:4px; font-family:'Orbitron', monospace; font-size:0.68rem;">SECURE BANK TRANSFER PORTAL</span>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-family:'Orbitron', monospace; font-size:1.7rem; color:var(--gold-cyber); font-weight:900;">LKR 6,000</div>
+            <div style="font-size:0.72rem; color:#ffbe2e;">PER PERSON // FULL ACCESS</div>
+          </div>
+        </div>
+
+        <!-- Interactive Pass Calculator -->
+        <div class="calculator-hud tech-box">
+          <div class="calculator-row">
+            <div>
+              <div style="font-family:'Orbitron', monospace; font-size:0.85rem; color:#ffffff; margin-bottom:0.25rem;">
+                SELECT PASSES (TICKETS)
+              </div>
+              <div style="font-size:0.8rem; color:var(--text-muted);">Paying for yourself or multiple batchmates?</div>
             </div>
+            <div class="counter-control">
+              <button class="btn-counter" onclick="changePasses(-1)">−</button>
+              <span class="counter-val" id="calc-qty">1</span>
+              <button class="btn-counter" onclick="changePasses(1)">+</button>
+            </div>
+          </div>
 
-            <a 
-              href="https://docs.google.com/forms/d/e/1FAIpQLSedi1cB4EH4HiP6mYB9JnBl_4GmhU77PAUfO1LSKhtWzjknAw/viewform?usp=dialog" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              class="btn-poll-action"
-              onclick="playBeep('confirm')"
-            >
-              <span>🗳️ I HAVE PAID — VOTE ON PAYMENT POLL</span> &rarr;
+          <div class="calculator-row" style="border-top: 1px dashed rgba(255, 209, 92, 0.25); padding-top: 0.8rem;">
+            <div style="font-family:'Rajdhani', sans-serif; font-size:0.85rem; color:var(--text-muted); text-transform:uppercase;">Total Payable Amount:</div>
+            <div style="font-family:'Orbitron', monospace; font-size:1.5rem; font-weight:900; color:var(--gold-cyber);" id="calc-total">LKR 6,000</div>
+          </div>
+        </div>
+
+        <div class="bank-grid">
+          <!-- Commercial Bank -->
+          <article class="bank-card tech-box">
+            <div>
+              <div style="display:flex; justify-content:space-between; font-family:'Orbitron', monospace; font-size:0.7rem; color:var(--gold-cyber); margin-bottom:0.6rem;">
+                <span>GATEWAY // 01</span>
+                <span style="color:#4ade80;">ONLINE / CDM</span>
+              </div>
+              <h3 style="font-family:'Orbitron', sans-serif; font-size:1.1rem; color:#fff; margin-bottom:0.6rem;">🏛️ Commercial Bank</h3>
+              <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase;">Account Beneficiary</div>
+              <div style="font-size:1.05rem; font-weight:700; color:#fff;">R.k. Seneth Randunu</div>
+
+              <div style="margin-top:0.8rem;">
+                <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase;">Account Number</div>
+                <div class="account-bar">
+                  <span class="account-num-text" id="acc-val-1">8031525615</span>
+                  <button type="button" class="btn-copy-action" onclick="copyValue('8031525615', this, 'Commercial Bank Acc Copied!')">📋 COPY</button>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- BOC -->
+          <article class="bank-card tech-box">
+            <div>
+              <div style="display:flex; justify-content:space-between; font-family:'Orbitron', monospace; font-size:0.7rem; color:var(--gold-cyber); margin-bottom:0.6rem;">
+                <span>GATEWAY // 02</span>
+                <span style="color:var(--gold-cyber);">BOC DIGI / CDM</span>
+              </div>
+              <h3 style="font-family:'Orbitron', sans-serif; font-size:1.1rem; color:#fff; margin-bottom:0.6rem;">🏛️️ Bank of Ceylon (BOC)</h3>
+              <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase;">Account Beneficiary</div>
+              <div style="font-size:1.05rem; font-weight:700; color:#fff;">HMBBPemarathna</div>
+
+              <div style="margin-top:0.8rem;">
+                <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase;">Account Number</div>
+                <div class="account-bar">
+                  <span class="account-num-text" id="acc-val-2">73019351</span>
+                  <button type="button" class="btn-copy-action" onclick="copyValue('73019351', this, 'BOC Bank Acc Copied!')">📋 COPY</button>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- WhatsApp Slip Submission -->
+        <a 
+          id="dynamic-slip-btn"
+          href="https://wa.me/94710715130?text=Hi%2C%20I%20have%20transferred%20the%20LKR%206%2C000%20fee%20(1%20pass)%20for%20the%20Sri%20Bodhiraja%20College%20Get-Together%202026.%20Here%20is%20my%20slip%3A" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="btn-upload-slip"
+          onclick="playBeep('confirm')"
+        >
+          <span id="slip-btn-text">📤 SUBMIT 1 PASS SLIP VIA WHATSAPP (LKR 6,000)</span> &rarr;
+        </a>
+
+        <!-- Paid Poll Callout Box -->
+        <div class="poll-callout-box tech-box">
+          <div style="font-family:'Orbitron', monospace; font-size:0.74rem; color:#ffb3be; background:rgba(255,26,75,0.15); border:1px solid var(--maroon-neon); padding:0.5rem; border-radius:6px;">
+            ⚠️ <strong>IMPORTANT NOTICE:</strong> Do NOT open or submit this link if you haven't paid yet! Only submit <strong>AFTER</strong> your transfer is completed.
+          </div>
+
+          <a 
+            href="https://docs.google.com/forms/d/e/1FAIpQLSedi1cB4EH4HiP6mYB9JnBl_4GmhU77PAUfO1LSKhtWzjknAw/viewform?usp=dialog" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="btn-poll-action"
+            onclick="playBeep('confirm')"
+          >
+            <span>🗳️ I HAVE PAID — VOTE ON PAYMENT POLL</span> &rarr;
+          </a>
+        </div>
+      </section>
+
+      <!-- Details 3 Cards -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:1.2rem;">
+        <article class="card-panel tech-box" style="margin-bottom:0;">
+          <div style="font-family:'Orbitron', monospace; font-size:0.72rem; color:var(--gold-cyber);">SYS.PARAM // 01</div>
+          <h3 style="font-family:'Orbitron', sans-serif; font-size:1.15rem; color:#fff; margin-top:0.4rem;">📅 WHEN</h3>
+          <div style="font-size:1.15rem; font-weight:700; color:var(--gold-cyber); margin-top:0.5rem;">15th of October 2026</div>
+          <p style="font-size:0.9rem; color:var(--text-muted); margin-top:0.4rem;">Clear your calendars! Arrive on time for the grand welcome sessions.</p>
+        </article>
+
+        <article class="card-panel tech-box" style="margin-bottom:0;">
+          <div style="font-family:'Orbitron', monospace; font-size:0.72rem; color:var(--gold-cyber);">SYS.PARAM // 02</div>
+          <h3 style="font-family:'Orbitron', sans-serif; font-size:1.15rem; color:#fff; margin-top:0.4rem;">📍 LOCATION</h3>
+          <div style="font-size:1.15rem; font-weight:700; color:var(--gold-cyber); margin-top:0.5rem;">Private Destination</div>
+          <p style="font-size:0.9rem; color:var(--text-muted); margin-top:0.4rem;">Tap below to launch turn-by-turn directions in Google Maps.</p>
+          <a href="https://maps.app.goo.gl/VDsBdRY1WF9CARMa9" target="_blank" rel="noopener noreferrer" style="display:inline-block; margin-top:0.8rem; background:rgba(255,26,75,0.25); border:1px solid var(--maroon-neon); color:#fff; text-decoration:none; font-family:'Orbitron', monospace; font-size:0.78rem; font-weight:700; padding:0.55rem 0.9rem; border-radius:6px;" onclick="playBeep('click')">
+            🛰 Launch Google Maps &rarr;
+          </a>
+        </article>
+
+        <article class="card-panel tech-box" style="margin-bottom:0;">
+          <div style="font-family:'Orbitron', monospace; font-size:0.72rem; color:var(--gold-cyber);">SYS.PARAM // 03</div>
+          <h3 style="font-family:'Orbitron', sans-serif; font-size:1.15rem; color:#fff; margin-top:0.4rem;">🕶️ DRESS CODE</h3>
+          <div style="font-size:1.15rem; font-weight:700; color:var(--gold-cyber); margin-top:0.5rem;">ALL-BLACK ATTIRE</div>
+          <p style="font-size:0.9rem; color:var(--text-muted); margin-top:0.4rem;">Stealth smart-casual. Check out the dedicated <strong>Dress Code</strong> tab above for styling inspiration!</p>
+        </article>
+      </div>
+
+    </div>
+
+    <!-- =========================================================================
+         TAB 2: HOTEL & VENUE (Dedicated Gallery with Parallax)
+         ========================================================================= -->
+    <div id="tab-hotel" class="tab-view">
+      <section class="card-panel tech-box">
+        <div style="text-align:center;">
+          <h2 style="font-family:'Orbitron', sans-serif; font-size:1.5rem; color:#fff;">🏨 VENUE & HOTEL HIGHLIGHTS</h2>
+          <p style="color:var(--text-muted); font-family:'Rajdhani', sans-serif; font-size:1rem; margin-top:0.3rem;">Tap any photo to expand into high-res cyber inspection mode.</p>
+        </div>
+
+        <div class="photo-grid-4">
+          <div class="photo-card tech-box" onclick="openImageModal('pictures/115398042.jpg', 'Hotel Grounds // Panoramic View')">
+            <div class="photo-img-wrap">
+              <img class="parallax-img" src="pictures/115398042.jpg" alt="Hotel Venue View 1" loading="lazy">
+            </div>
+            <div class="photo-tag">
+              <span>Hotel Grounds</span>
+              <span style="font-family:'Orbitron', monospace; font-size:0.65rem; color:var(--gold-cyber);">LOC // 01</span>
+            </div>
+          </div>
+
+          <div class="photo-card tech-box" onclick="openImageModal('pictures/286368146.jpg', 'Poolside & Lounge Area')">
+            <div class="photo-img-wrap">
+              <img class="parallax-img" src="pictures/286368146.jpg" alt="Hotel Venue View 2" loading="lazy">
+            </div>
+            <div class="photo-tag">
+              <span>Poolside & Lounge</span>
+              <span style="font-family:'Orbitron', monospace; font-size:0.65rem; color:var(--gold-cyber);">LOC // 02</span>
+            </div>
+          </div>
+
+          <div class="photo-card tech-box" onclick="openImageModal('pictures/286368670-qfedp5dua75n4rf9lrgqv486tm3or7vebfz8igp2u8.jpg', 'Main Facility & Banquet Atmosphere')">
+            <div class="photo-img-wrap">
+              <img class="parallax-img" src="pictures/286368670-qfedp5dua75n4rf9lrgqv486tm3or7vebfz8igp2u8.jpg" alt="Hotel Venue View 3" loading="lazy">
+            </div>
+            <div class="photo-tag">
+              <span>Main Facility</span>
+              <span style="font-family:'Orbitron', monospace; font-size:0.65rem; color:var(--gold-cyber);">LOC // 03</span>
+            </div>
+          </div>
+
+          <div class="photo-card tech-box" onclick="openImageModal('pictures/426086122.jpg', 'Scenic Surroundings & Landscapes')">
+            <div class="photo-img-wrap">
+              <img class="parallax-img" src="pictures/426086122.jpg" alt="Hotel Venue View 4" loading="lazy">
+            </div>
+            <div class="photo-tag">
+              <span>Scenic Surroundings</span>
+              <span style="font-family:'Orbitron', monospace; font-size:0.65rem; color:var(--gold-cyber);">LOC // 04</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- =========================================================================
+         TAB 3: DRESS CODE (Dedicated Style Guide with Parallax)
+         ========================================================================= -->
+    <div id="tab-dresscode" class="tab-view">
+      <section class="card-panel tech-box">
+        <div style="text-align:center;">
+          <h2 style="font-family:'Orbitron', sans-serif; font-size:1.5rem; color:#fff;">🕶️ ALL-BLACK ATTIRE STYLE GUIDE</h2>
+          <p style="color:var(--text-muted); font-family:'Rajdhani', sans-serif; font-size:1rem; margin-top:0.3rem;">Smart-casual monochrome silhouettes for the reunion. Tap any look to expand.</p>
+        </div>
+
+        <div class="photo-grid-4">
+          <div class="photo-card tech-box" onclick="openImageModal('dresscode/d27832ae85a86976075eba55b5ecfbfd.jpg', 'Stealth Casual Fit')">
+            <div class="photo-img-wrap portrait">
+              <img class="parallax-img" src="dresscode/d27832ae85a86976075eba55b5ecfbfd.jpg" alt="Black Attire Style 1" loading="lazy">
+            </div>
+            <div class="photo-tag">
+              <span>Stealth Casual</span>
+              <span style="font-family:'Orbitron', monospace; font-size:0.65rem; color:var(--gold-cyber);">STYLE // 01</span>
+            </div>
+          </div>
+
+          <div class="photo-card tech-box" onclick="openImageModal('dresscode/e81124469cbc99774aab8fdd461f3474.jpg', 'Smart Monochrome Look')">
+            <div class="photo-img-wrap portrait">
+              <img class="parallax-img" src="dresscode/e81124469cbc99774aab8fdd461f3474.jpg" alt="Black Attire Style 2" loading="lazy">
+            </div>
+            <div class="photo-tag">
+              <span>Smart Monochrome</span>
+              <span style="font-family:'Orbitron', monospace; font-size:0.65rem; color:var(--gold-cyber);">STYLE // 02</span>
+            </div>
+          </div>
+
+          <div class="photo-card tech-box" onclick="openImageModal('dresscode/images%20(1).jpg', 'Evening Elegant Aesthetic')">
+            <div class="photo-img-wrap portrait">
+              <img class="parallax-img" src="dresscode/images%20(1).jpg" alt="Black Attire Style 3" loading="lazy">
+            </div>
+            <div class="photo-tag">
+              <span>Evening Elegant</span>
+              <span style="font-family:'Orbitron', monospace; font-size:0.65rem; color:var(--gold-cyber);">STYLE // 03</span>
+            </div>
+          </div>
+
+          <div class="photo-card tech-box" onclick="openImageModal('dresscode/images.jpg', 'Classic Black Silhouette')">
+            <div class="photo-img-wrap portrait">
+              <img class="parallax-img" src="dresscode/images.jpg" alt="Black Attire Style 4" loading="lazy">
+            </div>
+            <div class="photo-tag">
+              <span>Classic Black Fit</span>
+              <span style="font-family:'Orbitron', monospace; font-size:0.65rem; color:var(--gold-cyber);">STYLE // 04</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- =========================================================================
+         TAB 4: COMMITTEE & FREQUENTLY ASKED QUESTIONS
+         ========================================================================= -->
+    <div id="tab-committee" class="tab-view">
+      
+      <!-- Interactive FAQ Accordion -->
+      <section class="card-panel tech-box" aria-label="Event Frequently Asked Questions">
+        <div style="text-align:center;">
+          <h2 style="font-family:'Orbitron', sans-serif; font-size:1.4rem; color:#fff;">❓ FREQUENTLY ASKED QUESTIONS</h2>
+          <p style="color:var(--text-muted); font-family:'Rajdhani', sans-serif; font-size:1rem; margin-top:0.3rem;">Tap each question to reveal answers and details</p>
+        </div>
+
+        <div class="faq-accordion">
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <button class="faq-question">
+              <span>When is the payment settlement deadline?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              Please make sure to finalize your payment transfer <strong>before October 6th, 2026</strong>. This helps the organizing committee lock down food portions, table reservations, and event arrangements with the venue.
+            </div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <button class="faq-question">
+              <span>Can I pay for multiple friends in one bank slip?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              Yes! Use the pass selector in the Overview tab to calculate your total (e.g. 2 passes = LKR 12,000). Transfer the total amount and WhatsApp the slip mentioning the full names of all members covered.
+            </div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <button class="faq-question">
+              <span>Is parking available at the venue?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              Yes, dedicated secure parking is available on-site for both bikes and cars.
+            </div>
+          </div>
+
+          <div class="faq-item" onclick="toggleFaq(this)">
+            <button class="faq-question">
+              <span>What if I have dietary requirements or questions?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              Ping any member of our organizing committee listed below directly via WhatsApp anytime!
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Organizing Committee Directory -->
+      <section class="card-panel tech-box">
+        <div style="text-align:center;">
+          <h2 style="font-family:'Orbitron', sans-serif; font-size:1.4rem; color:#fff;">📡 ORGANIZING COMMITTEE DIRECTORY</h2>
+          <p style="color:var(--text-muted); font-family:'Rajdhani', sans-serif; font-size:1rem; margin-top:0.3rem;">Ping any organizer directly on WhatsApp for passes, verification, or questions</p>
+        </div>
+
+        <div class="committee-grid">
+          <!-- Binudi -->
+          <div class="member-item tech-box">
+            <div style="display:flex; align-items:center; gap:0.75rem;">
+              <div style="width:40px; height:40px; border-radius:8px; background:rgba(255,26,75,0.25); border:1px solid var(--maroon-neon); display:flex; align-items:center; justify-content:center; font-family:'Orbitron', monospace; font-weight:800; color:var(--gold-cyber);">B</div>
+              <div>
+                <div style="font-family:'Orbitron', sans-serif; font-weight:700; color:#fff;">Binudi</div>
+                <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase;">Organizing Committee</div>
+              </div>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; background:#090103; padding:0.5rem 0.75rem; border-radius:6px; border:1px solid rgba(255,209,92,0.2);">
+              <span style="font-family:'Orbitron', monospace; font-size:0.86rem; color:var(--gold-cyber);">+94 71 071 5130</span>
+              <button style="background:none; border:none; cursor:pointer;" onclick="copyValue('+94710715130', null, 'Binudi\'s Number Copied!')">📋</button>
+            </div>
+            <a href="https://wa.me/94710715130" target="_blank" rel="noopener noreferrer" class="btn-member-wa" onclick="playBeep('click')">
+              <span>💬 Chat on WhatsApp</span>
+            </a>
+          </div>
+
+          <!-- Sanula -->
+          <div class="member-item tech-box">
+            <div style="display:flex; align-items:center; gap:0.75rem;">
+              <div style="width:40px; height:40px; border-radius:8px; background:rgba(255,26,75,0.25); border:1px solid var(--maroon-neon); display:flex; align-items:center; justify-content:center; font-family:'Orbitron', monospace; font-weight:800; color:var(--gold-cyber);">S</div>
+              <div>
+                <div style="font-family:'Orbitron', sans-serif; font-weight:700; color:#fff;">Sanula</div>
+                <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase;">Organizing Committee</div>
+              </div>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; background:#090103; padding:0.5rem 0.75rem; border-radius:6px; border:1px solid rgba(255,209,92,0.2);">
+              <span style="font-family:'Orbitron', monospace; font-size:0.86rem; color:var(--gold-cyber);">+94 77 202 2589</span>
+              <button style="background:none; border:none; cursor:pointer;" onclick="copyValue('+94772022589', null, 'Sanula\'s Number Copied!')">📋</button>
+            </div>
+            <a href="https://wa.me/94772022589" target="_blank" rel="noopener noreferrer" class="btn-member-wa" onclick="playBeep('click')">
+              <span>💬 Chat on WhatsApp</span>
+            </a>
+          </div>
+
+          <!-- Malindu -->
+          <div class="member-item tech-box">
+            <div style="display:flex; align-items:center; gap:0.75rem;">
+              <div style="width:40px; height:40px; border-radius:8px; background:rgba(255,26,75,0.25); border:1px solid var(--maroon-neon); display:flex; align-items:center; justify-content:center; font-family:'Orbitron', monospace; font-weight:800; color:var(--gold-cyber);">M</div>
+              <div>
+                <div style="font-family:'Orbitron', sans-serif; font-weight:700; color:#fff;">Malindu</div>
+                <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase;">Organizing Committee</div>
+              </div>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; background:#090103; padding:0.5rem 0.75rem; border-radius:6px; border:1px solid rgba(255,209,92,0.2);">
+              <span style="font-family:'Orbitron', monospace; font-size:0.86rem; color:var(--gold-cyber);">+94 76 387 4989</span>
+              <button style="background:none; border:none; cursor:pointer;" onclick="copyValue('+94763874989', null, 'Malindu\'s Number Copied!')">📋</button>
+            </div>
+            <a href="https://wa.me/94763874989" target="_blank" rel="noopener noreferrer" class="btn-member-wa" onclick="playBeep('click')">
+              <span>💬 Chat on WhatsApp</span>
+            </a>
+          </div>
+
+          <!-- Sithil -->
+          <div class="member-item tech-box">
+            <div style="display:flex; align-items:center; gap:0.75rem;">
+              <div style="width:40px; height:40px; border-radius:8px; background:rgba(255,26,75,0.25); border:1px solid var(--maroon-neon); display:flex; align-items:center; justify-content:center; font-family:'Orbitron', monospace; font-weight:800; color:var(--gold-cyber);">S</div>
+              <div>
+                <div style="font-family:'Orbitron', sans-serif; font-weight:700; color:#fff;">Sithil</div>
+                <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase;">Organizing Committee</div>
+              </div>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; background:#090103; padding:0.5rem 0.75rem; border-radius:6px; border:1px solid rgba(255,209,92,0.2);">
+              <span style="font-family:'Orbitron', monospace; font-size:0.86rem; color:var(--gold-cyber);">+94 76 021 2854</span>
+              <button style="background:none; border:none; cursor:pointer;" onclick="copyValue('+94760212854', null, 'Sithil\'s Number Copied!')">📋</button>
+            </div>
+            <a href="https://wa.me/94760212854" target="_blank" rel="noopener noreferrer" class="btn-member-wa" onclick="playBeep('click')">
+              <span>💬 Chat on WhatsApp</span>
+            </a>
+          </div>
+
+          <!-- Seneth -->
+          <div class="member-item tech-box">
+            <div style="display:flex; align-items:center; gap:0.75rem;">
+              <div style="width:40px; height:40px; border-radius:8px; background:rgba(255,26,75,0.25); border:1px solid var(--maroon-neon); display:flex; align-items:center; justify-content:center; font-family:'Orbitron', monospace; font-weight:800; color:var(--gold-cyber);">S</div>
+              <div>
+                <div style="font-family:'Orbitron', sans-serif; font-weight:700; color:#fff;">Seneth</div>
+                <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase;">Organizing Committee</div>
+              </div>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; background:#090103; padding:0.5rem 0.75rem; border-radius:6px; border:1px solid rgba(255,209,92,0.2);">
+              <span style="font-family:'Orbitron', monospace; font-size:0.86rem; color:var(--gold-cyber);">077 348 5204</span>
+              <button style="background:none; border:none; cursor:pointer;" onclick="copyValue('0773485204', null, 'Seneth\'s Number Copied!')">📋</button>
+            </div>
+            <a href="https://wa.me/94773485204" target="_blank" rel="noopener noreferrer" class="btn-member-wa" onclick="playBeep('click')">
+              <span>💬 Chat on WhatsApp</span>
             </a>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Details Section -->
-    <main class="details-grid reveal-elem">
-      <article class="detail-card tech-box">
-        <div>
-          <div class="detail-card-head">SYS.PARAM // 01</div>
-          <h3 style="margin-top: 0.4rem;">📅 WHEN</h3>
-          <div class="detail-highlight" style="margin-top: 0.5rem;">15th of October 2026</div>
-          <p class="detail-desc" style="margin-top: 0.4rem;">
-            Clear your calendars! Arrive on time for the grand welcome sessions and evening celebrations.
-          </p>
-        </div>
-      </article>
-
-      <article class="detail-card tech-box">
-        <div>
-          <div class="detail-card-head">SYS.PARAM // 02</div>
-          <h3 style="margin-top: 0.4rem;">📍 LOCATION</h3>
-          <div class="detail-highlight" style="margin-top: 0.5rem;">Event Venue</div>
-          <p class="detail-desc" style="margin-top: 0.4rem;">
-            Coordinates locked. Tap below to launch your turn-by-turn directions in Google Maps.
-          </p>
+      <!-- Support Bar -->
+      <section class="card-panel tech-box" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+        <div style="font-family:'Rajdhani', sans-serif; font-size:1rem; color:#fff;">
+          🛠️ Inform any site errors - <strong style="color:var(--gold-cyber);">Yovindu</strong> (0761830582)
         </div>
         <a 
-          href="https://maps.app.goo.gl/VDsBdRY1WF9CARMa9" 
+          href="https://wa.me/94761830582?text=Hi%20Yovindu%2C%20reporting%20an%20issue%20with%20the%20Batch%20Get-Together%20website%3A" 
           target="_blank" 
           rel="noopener noreferrer" 
-          class="btn-maps-action"
+          class="btn-member-wa"
           onclick="playBeep('click')"
         >
-          <span>🛰 Launch Google Maps</span> &rarr;
+          <span>💬 Report on WhatsApp</span>
         </a>
-      </article>
+      </section>
 
-      <article class="detail-card tech-box">
-        <div>
-          <div class="detail-card-head">SYS.PARAM // 03</div>
-          <h3 style="margin-top: 0.4rem;">🕶️ DRESS CODE</h3>
-          <div style="margin-top: 0.6rem;">
-            <div class="stealth-pill-badge">
-              <span>⬛</span>
-              <span>BLACK ATTIRE</span>
-            </div>
-          </div>
-          <div class="detail-highlight" style="margin-top: 0.5rem; font-size: 1.05rem;">SMART CASUAL</div>
-          <p class="detail-desc" style="margin-top: 0.35rem;">
-            Stealth aesthetics only. Sleek all-black smart-casual wear across the entire event.
-          </p>
-        </div>
-      </article>
-    </main>
-
-    <!-- SECTION 1: Hotel & Venue Highlights Showcase (Parallax Enriched) -->
-    <section class="showcase-section tech-box reveal-elem" aria-label="Venue Highlights">
-      <div class="showcase-header">
-        <h2>🏨 VENUE & HOTEL HIGHLIGHTS</h2>
-        <p>A sneak peek at our scenic destination, poolside vibe, and private gathering grounds (Tap to expand).</p>
-      </div>
-
-      <div class="photo-grid-4">
-        <div class="photo-card tech-box" onclick="openImageModal('pictures/115398042.jpg', 'Hotel Grounds // Panoramic View')">
-          <div class="photo-img-wrap">
-            <img class="parallax-img" src="pictures/115398042.jpg" alt="Hotel Venue View 1" loading="lazy">
-          </div>
-          <div class="photo-tag">
-            <span>Hotel Grounds</span>
-            <span class="badge-mini">LOC // 01</span>
-          </div>
-        </div>
-
-        <div class="photo-card tech-box" onclick="openImageModal('pictures/286368146.jpg', 'Poolside & Lounge Area')">
-          <div class="photo-img-wrap">
-            <img class="parallax-img" src="pictures/286368146.jpg" alt="Hotel Venue View 2" loading="lazy">
-          </div>
-          <div class="photo-tag">
-            <span>Poolside & Lounge</span>
-            <span class="badge-mini">LOC // 02</span>
-          </div>
-        </div>
-
-        <div class="photo-card tech-box" onclick="openImageModal('pictures/286368670-qfedp5dua75n4rf9lrgqv486tm3or7vebfz8igp2u8.jpg', 'Main Facility & Banquet Atmosphere')">
-          <div class="photo-img-wrap">
-            <img class="parallax-img" src="pictures/286368670-qfedp5dua75n4rf9lrgqv486tm3or7vebfz8igp2u8.jpg" alt="Hotel Venue View 3" loading="lazy">
-          </div>
-          <div class="photo-tag">
-            <span>Main Facility</span>
-            <span class="badge-mini">LOC // 03</span>
-          </div>
-        </div>
-
-        <div class="photo-card tech-box" onclick="openImageModal('pictures/426086122.jpg', 'Scenic Surroundings & Landscapes')">
-          <div class="photo-img-wrap">
-            <img class="parallax-img" src="pictures/426086122.jpg" alt="Hotel Venue View 4" loading="lazy">
-          </div>
-          <div class="photo-tag">
-            <span>Scenic Surroundings</span>
-            <span class="badge-mini">LOC // 04</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION 2: All-Black Attire Inspiration Showcase (Parallax Enriched) -->
-    <section class="showcase-section tech-box reveal-elem" aria-label="Dresscode Showcase">
-      <div class="showcase-header">
-        <h2>🕶️ DRESS CODE INSPIRATION // ALL-BLACK</h2>
-        <p>Smart-casual & semi-formal aesthetics. Check out these reference looks for the perfect stealth outfit (Tap to expand).</p>
-      </div>
-
-      <div class="photo-grid-4">
-        <div class="photo-card tech-box" onclick="openImageModal('dresscode/d27832ae85a86976075eba55b5ecfbfd.jpg', 'Stealth Casual Fit')">
-          <div class="photo-img-wrap portrait">
-            <img class="parallax-img" src="dresscode/d27832ae85a86976075eba55b5ecfbfd.jpg" alt="Black Attire Style 1" loading="lazy">
-          </div>
-          <div class="photo-tag">
-            <span>Stealth Casual</span>
-            <span class="badge-mini">STYLE // 01</span>
-          </div>
-        </div>
-
-        <div class="photo-card tech-box" onclick="openImageModal('dresscode/e81124469cbc99774aab8fdd461f3474.jpg', 'Smart Monochrome Look')">
-          <div class="photo-img-wrap portrait">
-            <img class="parallax-img" src="dresscode/e81124469cbc99774aab8fdd461f3474.jpg" alt="Black Attire Style 2" loading="lazy">
-          </div>
-          <div class="photo-tag">
-            <span>Smart Monochrome</span>
-            <span class="badge-mini">STYLE // 02</span>
-          </div>
-        </div>
-
-        <div class="photo-card tech-box" onclick="openImageModal('dresscode/images%20(1).jpg', 'Evening Elegant Aesthetic')">
-          <div class="photo-img-wrap portrait">
-            <img class="parallax-img" src="dresscode/images%20(1).jpg" alt="Black Attire Style 3" loading="lazy">
-          </div>
-          <div class="photo-tag">
-            <span>Evening Elegant</span>
-            <span class="badge-mini">STYLE // 03</span>
-          </div>
-        </div>
-
-        <div class="photo-card tech-box" onclick="openImageModal('dresscode/images.jpg', 'Classic Black Silhouette')">
-          <div class="photo-img-wrap portrait">
-            <img class="parallax-img" src="dresscode/images.jpg" alt="Black Attire Style 4" loading="lazy">
-          </div>
-          <div class="photo-tag">
-            <span>Classic Black Fit</span>
-            <span class="badge-mini">STYLE // 04</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Interactive FAQ Accordion -->
-    <section class="faq-section tech-box reveal-elem" aria-label="Event Frequently Asked Questions">
-      <div class="directory-title-wrap">
-        <h2>❓ FREQUENTLY ASKED QUESTIONS</h2>
-        <p>Got questions? Tap each panel for answers and clarifications</p>
-      </div>
-
-      <div class="faq-accordion">
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <button class="faq-question">
-            <span>When is the payment settlement deadline?</span>
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            Please make sure to finalize your payment transfer <strong>before October 6th, 2026</strong>. This helps the organizing committee lock down food portions, table reservations, and event arrangements with the venue.
-          </div>
-        </div>
-
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <button class="faq-question">
-            <span>Can I pay for multiple friends in one bank slip?</span>
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            Yes! Use the pass selector above to calculate your total (e.g. 2 passes = LKR 12,000). Transfer the total amount and WhatsApp the slip mentioning the full names of all members covered.
-          </div>
-        </div>
-
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <button class="faq-question">
-            <span>Is parking available at the venue?</span>
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            Yes, dedicated secure parking is available on-site for both bikes and cars.
-          </div>
-        </div>
-
-        <div class="faq-item" onclick="toggleFaq(this)">
-          <button class="faq-question">
-            <span>What if I have dietary requirements or questions?</span>
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            Ping any member of our organizing committee listed in the directory below directly via WhatsApp anytime!
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Committee Section -->
-    <section class="directory-panel tech-box reveal-elem">
-      <div class="directory-title-wrap">
-        <h2>📡 ORGANIZING COMMITTEE DIRECTORY</h2>
-        <p>Ping any organizer directly on WhatsApp for passes, verification, or questions</p>
-      </div>
-
-      <div class="committee-grid">
-        <!-- Binudi -->
-        <div class="member-item tech-box">
-          <div class="member-top">
-            <div class="member-avatar">B</div>
-            <div>
-              <div class="member-name">Binudi</div>
-              <div class="member-role">Organizing Committee</div>
-            </div>
-          </div>
-          <div class="member-num-row">
-            <span class="member-phone-txt">+94 71 071 5130</span>
-            <button class="btn-copy-small" onclick="copyValue('+94710715130', null, 'Binudi\'s Number Copied!')" title="Copy Number" aria-label="Copy Binudi's Number">📋</button>
-          </div>
-          <a href="https://wa.me/94710715130" target="_blank" rel="noopener noreferrer" class="btn-member-wa" onclick="playBeep('click')">
-            <span>💬 Chat on WhatsApp</span>
-          </a>
-        </div>
-
-        <!-- Sanula -->
-        <div class="member-item tech-box">
-          <div class="member-top">
-            <div class="member-avatar">S</div>
-            <div>
-              <div class="member-name">Sanula</div>
-              <div class="member-role">Organizing Committee</div>
-            </div>
-          </div>
-          <div class="member-num-row">
-            <span class="member-phone-txt">+94 77 202 2589</span>
-            <button class="btn-copy-small" onclick="copyValue('+94772022589', null, 'Sanula\'s Number Copied!')" title="Copy Number" aria-label="Copy Sanula's Number">📋</button>
-          </div>
-          <a href="https://wa.me/94772022589" target="_blank" rel="noopener noreferrer" class="btn-member-wa" onclick="playBeep('click')">
-            <span>💬 Chat on WhatsApp</span>
-          </a>
-        </div>
-
-        <!-- Malindu -->
-        <div class="member-item tech-box">
-          <div class="member-top">
-            <div class="member-avatar">M</div>
-            <div>
-              <div class="member-name">Malindu</div>
-              <div class="member-role">Organizing Committee</div>
-            </div>
-          </div>
-          <div class="member-num-row">
-            <span class="member-phone-txt">+94 76 387 4989</span>
-            <button class="btn-copy-small" onclick="copyValue('+94763874989', null, 'Malindu\'s Number Copied!')" title="Copy Number" aria-label="Copy Malindu's Number">📋</button>
-          </div>
-          <a href="https://wa.me/94763874989" target="_blank" rel="noopener noreferrer" class="btn-member-wa" onclick="playBeep('click')">
-            <span>💬 Chat on WhatsApp</span>
-          </a>
-        </div>
-
-        <!-- Sithil -->
-        <div class="member-item tech-box">
-          <div class="member-top">
-            <div class="member-avatar">S</div>
-            <div>
-              <div class="member-name">Sithil</div>
-              <div class="member-role">Organizing Committee</div>
-            </div>
-          </div>
-          <div class="member-num-row">
-            <span class="member-phone-txt">+94 76 021 2854</span>
-            <button class="btn-copy-small" onclick="copyValue('+94760212854', null, 'Sithil\'s Number Copied!')" title="Copy Number" aria-label="Copy Sithil's Number">📋</button>
-          </div>
-          <a href="https://wa.me/94760212854" target="_blank" rel="noopener noreferrer" class="btn-member-wa" onclick="playBeep('click')">
-            <span>💬 Chat on WhatsApp</span>
-          </a>
-        </div>
-
-        <!-- Seneth -->
-        <div class="member-item tech-box">
-          <div class="member-top">
-            <div class="member-avatar">S</div>
-            <div>
-              <div class="member-name">Seneth</div>
-              <div class="member-role">Organizing Committee</div>
-            </div>
-          </div>
-          <div class="member-num-row">
-            <span class="member-phone-txt">077 348 5204</span>
-            <button class="btn-copy-small" onclick="copyValue('0773485204', null, 'Seneth\'s Number Copied!')" title="Copy Number" aria-label="Copy Seneth's Number">📋</button>
-          </div>
-          <a href="https://wa.me/94773485204" target="_blank" rel="noopener noreferrer" class="btn-member-wa" onclick="playBeep('click')">
-            <span>💬 Chat on WhatsApp</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Support Bar -->
-    <section class="support-bar tech-box reveal-elem">
-      <div class="support-info">
-        <span>🛠️ Inform any site errors - <strong>Yovindu</strong> (0761830582)</span>
-      </div>
-      <a 
-        href="https://wa.me/94761830582?text=Hi%20Yovindu%2C%20reporting%20an%20issue%20with%20the%20Batch%20Get-Together%20website%3A" 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        class="btn-support-link"
-        onclick="playBeep('click')"
-      >
-        <span>💬 Report on WhatsApp</span>
-      </a>
-    </section>
+    </div>
 
     <footer>
       <p>
-        <span class="school-brand">SRI BODHIRAJA COLLEGE</span> • BATCH GET-TOGETHER 2026
+        <span style="color:var(--gold-cyber); font-weight:700;">SRI BODHIRAJA COLLEGE</span> • BATCH GET-TOGETHER 2026
       </p>
-      <p style="margin-top: 0.35rem; font-size: 0.8rem; color: #835259;">
-        TICKET LKR 6,000 // BLACK ATTIRE SMART CASUAL // 15TH OCTOBER 2026
+      <p style="margin-top:0.35rem; font-size:0.8rem; color:#835259;">
+        TICKET LKR 6,000 // ALL-BLACK SMART CASUAL // 15TH OCTOBER 2026
       </p>
     </footer>
 
@@ -2166,10 +1589,10 @@
 
   <script>
     // =========================================================================
-    // 🛠️️ ADMIN SETTINGS: EDIT THESE TWO LINES ON GITHUB WHEN SOMEONE PAYS!
+    // 🛠️ ADMIN SETTINGS: EDIT THESE TWO LINES ON GITHUB WHEN SOMEONE PAYS!
     // =========================================================================
-    const TARGET_BUDGET = 306000;  // Your goal in LKR
-    const PAID_TICKETS  = 10;      // Change this number (e.g. 1, 2, 5, 10...)
+    const TARGET_BUDGET = 306000;
+    const PAID_TICKETS  = 10;
     // =========================================================================
 
     // =========================================================================
@@ -2228,10 +1651,23 @@
     }
 
     // =========================================================================
-    // 📱 KINETIC MOBILE SCROLL ENGINE (Parallax + Progress Bar + Particle Boost)
+    // 📑 TAB NAVIGATION SWITCHER
     // =========================================================================
-    let lastScrollY = window.scrollY;
-    let scrollVelocity = 0;
+    function switchTab(tabId, btnElement) {
+      playBeep('click');
+      document.querySelectorAll('.tab-view').forEach(view => view.classList.remove('active'));
+      document.querySelectorAll('.nav-tab-btn').forEach(btn => btn.classList.remove('active'));
+
+      const activeView = document.getElementById(tabId);
+      if (activeView) activeView.classList.add('active');
+      if (btnElement) btnElement.classList.add('active');
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // =========================================================================
+    // 📱 KINETIC MOBILE SCROLL ENGINE (Parallax + Progress Bar)
+    // =========================================================================
     const scrollIndicator = document.getElementById('scroll-indicator');
     const parallaxImages = document.querySelectorAll('.parallax-img');
 
@@ -2239,24 +1675,19 @@
       const currentScrollY = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       
-      // Top Laser Progress
       if (docHeight > 0 && scrollIndicator) {
         const pct = (currentScrollY / docHeight) * 100;
         scrollIndicator.style.width = `${pct}%`;
       }
 
-      // Parallax image shift on scroll
       const viewHeight = window.innerHeight;
       parallaxImages.forEach(img => {
         const rect = img.getBoundingClientRect();
         if (rect.top < viewHeight && rect.bottom > 0) {
-          const shift = ((rect.top / viewHeight) - 0.5) * 22; // subtle shift range (-11px to +11px)
+          const shift = ((rect.top / viewHeight) - 0.5) * 22;
           img.style.transform = `translate3d(0, ${shift}px, 0)`;
         }
       });
-
-      scrollVelocity = (currentScrollY - lastScrollY);
-      lastScrollY = currentScrollY;
     }
 
     window.addEventListener('scroll', () => {
@@ -2336,22 +1767,6 @@
     }
 
     // =========================================================================
-    // 📜 SCROLL OBSERVER
-    // =========================================================================
-    function initScrollReveal() {
-      const observer = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            obs.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.08 });
-
-      document.querySelectorAll('.reveal-elem').forEach(el => observer.observe(el));
-    }
-
-    // =========================================================================
     // 🖼️ LIGHTBOX MODAL
     // =========================================================================
     function openImageModal(imgSrc, captionText) {
@@ -2380,20 +1795,14 @@
     // =========================================================================
     // 📋 CLIPBOARD HANDLER
     // =========================================================================
-    async function copyValue(text, btnElementId, successNotice) {
+    async function copyValue(text, btn, successNotice) {
       playBeep('confirm');
-      const btn = btnElementId ? document.getElementById(btnElementId) : null;
-      const toast = document.getElementById("cyber-toast");
-      const toastText = document.getElementById("toast-text");
-
       let success = false;
       if (navigator.clipboard && window.isSecureContext) {
         try {
           await navigator.clipboard.writeText(text);
           success = true;
-        } catch (err) {
-          success = false;
-        }
+        } catch (err) {}
       }
 
       if (!success) {
@@ -2401,30 +1810,16 @@
         input.setAttribute("value", text);
         document.body.appendChild(input);
         input.select();
-        try {
-          document.execCommand("copy");
-        } catch (e) {}
+        try { document.execCommand("copy"); } catch (e) {}
         document.body.removeChild(input);
       }
 
-      if (btn) {
-        const prevText = btn.innerHTML;
-        btn.innerHTML = "✓ COPIED";
-        btn.style.background = "#22c55e";
-        btn.style.borderColor = "#4ade80";
-        setTimeout(() => {
-          btn.innerHTML = prevText;
-          btn.style.background = "";
-          btn.style.borderColor = "";
-        }, 2000);
-      }
-
+      const toast = document.getElementById("cyber-toast");
+      const toastText = document.getElementById("toast-text");
       if (toast && toastText) {
         toastText.innerText = successNotice || "Copied to Clipboard!";
         toast.classList.add("show");
-        setTimeout(() => {
-          toast.classList.remove("show");
-        }, 2400);
+        setTimeout(() => toast.classList.remove("show"), 2400);
       }
     }
 
@@ -2467,7 +1862,7 @@
     refreshCountdown();
 
     // =========================================================================
-    // 🌌 PARTICLE CANVAS WITH SCROLL VELOCITY DRIFT
+    // 🌌 PARTICLE CANVAS WITH CONSTELLATION & MOUSE/TOUCH ATTRACTION
     // =========================================================================
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
@@ -2488,11 +1883,6 @@
     }, { passive: true });
 
     window.addEventListener('touchend', () => {
-      mouse.x = null;
-      mouse.y = null;
-    });
-
-    window.addEventListener('mouseout', () => {
       mouse.x = null;
       mouse.y = null;
     });
@@ -2520,19 +1910,11 @@
       }
 
       update() {
-        // Dampened scroll velocity adds drift to particles
-        const drift = Math.max(-4, Math.min(4, scrollVelocity * 0.15));
-        this.y += (this.speedY - drift);
+        this.y += this.speedY;
         this.x += this.speedX;
 
-        if (this.y < 0) {
-          this.y = pHeight;
-          this.x = Math.random() * pWidth;
-        }
-        if (this.y > pHeight) {
-          this.y = 0;
-          this.x = Math.random() * pWidth;
-        }
+        if (this.y < 0) this.y = pHeight;
+        if (this.y > pHeight) this.y = 0;
         if (this.x < 0) this.x = pWidth;
         if (this.x > pWidth) this.x = 0;
 
@@ -2592,17 +1974,12 @@
         particlesArray[i].draw();
       }
       drawConstellationLines();
-
-      // Smooth scroll velocity decay
-      scrollVelocity *= 0.92;
-
       requestAnimationFrame(renderParticles);
     }
 
     window.onload = function () {
       renderParticles();
       initBudgetTracker();
-      initScrollReveal();
       updateCalculator();
       onScrollMotion();
     };
