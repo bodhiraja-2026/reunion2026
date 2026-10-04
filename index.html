@@ -722,6 +722,134 @@
       box-shadow: 0 0 20px rgba(255, 26, 75, 0.5);
     }
 
+    /* =========================================================================
+       NEW: MEDIA SHOWCASE SECTIONS (HOTEL PICS & DRESS CODE)
+       ========================================================================= */
+    .showcase-section {
+      background: linear-gradient(180deg, rgba(26, 3, 8, 0.92) 0%, rgba(12, 1, 4, 0.98) 100%);
+      border: 1px solid var(--border-gold);
+      border-radius: 16px;
+      padding: clamp(1.2rem, 3.5vw, 2.2rem);
+      margin-bottom: clamp(2rem, 5vw, 3.2rem);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 209, 92, 0.06);
+    }
+
+    .showcase-header {
+      text-align: center;
+      margin-bottom: 1.8rem;
+    }
+
+    .showcase-header h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.15rem, 3.2vw, 1.65rem);
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .showcase-header p {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(0.9rem, 2.2vw, 1.05rem);
+      color: var(--text-muted);
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .photo-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.9rem;
+    }
+
+    @media (min-width: 720px) {
+      .photo-grid-4 {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.2rem;
+      }
+    }
+
+    .photo-card {
+      background: rgba(14, 1, 4, 0.85);
+      border: 1px solid rgba(255, 26, 75, 0.28);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+      transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+    }
+
+    .photo-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--gold-cyber);
+      box-shadow: 0 10px 25px rgba(255, 209, 92, 0.25);
+    }
+
+    .photo-img-wrap {
+      width: 100%;
+      height: 220px;
+      overflow: hidden;
+      position: relative;
+      background: #000;
+    }
+
+    @media (min-width: 720px) {
+      .photo-img-wrap {
+        height: 200px;
+      }
+    }
+
+    .photo-img-wrap.portrait {
+      height: 290px;
+    }
+
+    @media (min-width: 720px) {
+      .photo-img-wrap.portrait {
+        height: 310px;
+      }
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .photo-card:hover img {
+      transform: scale(1.06);
+    }
+
+    .photo-tag {
+      padding: 0.65rem 0.8rem;
+      background: rgba(18, 2, 5, 0.95);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255, 26, 75, 0.18);
+      letter-spacing: 0.05em;
+    }
+
+    .photo-tag span.badge-mini {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.62rem;
+      color: var(--gold-cyber);
+      background: rgba(255, 209, 92, 0.12);
+      border: 1px solid rgba(255, 209, 92, 0.3);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+    }
+
     /* Organizing Committee Directory */
     .directory-panel {
       background: linear-gradient(180deg, rgba(28, 3, 9, 0.9) 0%, rgba(14, 1, 4, 0.96) 100%);
@@ -1067,7 +1195,7 @@
     <section class="terminal-section" id="tickets">
       <div class="terminal-header">
         <div class="terminal-title">
-          <h2>🎟️ TICKET PASS & CLEARANCE</h2>
+          <h2>🎟️️ TICKET PASS & CLEARANCE</h2>
           <span class="terminal-status-tag">SECURE BANK TRANSFER PORTAL</span>
         </div>
         <div class="price-badge-box">
@@ -1235,6 +1363,106 @@
         </div>
       </article>
     </main>
+
+    <!-- NEW SECTION 1: Hotel & Venue Highlights Showcase -->
+    <section class="showcase-section" aria-label="Venue Highlights">
+      <div class="showcase-header">
+        <h2>🏨 VENUE & HOTEL HIGHLIGHTS</h2>
+        <p>A sneak peek at our scenic destination, poolside vibe, and private gathering grounds.</p>
+      </div>
+
+      <div class="photo-grid-4">
+        <div class="photo-card">
+          <div class="photo-img-wrap">
+            <img src="pictures/115398042.jpg" alt="Hotel Venue View 1" loading="lazy">
+          </div>
+          <div class="photo-tag">
+            <span>Hotel Grounds</span>
+            <span class="badge-mini">LOC // 01</span>
+          </div>
+        </div>
+
+        <div class="photo-card">
+          <div class="photo-img-wrap">
+            <img src="pictures/286368146.jpg" alt="Hotel Venue View 2" loading="lazy">
+          </div>
+          <div class="photo-tag">
+            <span>Poolside & Lounge</span>
+            <span class="badge-mini">LOC // 02</span>
+          </div>
+        </div>
+
+        <div class="photo-card">
+          <div class="photo-img-wrap">
+            <img src="pictures/286368670-qfedp5dua75n4rf9lrgqv486tm3or7vebfz8igp2u8.jpg" alt="Hotel Venue View 3" loading="lazy">
+          </div>
+          <div class="photo-tag">
+            <span>Main Facility</span>
+            <span class="badge-mini">LOC // 03</span>
+          </div>
+        </div>
+
+        <div class="photo-card">
+          <div class="photo-img-wrap">
+            <img src="pictures/426086122.jpg" alt="Hotel Venue View 4" loading="lazy">
+          </div>
+          <div class="photo-tag">
+            <span>Scenic Surroundings</span>
+            <span class="badge-mini">LOC // 04</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEW SECTION 2: All-Black Attire Inspiration Showcase -->
+    <section class="showcase-section" aria-label="Dresscode Showcase">
+      <div class="showcase-header">
+        <h2>🕶️ DRESS CODE INSPIRATION // ALL-BLACK</h2>
+        <p>Smart-casual & semi-formal aesthetics. Check out these reference looks for the perfect stealth outfit.</p>
+      </div>
+
+      <div class="photo-grid-4">
+        <div class="photo-card">
+          <div class="photo-img-wrap portrait">
+            <img src="dresscode/d27832ae85a86976075eba55b5ecfbfd.jpg" alt="Black Attire Style 1" loading="lazy">
+          </div>
+          <div class="photo-tag">
+            <span>Stealth Casual</span>
+            <span class="badge-mini">STYLE // 01</span>
+          </div>
+        </div>
+
+        <div class="photo-card">
+          <div class="photo-img-wrap portrait">
+            <img src="dresscode/e81124469cbc99774aab8fdd461f3474.jpg" alt="Black Attire Style 2" loading="lazy">
+          </div>
+          <div class="photo-tag">
+            <span>Smart Monochrome</span>
+            <span class="badge-mini">STYLE // 02</span>
+          </div>
+        </div>
+
+        <div class="photo-card">
+          <div class="photo-img-wrap portrait">
+            <img src="dresscode/images%20(1).jpg" alt="Black Attire Style 3" loading="lazy">
+          </div>
+          <div class="photo-tag">
+            <span>Evening Elegant</span>
+            <span class="badge-mini">STYLE // 03</span>
+          </div>
+        </div>
+
+        <div class="photo-card">
+          <div class="photo-img-wrap portrait">
+            <img src="dresscode/images.jpg" alt="Black Attire Style 4" loading="lazy">
+          </div>
+          <div class="photo-tag">
+            <span>Classic Black Fit</span>
+            <span class="badge-mini">STYLE // 04</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Committee Section -->
     <section class="directory-panel">
@@ -1541,6 +1769,8 @@
       ctx.clearRect(0, 0, pWidth, pHeight);
       for (let i = 0; i < particlesArray.length; i++) {
         particlesArray[i].update();
+      }
+      for (let i = 0; i < particlesArray.length; i++) {
         particlesArray[i].draw();
       }
       requestAnimationFrame(renderParticles);
