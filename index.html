@@ -245,7 +245,7 @@
       text-transform: uppercase;
     }
 
-    /* --- BUDGET PROGRESS BAR STYLES --- */
+    /* Budget Progress Bar Styles */
     .budget-card {
       background: var(--bg-maroon-card);
       border: 1px solid var(--border-gold);
@@ -533,6 +533,12 @@
       flex-shrink: 0;
     }
 
+    .action-buttons-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
     .btn-upload-slip {
       display: inline-flex;
       align-items: center;
@@ -558,6 +564,66 @@
     .btn-upload-slip:hover {
       background: #16a34a;
       box-shadow: 0 0 25px rgba(34, 197, 94, 0.6);
+    }
+
+    /* Paid Poll Callout Box */
+    .poll-callout-box {
+      background: rgba(22, 2, 6, 0.9);
+      border: 1.5px solid var(--gold-cyber);
+      border-radius: 10px;
+      padding: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      box-shadow: 0 0 18px rgba(255, 209, 92, 0.15);
+    }
+
+    .poll-warning-banner {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: rgba(255, 26, 75, 0.15);
+      border: 1px solid var(--maroon-neon);
+      border-radius: 6px;
+      padding: 0.45rem 0.8rem;
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(0.68rem, 2vw, 0.76rem);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #ffb3be;
+      line-height: 1.35;
+    }
+
+    .poll-warning-banner strong {
+      color: #ff335f;
+    }
+
+    .btn-poll-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      background: linear-gradient(135deg, rgba(255, 209, 92, 0.15), rgba(43, 6, 14, 0.9));
+      color: var(--gold-cyber);
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(0.78rem, 2.5vw, 0.92rem);
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      padding: 0.95rem 1.4rem;
+      min-height: 48px;
+      border-radius: 8px;
+      border: 1px solid var(--gold-cyber);
+      box-shadow: 0 0 15px rgba(255, 209, 92, 0.2);
+      text-align: center;
+      transition: all 0.2s ease;
+      word-break: break-word;
+    }
+
+    .btn-poll-action:hover {
+      background: var(--gold-cyber);
+      color: #0d0104;
+      box-shadow: 0 0 25px rgba(255, 209, 92, 0.5);
     }
 
     /* 3 Details Cards */
@@ -972,7 +1038,7 @@
       </div>
     </section>
 
-    <!-- 🎯 1. BUDGET TRACKER SECTION (ADDED HERE) -->
+    <!-- Budget Tracker Section -->
     <section class="budget-card" aria-label="Event Treasury Progress">
       <div class="countdown-top-bar" style="margin-bottom: 0.6rem;">
         <span>// TREASURY CLEARANCE TARGET [KINDLY SETTLE THE PAYMENT BEFORE OCTOBER 6TH]</span>
@@ -1089,14 +1155,34 @@
           </div>
         </div>
 
-        <a 
-          href="https://wa.me/94710715130?text=Hi%2C%20I%20have%20transferred%20the%20LKR%206%2C000%20ticket%20fee%20for%20the%20Sri%20Bodhiraja%20College%20Get-Together%202026.%20Here%20is%20my%20payment%20slip%3A" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          class="btn-upload-slip"
-        >
-          <span>📤 SUBMIT SLIP VIA WHATSAPP</span> &rarr;
-        </a>
+        <div class="action-buttons-wrap">
+          <!-- Step 1 Button: WhatsApp Slip Submission -->
+          <a 
+            href="https://wa.me/94710715130?text=Hi%2C%20I%20have%20transferred%20the%20LKR%206%2C000%20ticket%20fee%20for%20the%20Sri%20Bodhiraja%20College%20Get-Together%202026.%20Here%20is%20my%20payment%20slip%3A" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="btn-upload-slip"
+          >
+            <span>📤 SUBMIT SLIP VIA WHATSAPP</span> &rarr;
+          </a>
+
+          <!-- Step 2 Box: Google Form Paid Poll with Warning -->
+          <div class="poll-callout-box">
+            <div class="poll-warning-banner">
+              <span>⚠️</span>
+              <span><strong>IMPORTANT NOTICE:</strong> Do NOT open or submit this link if you haven't paid yet! Only access and submit this poll <strong>AFTER</strong> your transfer is completed.</span>
+            </div>
+
+            <a 
+              href="https://docs.google.com/forms/d/e/1FAIpQLSedi1cB4EH4HiP6mYB9JnBl_4GmhU77PAUfO1LSKhtWzjknAw/viewform?usp=dialog" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="btn-poll-action"
+            >
+              <span>🗳️ I HAVE PAID — VOTE ON PAYMENT POLL</span> &rarr;
+            </a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1281,7 +1367,7 @@
     // 🛠️ ADMIN SETTINGS: EDIT THESE TWO LINES ON GITHUB WHEN SOMEONE PAYS!
     // =========================================================================
     const TARGET_BUDGET = 306000;  // Your goal in LKR
-    const PAID_TICKETS  = 35;       // Change this number (e.g. 1, 2, 5, 10...)
+    const PAID_TICKETS  = 35;      // Change this number (e.g. 1, 2, 5, 10...)
     // =========================================================================
 
     function initBudgetTracker() {
