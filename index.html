@@ -15,20 +15,20 @@
     :root {
       --bg-dark: #0a0103;
       --bg-maroon-dark: #160206;
-      --bg-maroon-card: rgba(28, 4, 9, 0.88);
-      --bg-card-hover: rgba(45, 6, 14, 0.95);
+      --bg-maroon-card: rgba(28, 4, 9, 0.9);
+      --bg-card-hover: rgba(45, 6, 14, 0.98);
       --maroon-neon: #ff1a4b;
-      --maroon-glow: rgba(255, 26, 75, 0.38);
+      --maroon-glow: rgba(255, 26, 75, 0.45);
       --gold-cyber: #ffd15c;
       --gold-bright: #ffbe2e;
-      --gold-glow: rgba(255, 209, 92, 0.32);
+      --gold-glow: rgba(255, 209, 92, 0.4);
       --green-wa: #25d366;
       --green-glow: rgba(37, 211, 102, 0.35);
       --text-main: #fcf0f2;
       --text-muted: #d49ba4;
       --text-dim: #945963;
-      --border-cyber: rgba(255, 26, 75, 0.28);
-      --border-gold: rgba(255, 209, 92, 0.38);
+      --border-cyber: rgba(255, 26, 75, 0.32);
+      --border-gold: rgba(255, 209, 92, 0.45);
     }
 
     *, *::before, *::after {
@@ -48,6 +48,7 @@
       line-height: 1.5;
     }
 
+    /* Holographic Cyber Backgrounds */
     .cyber-ambient {
       position: fixed;
       top: 0;
@@ -57,9 +58,9 @@
       pointer-events: none;
       z-index: 0;
       background: 
-        radial-gradient(circle at 50% 5%, rgba(168, 15, 42, 0.42) 0%, transparent 55%),
-        radial-gradient(circle at 90% 70%, rgba(105, 8, 24, 0.35) 0%, transparent 50%),
-        radial-gradient(circle at 10% 85%, rgba(255, 209, 92, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 50% 8%, rgba(200, 18, 55, 0.45) 0%, transparent 60%),
+        radial-gradient(circle at 88% 65%, rgba(135, 10, 32, 0.4) 0%, transparent 55%),
+        radial-gradient(circle at 10% 80%, rgba(255, 209, 92, 0.12) 0%, transparent 45%),
         linear-gradient(var(--bg-dark), var(--bg-dark));
     }
 
@@ -69,12 +70,44 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-size: 32px 32px;
+      background-size: 36px 36px;
       background-image: 
-        linear-gradient(to right, rgba(255, 26, 75, 0.04) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 26, 75, 0.04) 1px, transparent 1px);
+        linear-gradient(to right, rgba(255, 26, 75, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 26, 75, 0.05) 1px, transparent 1px);
       z-index: 1;
       pointer-events: none;
+    }
+
+    /* Drifting Hologram Scanline */
+    .hologram-scanline {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, transparent 50%, rgba(255, 26, 75, 0.02) 51%, transparent 53%);
+      background-size: 100% 6px;
+      z-index: 3;
+      pointer-events: none;
+      opacity: 0.75;
+    }
+
+    .laser-beam {
+      position: fixed;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--maroon-neon), var(--gold-cyber), transparent);
+      box-shadow: 0 0 15px var(--maroon-neon);
+      opacity: 0.35;
+      z-index: 3;
+      pointer-events: none;
+      animation: laserSweep 12s linear infinite;
+    }
+
+    @keyframes laserSweep {
+      0% { top: -5%; }
+      100% { top: 105%; }
     }
 
     canvas#particle-canvas {
@@ -96,9 +129,65 @@
       padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 3.5vw, 2rem) 4rem;
     }
 
+    /* Cyber Tech Corners */
+    .tech-box {
+      position: relative;
+    }
+
+    .tech-box::before, .tech-box::after {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      z-index: 4;
+    }
+
+    .tech-box::before {
+      top: -1px;
+      left: -1px;
+      border-top: 2px solid var(--gold-cyber);
+      border-left: 2px solid var(--gold-cyber);
+    }
+
+    .tech-box::after {
+      bottom: -1px;
+      right: -1px;
+      border-bottom: 2px solid var(--maroon-neon);
+      border-right: 2px solid var(--maroon-neon);
+    }
+
+    .tech-box:hover::before {
+      width: 16px;
+      height: 16px;
+      border-color: #ffffff;
+      box-shadow: 0 0 8px var(--gold-cyber);
+    }
+
+    .tech-box:hover::after {
+      width: 16px;
+      height: 16px;
+      border-color: var(--gold-bright);
+      box-shadow: 0 0 8px var(--maroon-neon);
+    }
+
+    /* Scroll Reveal */
+    .reveal-elem {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    .reveal-elem.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     header {
       text-align: center;
-      margin-bottom: clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom: clamp(1.8rem, 4vw, 3rem);
     }
 
     .hud-badge {
@@ -107,19 +196,25 @@
       justify-content: center;
       gap: 0.5rem;
       max-width: 100%;
-      padding: 0.45rem 1rem;
-      background: rgba(43, 6, 13, 0.9);
+      padding: 0.5rem 1.1rem;
+      background: rgba(43, 6, 13, 0.95);
       border: 1px solid var(--border-gold);
       border-radius: 6px;
       font-family: 'Orbitron', monospace;
       font-size: clamp(0.68rem, 2.2vw, 0.8rem);
       font-weight: 700;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       color: var(--gold-cyber);
-      box-shadow: 0 0 15px rgba(255, 209, 92, 0.2);
+      box-shadow: 0 0 18px rgba(255, 209, 92, 0.25);
       text-transform: uppercase;
       margin-bottom: 1.2rem;
       word-break: break-word;
+      animation: hudFloat 3.8s ease-in-out infinite alternate;
+    }
+
+    @keyframes hudFloat {
+      0% { transform: translateY(0); box-shadow: 0 0 15px rgba(255, 209, 92, 0.2); }
+      100% { transform: translateY(-5px); box-shadow: 0 0 30px rgba(255, 209, 92, 0.5); }
     }
 
     .blinking-dot {
@@ -127,7 +222,7 @@
       height: 8px;
       border-radius: 50%;
       background: var(--maroon-neon);
-      box-shadow: 0 0 8px var(--maroon-neon);
+      box-shadow: 0 0 10px var(--maroon-neon);
       flex-shrink: 0;
       animation: pulseGlow 1.5s infinite;
     }
@@ -140,30 +235,37 @@
     .hero-title {
       font-family: 'Orbitron', sans-serif;
       font-weight: 900;
-      font-size: clamp(1.75rem, 6.2vw, 3.6rem);
+      font-size: clamp(1.85rem, 6.4vw, 3.8rem);
       line-height: 1.15;
       text-transform: uppercase;
       letter-spacing: 0.02em;
       color: #ffffff;
-      text-shadow: 0 0 20px rgba(255, 26, 75, 0.5);
+      text-shadow: 0 0 25px rgba(255, 26, 75, 0.6);
       margin-bottom: 0.75rem;
       word-break: break-word;
     }
 
     .hero-title .gradient-text {
-      background: linear-gradient(135deg, #ffffff 20%, #ffd15c 55%, #ff1a4b 100%);
+      background: linear-gradient(135deg, #ffffff 15%, #ffd15c 50%, #ff1a4b 90%);
+      background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       display: block;
+      animation: shimmerText 4.5s linear infinite;
+    }
+
+    @keyframes shimmerText {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
     }
 
     .hero-subtitle {
       font-family: 'Rajdhani', sans-serif;
       font-size: clamp(0.95rem, 2.5vw, 1.25rem);
       font-weight: 600;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
       color: var(--text-muted);
-      max-width: 650px;
+      max-width: 680px;
       margin: 0 auto;
       padding: 0 0.5rem;
     }
@@ -173,10 +275,12 @@
       background: var(--bg-maroon-card);
       border: 1px solid var(--border-cyber);
       border-radius: 14px;
-      backdrop-filter: blur(14px);
-      padding: 1.2rem;
+      backdrop-filter: blur(16px);
+      padding: 1.3rem;
       margin-bottom: 1.5rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 26, 75, 0.08);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6), inset 0 0 18px rgba(255, 26, 75, 0.1);
+      position: relative;
+      overflow: hidden;
     }
 
     .countdown-top-bar {
@@ -190,30 +294,37 @@
       color: var(--gold-cyber);
       letter-spacing: 0.12em;
       padding-bottom: 0.75rem;
-      border-bottom: 1px solid rgba(255, 26, 75, 0.2);
+      border-bottom: 1px solid rgba(255, 26, 75, 0.25);
       margin-bottom: 1rem;
     }
 
     .countdown-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 0.75rem;
+      gap: 0.85rem;
     }
 
     @media (min-width: 600px) {
       .countdown-grid {
         grid-template-columns: repeat(4, 1fr);
-        gap: 1rem;
+        gap: 1.1rem;
       }
     }
 
     .countdown-box {
-      background: rgba(14, 2, 5, 0.85);
-      border: 1px solid rgba(255, 209, 92, 0.25);
+      background: rgba(12, 1, 4, 0.9);
+      border: 1px solid rgba(255, 209, 92, 0.3);
       border-radius: 8px;
-      padding: 0.85rem 0.4rem;
+      padding: 0.95rem 0.4rem;
       text-align: center;
       position: relative;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .countdown-box:hover {
+      transform: translateY(-4px);
+      border-color: var(--gold-cyber);
+      box-shadow: 0 6px 18px rgba(255, 209, 92, 0.25);
     }
 
     .countdown-box::before {
@@ -229,60 +340,70 @@
     .countdown-number {
       font-family: 'Orbitron', monospace;
       font-weight: 800;
-      font-size: clamp(1.6rem, 5vw, 2.5rem);
+      font-size: clamp(1.65rem, 5.2vw, 2.6rem);
       color: #ffffff;
       line-height: 1;
-      text-shadow: 0 0 12px var(--maroon-glow);
+      text-shadow: 0 0 15px var(--maroon-glow);
     }
 
     .countdown-tag {
       font-family: 'Rajdhani', sans-serif;
       font-weight: 700;
       font-size: 0.72rem;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.16em;
       color: var(--text-muted);
-      margin-top: 0.4rem;
+      margin-top: 0.45rem;
       text-transform: uppercase;
     }
 
-    /* Budget Progress Bar Styles */
+    /* Budget Progress Bar */
     .budget-card {
       background: var(--bg-maroon-card);
       border: 1px solid var(--border-gold);
       border-radius: 14px;
-      backdrop-filter: blur(14px);
-      padding: 1.2rem;
+      backdrop-filter: blur(16px);
+      padding: 1.3rem;
       margin-bottom: clamp(2rem, 5vw, 3rem);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 209, 92, 0.08);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6), inset 0 0 18px rgba(255, 209, 92, 0.1);
+      position: relative;
+      overflow: hidden;
     }
 
     .budget-bar-track {
       width: 100%;
-      height: 26px;
-      background: rgba(10, 1, 3, 0.95);
+      height: 28px;
+      background: rgba(8, 1, 2, 0.98);
       border: 1px solid var(--border-cyber);
-      border-radius: 13px;
+      border-radius: 14px;
       overflow: hidden;
       position: relative;
-      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
-      margin: 0.8rem 0;
+      box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.9);
+      margin: 0.9rem 0;
     }
 
     .budget-bar-fill {
       height: 100%;
       background: linear-gradient(90deg, #ff1a4b 0%, #ffd15c 50%, #22c55e 100%);
-      border-radius: 13px;
+      background-size: 200% 100%;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      padding-right: 10px;
-      transition: width 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-      min-width: 2.8rem;
+      padding-right: 12px;
+      transition: width 1.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      min-width: 3rem;
+      animation: barGradientFlow 4s ease infinite;
+    }
+
+    @keyframes barGradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .budget-bar-fill span {
       font-family: 'Orbitron', monospace;
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       font-weight: 800;
       color: #080103;
     }
@@ -300,12 +421,19 @@
 
     /* Ticket & Clearance Section */
     .terminal-section {
-      background: linear-gradient(160deg, rgba(34, 4, 10, 0.95), rgba(15, 2, 5, 0.98));
+      background: linear-gradient(160deg, rgba(35, 4, 10, 0.96), rgba(15, 2, 5, 0.98));
       border: 1.5px solid var(--gold-cyber);
       border-radius: 16px;
-      padding: clamp(1.2rem, 3.5vw, 2rem);
+      padding: clamp(1.2rem, 3.5vw, 2.2rem);
       margin-bottom: clamp(2rem, 5vw, 3.2rem);
-      box-shadow: 0 0 30px rgba(255, 209, 92, 0.15), inset 0 0 20px rgba(255, 26, 75, 0.1);
+      box-shadow: 0 0 35px rgba(255, 209, 92, 0.18), inset 0 0 25px rgba(255, 26, 75, 0.12);
+      position: relative;
+      animation: borderPulse 4s infinite alternate ease-in-out;
+    }
+
+    @keyframes borderPulse {
+      0% { border-color: rgba(255, 209, 92, 0.35); box-shadow: 0 0 20px rgba(255, 209, 92, 0.12); }
+      100% { border-color: var(--gold-cyber); box-shadow: 0 0 38px rgba(255, 209, 92, 0.32); }
     }
 
     .terminal-header {
@@ -327,7 +455,7 @@
 
     .terminal-title h2 {
       font-family: 'Orbitron', sans-serif;
-      font-size: clamp(1.2rem, 3vw, 1.7rem);
+      font-size: clamp(1.2rem, 3vw, 1.75rem);
       font-weight: 800;
       color: #ffffff;
       letter-spacing: 0.05em;
@@ -344,16 +472,16 @@
       color: #4ade80;
       background: rgba(34, 197, 94, 0.15);
       border: 1px solid rgba(74, 222, 128, 0.4);
-      padding: 0.2rem 0.6rem;
+      padding: 0.22rem 0.65rem;
       border-radius: 4px;
       margin-top: 0.35rem;
     }
 
     .price-badge-box {
-      background: rgba(10, 1, 3, 0.9);
+      background: rgba(10, 1, 3, 0.95);
       border: 1px solid var(--border-gold);
       border-radius: 8px;
-      padding: 0.7rem 1.2rem;
+      padding: 0.75rem 1.3rem;
       text-align: left;
     }
 
@@ -374,17 +502,17 @@
 
     .price-value {
       font-family: 'Orbitron', monospace;
-      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-size: clamp(1.6rem, 4vw, 2.3rem);
       font-weight: 900;
       color: var(--gold-cyber);
       line-height: 1.1;
-      text-shadow: 0 0 12px rgba(255, 209, 92, 0.45);
+      text-shadow: 0 0 15px rgba(255, 209, 92, 0.5);
     }
 
     .bank-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 1.2rem;
+      gap: 1.3rem;
       margin-bottom: 1.5rem;
     }
 
@@ -395,20 +523,24 @@
     }
 
     .bank-card {
-      background: rgba(16, 2, 5, 0.9);
-      border: 1px solid rgba(255, 209, 92, 0.32);
+      background: rgba(16, 2, 5, 0.92);
+      border: 1px solid rgba(255, 209, 92, 0.35);
       border-radius: 12px;
-      padding: 1.3rem;
+      padding: 1.35rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       gap: 1rem;
-      box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.6);
-      transition: border-color 0.2s ease;
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.7);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
     }
 
     .bank-card:hover {
       border-color: var(--gold-cyber);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 28px rgba(255, 209, 92, 0.22), inset 0 0 20px rgba(0, 0, 0, 0.7);
     }
 
     .bank-card-title {
@@ -448,6 +580,7 @@
       justify-content: space-between;
       gap: 0.5rem;
       margin-top: 0.3rem;
+      box-shadow: 0 0 10px rgba(255, 26, 75, 0.15);
     }
 
     .account-num-text {
@@ -461,13 +594,13 @@
     }
 
     .btn-copy-action {
-      background: rgba(255, 26, 75, 0.22);
+      background: rgba(255, 26, 75, 0.25);
       border: 1px solid var(--maroon-neon);
       color: #ffffff;
       font-family: 'Orbitron', sans-serif;
       font-size: 0.74rem;
       font-weight: 700;
-      padding: 0.6rem 0.85rem;
+      padding: 0.6rem 0.9rem;
       min-height: 44px;
       border-radius: 6px;
       cursor: pointer;
@@ -476,18 +609,24 @@
       justify-content: center;
       gap: 0.3rem;
       flex-shrink: 0;
-      transition: all 0.2s ease;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-copy-action:hover {
+      background: rgba(255, 26, 75, 0.45);
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(255, 26, 75, 0.5);
     }
 
     .btn-copy-action:active {
-      transform: scale(0.96);
+      transform: scale(0.95);
     }
 
     .verification-block {
-      background: rgba(12, 1, 3, 0.8);
-      border: 1px solid rgba(255, 26, 75, 0.25);
+      background: rgba(12, 1, 3, 0.85);
+      border: 1px solid rgba(255, 26, 75, 0.28);
       border-radius: 10px;
-      padding: 1.2rem;
+      padding: 1.25rem;
       display: flex;
       flex-direction: column;
       gap: 1.2rem;
@@ -496,7 +635,7 @@
     .steps-list {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 0.75rem;
+      gap: 0.8rem;
     }
 
     @media (min-width: 680px) {
@@ -508,14 +647,21 @@
     .step-box {
       display: flex;
       align-items: flex-start;
-      gap: 0.65rem;
-      background: rgba(30, 4, 10, 0.55);
-      border: 1px solid rgba(255, 26, 75, 0.18);
+      gap: 0.7rem;
+      background: rgba(30, 4, 10, 0.6);
+      border: 1px solid rgba(255, 26, 75, 0.2);
       border-radius: 6px;
-      padding: 0.75rem;
+      padding: 0.8rem;
       font-size: 0.85rem;
       color: #edd1d5;
       line-height: 1.4;
+      transition: all 0.25s ease;
+    }
+
+    .step-box:hover {
+      border-color: var(--gold-cyber);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(255, 26, 75, 0.2);
     }
 
     .step-idx {
@@ -524,13 +670,14 @@
       font-family: 'Orbitron', monospace;
       font-size: 0.75rem;
       font-weight: 800;
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      box-shadow: 0 0 8px var(--maroon-neon);
     }
 
     .action-buttons-wrap {
@@ -551,41 +698,46 @@
       font-weight: 800;
       letter-spacing: 0.06em;
       text-decoration: none;
-      padding: 0.95rem 1.4rem;
-      min-height: 48px;
+      padding: 1rem 1.4rem;
+      min-height: 50px;
       border-radius: 8px;
-      box-shadow: 0 0 20px rgba(34, 197, 94, 0.35);
+      box-shadow: 0 0 25px rgba(34, 197, 94, 0.4);
       border: 1px solid #4ade80;
       text-align: center;
       word-break: break-word;
-      transition: all 0.2s ease;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .btn-upload-slip:hover {
       background: #16a34a;
-      box-shadow: 0 0 25px rgba(34, 197, 94, 0.6);
+      box-shadow: 0 0 35px rgba(34, 197, 94, 0.7);
+      transform: translateY(-3px);
+    }
+
+    .btn-upload-slip:active {
+      transform: scale(0.97);
     }
 
     /* Paid Poll Callout Box */
     .poll-callout-box {
-      background: rgba(22, 2, 6, 0.9);
+      background: rgba(22, 2, 6, 0.92);
       border: 1.5px solid var(--gold-cyber);
       border-radius: 10px;
-      padding: 1.1rem;
+      padding: 1.15rem;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
-      box-shadow: 0 0 18px rgba(255, 209, 92, 0.15);
+      gap: 0.8rem;
+      box-shadow: 0 0 20px rgba(255, 209, 92, 0.18);
     }
 
     .poll-warning-banner {
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.5rem;
       background: rgba(255, 26, 75, 0.15);
       border: 1px solid var(--maroon-neon);
       border-radius: 6px;
-      padding: 0.45rem 0.8rem;
+      padding: 0.5rem 0.85rem;
       font-family: 'Orbitron', monospace;
       font-size: clamp(0.68rem, 2vw, 0.76rem);
       font-weight: 700;
@@ -603,34 +755,39 @@
       align-items: center;
       justify-content: center;
       gap: 0.6rem;
-      background: linear-gradient(135deg, rgba(255, 209, 92, 0.15), rgba(43, 6, 14, 0.9));
+      background: linear-gradient(135deg, rgba(255, 209, 92, 0.18), rgba(43, 6, 14, 0.92));
       color: var(--gold-cyber);
       font-family: 'Orbitron', sans-serif;
       font-size: clamp(0.78rem, 2.5vw, 0.92rem);
       font-weight: 800;
       letter-spacing: 0.06em;
       text-decoration: none;
-      padding: 0.95rem 1.4rem;
-      min-height: 48px;
+      padding: 1rem 1.4rem;
+      min-height: 50px;
       border-radius: 8px;
       border: 1px solid var(--gold-cyber);
-      box-shadow: 0 0 15px rgba(255, 209, 92, 0.2);
+      box-shadow: 0 0 18px rgba(255, 209, 92, 0.22);
       text-align: center;
-      transition: all 0.2s ease;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       word-break: break-word;
     }
 
     .btn-poll-action:hover {
       background: var(--gold-cyber);
       color: #0d0104;
-      box-shadow: 0 0 25px rgba(255, 209, 92, 0.5);
+      box-shadow: 0 0 32px rgba(255, 209, 92, 0.6);
+      transform: translateY(-3px);
+    }
+
+    .btn-poll-action:active {
+      transform: scale(0.97);
     }
 
     /* 3 Details Cards */
     .details-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 1.2rem;
+      gap: 1.3rem;
       margin-bottom: clamp(2rem, 5vw, 3.2rem);
     }
 
@@ -648,8 +805,17 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 0.8rem;
+      gap: 0.85rem;
       backdrop-filter: blur(14px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .detail-card:hover {
+      border-color: var(--maroon-neon);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 28px rgba(255, 26, 75, 0.25);
     }
 
     .detail-card-head {
@@ -687,9 +853,9 @@
       gap: 0.45rem;
       background: #000000;
       border: 1px solid rgba(255, 26, 75, 0.5);
-      box-shadow: inset 0 0 8px rgba(255, 26, 75, 0.2);
+      box-shadow: inset 0 0 10px rgba(255, 26, 75, 0.3);
       border-radius: 6px;
-      padding: 0.4rem 0.8rem;
+      padding: 0.45rem 0.85rem;
       font-family: 'Orbitron', monospace;
       font-size: 0.82rem;
       font-weight: 700;
@@ -708,30 +874,33 @@
       font-weight: 700;
       letter-spacing: 0.08em;
       padding: 0.85rem 1.2rem;
-      min-height: 44px;
+      min-height: 46px;
       border-radius: 6px;
-      background: linear-gradient(135deg, rgba(255, 26, 75, 0.2), rgba(43, 5, 12, 0.8));
+      background: linear-gradient(135deg, rgba(255, 26, 75, 0.22), rgba(43, 5, 12, 0.85));
       color: #ffffff;
       border: 1px solid var(--maroon-neon);
-      box-shadow: 0 0 15px rgba(255, 26, 75, 0.2);
-      transition: all 0.2s ease;
+      box-shadow: 0 0 18px rgba(255, 26, 75, 0.25);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .btn-maps-action:hover {
       background: var(--maroon-neon);
-      box-shadow: 0 0 20px rgba(255, 26, 75, 0.5);
+      box-shadow: 0 0 30px rgba(255, 26, 75, 0.65);
+      transform: translateY(-2px);
     }
 
-    /* =========================================================================
-       NEW: MEDIA SHOWCASE SECTIONS (HOTEL PICS & DRESS CODE)
-       ========================================================================= */
+    .btn-maps-action:active {
+      transform: scale(0.96);
+    }
+
+    /* MEDIA SHOWCASE SECTIONS */
     .showcase-section {
-      background: linear-gradient(180deg, rgba(26, 3, 8, 0.92) 0%, rgba(12, 1, 4, 0.98) 100%);
+      background: linear-gradient(180deg, rgba(26, 3, 8, 0.94) 0%, rgba(12, 1, 4, 0.98) 100%);
       border: 1px solid var(--border-gold);
       border-radius: 16px;
-      padding: clamp(1.2rem, 3.5vw, 2.2rem);
+      padding: clamp(1.2rem, 3.5vw, 2.3rem);
       margin-bottom: clamp(2rem, 5vw, 3.2rem);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 209, 92, 0.06);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.65), inset 0 0 25px rgba(255, 209, 92, 0.08);
     }
 
     .showcase-header {
@@ -763,31 +932,53 @@
     .photo-grid-4 {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 0.9rem;
+      gap: 1rem;
     }
 
     @media (min-width: 720px) {
       .photo-grid-4 {
         grid-template-columns: repeat(4, 1fr);
-        gap: 1.2rem;
+        gap: 1.3rem;
       }
     }
 
     .photo-card {
-      background: rgba(14, 1, 4, 0.85);
-      border: 1px solid rgba(255, 26, 75, 0.28);
+      background: rgba(14, 1, 4, 0.9);
+      border: 1px solid rgba(255, 26, 75, 0.32);
       border-radius: 10px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
-      transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    /* Laser Line Sweep on Hover */
+    .photo-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -130%;
+      width: 80%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 209, 92, 0.3), rgba(255, 26, 75, 0.45), transparent);
+      transform: skewX(-25deg);
+      z-index: 5;
+      pointer-events: none;
+      transition: none;
+    }
+
+    .photo-card:hover::before {
+      left: 150%;
+      transition: 0.8s ease-in-out;
     }
 
     .photo-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-8px) scale(1.02);
       border-color: var(--gold-cyber);
-      box-shadow: 0 10px 25px rgba(255, 209, 92, 0.25);
+      box-shadow: 0 16px 32px rgba(255, 209, 92, 0.3);
     }
 
     .photo-img-wrap {
@@ -819,15 +1010,15 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.4s ease;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .photo-card:hover img {
-      transform: scale(1.06);
+      transform: scale(1.1);
     }
 
     .photo-tag {
-      padding: 0.65rem 0.8rem;
+      padding: 0.7rem 0.85rem;
       background: rgba(18, 2, 5, 0.95);
       font-family: 'Rajdhani', sans-serif;
       font-size: 0.85rem;
@@ -836,7 +1027,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-top: 1px solid rgba(255, 26, 75, 0.18);
+      border-top: 1px solid rgba(255, 26, 75, 0.2);
       letter-spacing: 0.05em;
     }
 
@@ -845,17 +1036,102 @@
       font-size: 0.62rem;
       color: var(--gold-cyber);
       background: rgba(255, 209, 92, 0.12);
-      border: 1px solid rgba(255, 209, 92, 0.3);
+      border: 1px solid rgba(255, 209, 92, 0.35);
       padding: 0.15rem 0.4rem;
       border-radius: 4px;
     }
 
-    /* Organizing Committee Directory */
+    /* Cyber Lightbox Modal */
+    .cyber-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(8, 1, 3, 0.94);
+      backdrop-filter: blur(14px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .cyber-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-content-wrap {
+      max-width: 90vw;
+      max-height: 85vh;
+      position: relative;
+      border: 1.5px solid var(--gold-cyber);
+      box-shadow: 0 0 45px rgba(255, 209, 92, 0.4);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+      transform: scale(0.9);
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .cyber-modal.active .modal-content-wrap {
+      transform: scale(1);
+    }
+
+    .modal-content-wrap img {
+      max-width: 100%;
+      max-height: 80vh;
+      display: block;
+      object-fit: contain;
+    }
+
+    .modal-caption {
+      padding: 0.8rem 1.2rem;
+      background: rgba(18, 2, 5, 0.95);
+      font-family: 'Orbitron', monospace;
+      font-size: 0.85rem;
+      color: var(--gold-cyber);
+      text-align: center;
+      border-top: 1px solid rgba(255, 26, 75, 0.3);
+      letter-spacing: 0.08em;
+    }
+
+    .btn-close-modal {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(255, 26, 75, 0.85);
+      border: 1px solid #ffffff;
+      color: #ffffff;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', monospace;
+      font-weight: 800;
+      font-size: 1rem;
+      transition: transform 0.2s ease, background 0.2s ease;
+      z-index: 10;
+    }
+
+    .btn-close-modal:hover {
+      background: #ff1a4b;
+      transform: scale(1.1) rotate(90deg);
+    }
+
+    /* Committee Directory */
     .directory-panel {
-      background: linear-gradient(180deg, rgba(28, 3, 9, 0.9) 0%, rgba(14, 1, 4, 0.96) 100%);
+      background: linear-gradient(180deg, rgba(28, 3, 9, 0.92) 0%, rgba(14, 1, 4, 0.98) 100%);
       border: 1px solid var(--border-gold);
       border-radius: 14px;
-      padding: clamp(1.2rem, 3vw, 2rem);
+      padding: clamp(1.2rem, 3vw, 2.2rem);
       margin-bottom: 2.5rem;
     }
 
@@ -882,7 +1158,7 @@
     .committee-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 1rem;
+      gap: 1.1rem;
     }
 
     @media (min-width: 600px) {
@@ -892,18 +1168,20 @@
     }
 
     .member-item {
-      background: rgba(16, 2, 5, 0.85);
-      border: 1px solid rgba(255, 26, 75, 0.22);
+      background: rgba(16, 2, 5, 0.88);
+      border: 1px solid rgba(255, 26, 75, 0.25);
       border-radius: 10px;
-      padding: 1.1rem;
+      padding: 1.15rem;
       display: flex;
       flex-direction: column;
-      gap: 0.85rem;
-      transition: border-color 0.2s ease;
+      gap: 0.9rem;
+      transition: all 0.3s ease;
     }
 
     .member-item:hover {
       border-color: var(--gold-cyber);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 22px rgba(255, 26, 75, 0.25);
     }
 
     .member-top {
@@ -913,10 +1191,10 @@
     }
 
     .member-avatar {
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
       border-radius: 8px;
-      background: linear-gradient(135deg, rgba(255, 26, 75, 0.25), rgba(43, 6, 14, 0.95));
+      background: linear-gradient(135deg, rgba(255, 26, 75, 0.3), rgba(43, 6, 14, 0.95));
       border: 1px solid var(--maroon-neon);
       display: flex;
       align-items: center;
@@ -924,8 +1202,9 @@
       font-family: 'Orbitron', monospace;
       font-weight: 800;
       color: var(--gold-cyber);
-      font-size: 1rem;
+      font-size: 1.05rem;
       flex-shrink: 0;
+      box-shadow: 0 0 10px rgba(255, 26, 75, 0.3);
     }
 
     .member-name {
@@ -951,7 +1230,7 @@
       background: #090103;
       border: 1px solid rgba(255, 209, 92, 0.2);
       border-radius: 6px;
-      padding: 0.5rem 0.75rem;
+      padding: 0.55rem 0.8rem;
     }
 
     .member-phone-txt {
@@ -975,11 +1254,13 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      transition: all 0.2s ease;
     }
 
     .btn-copy-small:hover {
       color: #ffffff;
-      background: rgba(255, 26, 75, 0.2);
+      background: rgba(255, 26, 75, 0.25);
+      transform: scale(1.1);
     }
 
     .btn-member-wa {
@@ -998,21 +1279,26 @@
       padding: 0.65rem 0.9rem;
       min-height: 44px;
       border-radius: 6px;
-      transition: all 0.2s ease;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .btn-member-wa:hover {
       background: #25d366;
       color: #072611;
-      box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+      box-shadow: 0 0 20px rgba(37, 211, 102, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .btn-member-wa:active {
+      transform: scale(0.96);
     }
 
     /* Bug Reporting / Support Bar */
     .support-bar {
-      background: linear-gradient(90deg, rgba(38, 4, 11, 0.88), rgba(12, 1, 3, 0.96));
-      border: 1px solid rgba(255, 209, 92, 0.35);
+      background: linear-gradient(90deg, rgba(38, 4, 11, 0.9), rgba(12, 1, 3, 0.98));
+      border: 1px solid rgba(255, 209, 92, 0.4);
       border-radius: 10px;
-      padding: 1rem 1.2rem;
+      padding: 1.1rem 1.3rem;
       display: flex;
       flex-direction: column;
       gap: 0.8rem;
@@ -1052,16 +1338,21 @@
       font-size: 0.76rem;
       font-weight: 800;
       letter-spacing: 0.05em;
-      padding: 0.6rem 1.1rem;
+      padding: 0.65rem 1.15rem;
       min-height: 44px;
       border-radius: 6px;
       white-space: nowrap;
-      transition: all 0.2s ease;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .btn-support-link:hover {
       background: #1eb956;
-      box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
+      box-shadow: 0 0 25px rgba(37, 211, 102, 0.65);
+      transform: translateY(-2px);
+    }
+
+    .btn-support-link:active {
+      transform: scale(0.96);
     }
 
     /* Toast Notification */
@@ -1074,9 +1365,9 @@
       max-width: 380px;
       background: #0d0104;
       border: 1px solid var(--gold-cyber);
-      box-shadow: 0 0 25px rgba(255, 209, 92, 0.5);
+      box-shadow: 0 0 30px rgba(255, 209, 92, 0.55);
       color: #ffffff;
-      padding: 0.85rem 1.2rem;
+      padding: 0.9rem 1.3rem;
       border-radius: 8px;
       font-family: 'Orbitron', monospace;
       font-size: 0.8rem;
@@ -1084,7 +1375,7 @@
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      z-index: 1000;
+      z-index: 10000;
       opacity: 0;
       pointer-events: none;
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -1098,7 +1389,7 @@
     footer {
       text-align: center;
       padding-top: 1.8rem;
-      border-top: 1px solid rgba(255, 26, 75, 0.18);
+      border-top: 1px solid rgba(255, 26, 75, 0.22);
       font-family: 'Rajdhani', sans-serif;
       font-size: 0.9rem;
       color: var(--text-muted);
@@ -1113,8 +1404,11 @@
 </head>
 <body>
 
+  <!-- Ambient Visual Layers -->
   <div class="cyber-ambient"></div>
   <div class="grid-overlay"></div>
+  <div class="hologram-scanline"></div>
+  <div class="laser-beam"></div>
   <canvas id="particle-canvas"></canvas>
 
   <div id="cyber-toast" class="cyber-toast">
@@ -1122,9 +1416,18 @@
     <span id="toast-text">Copied to Clipboard!</span>
   </div>
 
+  <!-- Interactive Lightbox Modal -->
+  <div id="image-modal" class="cyber-modal" onclick="closeImageModal()">
+    <div class="modal-content-wrap tech-box" onclick="event.stopPropagation()">
+      <button class="btn-close-modal" onclick="closeImageModal()">✕</button>
+      <img id="modal-img" src="" alt="Full view">
+      <div id="modal-caption" class="modal-caption"></div>
+    </div>
+  </div>
+
   <div class="page-wrapper">
     
-    <header>
+    <header class="reveal-elem">
       <div class="hud-badge">
         <span class="blinking-dot"></span>
         <span>Reunion Protocol // Sri Bodhiraja College</span>
@@ -1141,7 +1444,7 @@
     </header>
 
     <!-- Countdown Section -->
-    <section class="countdown-card" aria-label="Event Countdown">
+    <section class="countdown-card tech-box reveal-elem" aria-label="Event Countdown">
       <div class="countdown-top-bar">
         <span>// TARGET EVENT HORIZON</span>
         <span id="countdown-status">STATUS: TIMELINE ACTIVE</span>
@@ -1167,7 +1470,7 @@
     </section>
 
     <!-- Budget Tracker Section -->
-    <section class="budget-card" aria-label="Event Treasury Progress">
+    <section class="budget-card tech-box reveal-elem" aria-label="Event Treasury Progress">
       <div class="countdown-top-bar" style="margin-bottom: 0.6rem;">
         <span>// TREASURY CLEARANCE TARGET [KINDLY SETTLE THE PAYMENT BEFORE OCTOBER 6TH]</span>
         <span id="budget-status" style="color: var(--gold-cyber);">CALCULATING...</span>
@@ -1192,10 +1495,10 @@
     </section>
 
     <!-- Tickets Section -->
-    <section class="terminal-section" id="tickets">
+    <section class="terminal-section tech-box reveal-elem" id="tickets">
       <div class="terminal-header">
         <div class="terminal-title">
-          <h2>🎟️️ TICKET PASS & CLEARANCE</h2>
+          <h2>🎟️ TICKET PASS & CLEARANCE</h2>
           <span class="terminal-status-tag">SECURE BANK TRANSFER PORTAL</span>
         </div>
         <div class="price-badge-box">
@@ -1207,7 +1510,7 @@
 
       <div class="bank-grid">
         <!-- Commercial Bank -->
-        <article class="bank-card">
+        <article class="bank-card tech-box">
           <div>
             <div style="display: flex; justify-content: space-between; font-family: 'Orbitron', monospace; font-size: 0.7rem; color: var(--gold-cyber); margin-bottom: 0.6rem;">
               <span>GATEWAY // 01</span>
@@ -1237,7 +1540,7 @@
         </article>
 
         <!-- BOC -->
-        <article class="bank-card">
+        <article class="bank-card tech-box">
           <div>
             <div style="display: flex; justify-content: space-between; font-family: 'Orbitron', monospace; font-size: 0.7rem; color: var(--gold-cyber); margin-bottom: 0.6rem;">
               <span>GATEWAY // 02</span>
@@ -1295,7 +1598,7 @@
           </a>
 
           <!-- Step 2 Box: Google Form Paid Poll with Warning -->
-          <div class="poll-callout-box">
+          <div class="poll-callout-box tech-box">
             <div class="poll-warning-banner">
               <span>⚠️</span>
               <span><strong>IMPORTANT NOTICE:</strong> Do NOT open or submit this link if you haven't paid yet! Only access and submit this poll <strong>AFTER</strong> your transfer is completed.</span>
@@ -1315,8 +1618,8 @@
     </section>
 
     <!-- Details Section -->
-    <main class="details-grid">
-      <article class="detail-card">
+    <main class="details-grid reveal-elem">
+      <article class="detail-card tech-box">
         <div>
           <div class="detail-card-head">SYS.PARAM // 01</div>
           <h3 style="margin-top: 0.4rem;">📅 WHEN</h3>
@@ -1327,7 +1630,7 @@
         </div>
       </article>
 
-      <article class="detail-card">
+      <article class="detail-card tech-box">
         <div>
           <div class="detail-card-head">SYS.PARAM // 02</div>
           <h3 style="margin-top: 0.4rem;">📍 LOCATION</h3>
@@ -1346,7 +1649,7 @@
         </a>
       </article>
 
-      <article class="detail-card">
+      <article class="detail-card tech-box">
         <div>
           <div class="detail-card-head">SYS.PARAM // 03</div>
           <h3 style="margin-top: 0.4rem;">🕶️ DRESS CODE</h3>
@@ -1364,15 +1667,15 @@
       </article>
     </main>
 
-    <!-- NEW SECTION 1: Hotel & Venue Highlights Showcase -->
-    <section class="showcase-section" aria-label="Venue Highlights">
+    <!-- SECTION 1: Hotel & Venue Highlights Showcase -->
+    <section class="showcase-section tech-box reveal-elem" aria-label="Venue Highlights">
       <div class="showcase-header">
         <h2>🏨 VENUE & HOTEL HIGHLIGHTS</h2>
-        <p>A sneak peek at our scenic destination, poolside vibe, and private gathering grounds.</p>
+        <p>A sneak peek at our scenic destination, poolside vibe, and private gathering grounds (Tap to expand).</p>
       </div>
 
       <div class="photo-grid-4">
-        <div class="photo-card">
+        <div class="photo-card tech-box" onclick="openImageModal('pictures/115398042.jpg', 'Hotel Grounds // Panoramic View')">
           <div class="photo-img-wrap">
             <img src="pictures/115398042.jpg" alt="Hotel Venue View 1" loading="lazy">
           </div>
@@ -1382,7 +1685,7 @@
           </div>
         </div>
 
-        <div class="photo-card">
+        <div class="photo-card tech-box" onclick="openImageModal('pictures/286368146.jpg', 'Poolside & Lounge Area')">
           <div class="photo-img-wrap">
             <img src="pictures/286368146.jpg" alt="Hotel Venue View 2" loading="lazy">
           </div>
@@ -1392,7 +1695,7 @@
           </div>
         </div>
 
-        <div class="photo-card">
+        <div class="photo-card tech-box" onclick="openImageModal('pictures/286368670-qfedp5dua75n4rf9lrgqv486tm3or7vebfz8igp2u8.jpg', 'Main Facility & Banquet Atmosphere')">
           <div class="photo-img-wrap">
             <img src="pictures/286368670-qfedp5dua75n4rf9lrgqv486tm3or7vebfz8igp2u8.jpg" alt="Hotel Venue View 3" loading="lazy">
           </div>
@@ -1402,7 +1705,7 @@
           </div>
         </div>
 
-        <div class="photo-card">
+        <div class="photo-card tech-box" onclick="openImageModal('pictures/426086122.jpg', 'Scenic Surroundings & Landscapes')">
           <div class="photo-img-wrap">
             <img src="pictures/426086122.jpg" alt="Hotel Venue View 4" loading="lazy">
           </div>
@@ -1414,15 +1717,15 @@
       </div>
     </section>
 
-    <!-- NEW SECTION 2: All-Black Attire Inspiration Showcase -->
-    <section class="showcase-section" aria-label="Dresscode Showcase">
+    <!-- SECTION 2: All-Black Attire Inspiration Showcase -->
+    <section class="showcase-section tech-box reveal-elem" aria-label="Dresscode Showcase">
       <div class="showcase-header">
         <h2>🕶️ DRESS CODE INSPIRATION // ALL-BLACK</h2>
-        <p>Smart-casual & semi-formal aesthetics. Check out these reference looks for the perfect stealth outfit.</p>
+        <p>Smart-casual & semi-formal aesthetics. Check out these reference looks for the perfect stealth outfit (Tap to expand).</p>
       </div>
 
       <div class="photo-grid-4">
-        <div class="photo-card">
+        <div class="photo-card tech-box" onclick="openImageModal('dresscode/d27832ae85a86976075eba55b5ecfbfd.jpg', 'Stealth Casual Fit')">
           <div class="photo-img-wrap portrait">
             <img src="dresscode/d27832ae85a86976075eba55b5ecfbfd.jpg" alt="Black Attire Style 1" loading="lazy">
           </div>
@@ -1432,7 +1735,7 @@
           </div>
         </div>
 
-        <div class="photo-card">
+        <div class="photo-card tech-box" onclick="openImageModal('dresscode/e81124469cbc99774aab8fdd461f3474.jpg', 'Smart Monochrome Look')">
           <div class="photo-img-wrap portrait">
             <img src="dresscode/e81124469cbc99774aab8fdd461f3474.jpg" alt="Black Attire Style 2" loading="lazy">
           </div>
@@ -1442,7 +1745,7 @@
           </div>
         </div>
 
-        <div class="photo-card">
+        <div class="photo-card tech-box" onclick="openImageModal('dresscode/images%20(1).jpg', 'Evening Elegant Aesthetic')">
           <div class="photo-img-wrap portrait">
             <img src="dresscode/images%20(1).jpg" alt="Black Attire Style 3" loading="lazy">
           </div>
@@ -1452,7 +1755,7 @@
           </div>
         </div>
 
-        <div class="photo-card">
+        <div class="photo-card tech-box" onclick="openImageModal('dresscode/images.jpg', 'Classic Black Silhouette')">
           <div class="photo-img-wrap portrait">
             <img src="dresscode/images.jpg" alt="Black Attire Style 4" loading="lazy">
           </div>
@@ -1465,7 +1768,7 @@
     </section>
 
     <!-- Committee Section -->
-    <section class="directory-panel">
+    <section class="directory-panel tech-box reveal-elem">
       <div class="directory-title-wrap">
         <h2>📡 ORGANIZING COMMITTEE DIRECTORY</h2>
         <p>Ping any organizer directly on WhatsApp for passes, verification, or questions</p>
@@ -1473,7 +1776,7 @@
 
       <div class="committee-grid">
         <!-- Binudi -->
-        <div class="member-item">
+        <div class="member-item tech-box">
           <div class="member-top">
             <div class="member-avatar">B</div>
             <div>
@@ -1491,7 +1794,7 @@
         </div>
 
         <!-- Sanula -->
-        <div class="member-item">
+        <div class="member-item tech-box">
           <div class="member-top">
             <div class="member-avatar">S</div>
             <div>
@@ -1509,7 +1812,7 @@
         </div>
 
         <!-- Malindu -->
-        <div class="member-item">
+        <div class="member-item tech-box">
           <div class="member-top">
             <div class="member-avatar">M</div>
             <div>
@@ -1527,7 +1830,7 @@
         </div>
 
         <!-- Sithil -->
-        <div class="member-item">
+        <div class="member-item tech-box">
           <div class="member-top">
             <div class="member-avatar">S</div>
             <div>
@@ -1545,7 +1848,7 @@
         </div>
 
         <!-- Seneth -->
-        <div class="member-item">
+        <div class="member-item tech-box">
           <div class="member-top">
             <div class="member-avatar">S</div>
             <div>
@@ -1565,7 +1868,7 @@
     </section>
 
     <!-- Support Bar -->
-    <section class="support-bar">
+    <section class="support-bar tech-box reveal-elem">
       <div class="support-info">
         <span>🛠️ Inform any site errors - <strong>Yovindu</strong> (0761830582)</span>
       </div>
@@ -1626,6 +1929,42 @@
         }
       }
     }
+
+    // Scroll Observer for smooth reveals
+    function initScrollReveal() {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+
+      document.querySelectorAll('.reveal-elem').forEach(el => observer.observe(el));
+    }
+
+    // Interactive Image Lightbox
+    function openImageModal(imgSrc, captionText) {
+      const modal = document.getElementById('image-modal');
+      const modalImg = document.getElementById('modal-img');
+      const modalCaption = document.getElementById('modal-caption');
+      
+      modalImg.src = imgSrc;
+      modalCaption.innerText = captionText || "// PREVIEW";
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeImageModal() {
+      const modal = document.getElementById('image-modal');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeImageModal();
+    });
 
     // Modern Clipboard Handler
     async function copyValue(text, btnElementId, successNotice) {
@@ -1711,7 +2050,9 @@
     setInterval(refreshCountdown, 1000);
     refreshCountdown();
 
-    // Particle Background
+    // =========================================================================
+    // 🌌 VISUAL UPGRADE: CONNECTED CYBER CONSTELLATION CANVAS
+    // =========================================================================
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
     let pWidth, pHeight;
@@ -1724,61 +2065,84 @@
 
     window.addEventListener('resize', () => {
       resizeCanvas();
-      particlesArray.forEach(p => {
-        if (p.x > pWidth) p.x = Math.random() * pWidth;
-        if (p.y > pHeight) p.y = Math.random() * pHeight;
-      });
+      particlesArray = [];
+      initParticles();
     });
     resizeCanvas();
 
-    class CyberParticle {
+    class ConnectedParticle {
       constructor() {
-        this.reset();
-      }
-      reset() {
         this.x = Math.random() * pWidth;
         this.y = Math.random() * pHeight;
-        this.size = Math.random() * 1.8 + 0.6;
-        this.speedY = -(Math.random() * 0.35 + 0.1);
-        this.speedX = (Math.random() - 0.5) * 0.2;
-        this.alpha = Math.random() * 0.5 + 0.2;
+        this.size = Math.random() * 2 + 0.8;
+        this.speedX = (Math.random() - 0.5) * 0.45;
+        this.speedY = -(Math.random() * 0.4 + 0.15);
         this.color = Math.random() > 0.4 ? '255, 26, 75' : '255, 209, 92';
       }
+
       update() {
-        this.y += this.speedY;
         this.x += this.speedX;
+        this.y += this.speedY;
+
         if (this.y < 0) {
           this.y = pHeight;
           this.x = Math.random() * pWidth;
         }
+        if (this.x < 0) this.x = pWidth;
+        if (this.x > pWidth) this.x = 0;
       }
+
       draw() {
-        ctx.fillStyle = `rgba(${this.color}, ${this.alpha})`;
+        ctx.fillStyle = `rgb(${this.color})`;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
       }
     }
 
-    const count = window.innerWidth < 600 ? 25 : 45;
-    for (let i = 0; i < count; i++) {
-      particlesArray.push(new CyberParticle());
+    function initParticles() {
+      const count = window.innerWidth < 640 ? 32 : 55;
+      for (let i = 0; i < count; i++) {
+        particlesArray.push(new ConnectedParticle());
+      }
+    }
+    initParticles();
+
+    function drawConstellationLines() {
+      const maxDistance = 110;
+      for (let a = 0; a < particlesArray.length; a++) {
+        for (let b = a + 1; b < particlesArray.length; b++) {
+          const dx = particlesArray[a].x - particlesArray[b].x;
+          const dy = particlesArray[a].y - particlesArray[b].y;
+          const dist = Math.hypot(dx, dy);
+
+          if (dist < maxDistance) {
+            const alpha = (1 - dist / maxDistance) * 0.22;
+            ctx.strokeStyle = `rgba(255, 26, 75, ${alpha})`;
+            ctx.lineWidth = 0.8;
+            ctx.beginPath();
+            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+            ctx.stroke();
+          }
+        }
+      }
     }
 
     function renderParticles() {
       ctx.clearRect(0, 0, pWidth, pHeight);
       for (let i = 0; i < particlesArray.length; i++) {
         particlesArray[i].update();
-      }
-      for (let i = 0; i < particlesArray.length; i++) {
         particlesArray[i].draw();
       }
+      drawConstellationLines();
       requestAnimationFrame(renderParticles);
     }
 
     window.onload = function () {
       renderParticles();
       initBudgetTracker();
+      initScrollReveal();
     };
   </script>
 </body>
