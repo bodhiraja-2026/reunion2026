@@ -48,7 +48,7 @@
       line-height: 1.5;
     }
 
-    /* Holographic Cyber Backgrounds */
+    /* Ambient Backgrounds */
     .cyber-ambient {
       position: fixed;
       top: 0;
@@ -78,7 +78,6 @@
       pointer-events: none;
     }
 
-    /* Drifting Hologram Scanline */
     .hologram-scanline {
       position: fixed;
       top: 0;
@@ -110,6 +109,20 @@
       100% { top: 105%; }
     }
 
+    /* TOP SCROLL VELOCITY BAR */
+    .mobile-scroll-indicator {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3.5px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--maroon-neon), var(--gold-cyber));
+      box-shadow: 0 0 12px var(--maroon-neon);
+      z-index: 9999;
+      pointer-events: none;
+      transition: width 0.08s ease-out;
+    }
+
     canvas#particle-canvas {
       position: fixed;
       top: 0;
@@ -129,7 +142,7 @@
       padding: clamp(1.5rem, 4vw, 3.5rem) clamp(1rem, 3.5vw, 2rem) 4rem;
     }
 
-    /* Cyber Tech Corners */
+    /* Tech Corners */
     .tech-box {
       position: relative;
     }
@@ -172,30 +185,32 @@
       box-shadow: 0 0 8px var(--maroon-neon);
     }
 
-    /* Scroll Reveal */
+    /* Scroll Motion Element */
     .reveal-elem {
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(32px) scale(0.98);
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: opacity, transform;
     }
 
     .reveal-elem.visible {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
     }
 
-    header {
-      text-align: center;
-      margin-bottom: clamp(1.8rem, 4vw, 3rem);
+    /* Floating Header Controls */
+    .top-action-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-bottom: 1.2rem;
+      flex-wrap: wrap;
     }
 
     .hud-badge {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
       gap: 0.5rem;
-      max-width: 100%;
       padding: 0.5rem 1.1rem;
       background: rgba(43, 6, 13, 0.95);
       border: 1px solid var(--border-gold);
@@ -207,7 +222,6 @@
       color: var(--gold-cyber);
       box-shadow: 0 0 18px rgba(255, 209, 92, 0.25);
       text-transform: uppercase;
-      margin-bottom: 1.2rem;
       word-break: break-word;
       animation: hudFloat 3.8s ease-in-out infinite alternate;
     }
@@ -215,6 +229,29 @@
     @keyframes hudFloat {
       0% { transform: translateY(0); box-shadow: 0 0 15px rgba(255, 209, 92, 0.2); }
       100% { transform: translateY(-5px); box-shadow: 0 0 30px rgba(255, 209, 92, 0.5); }
+    }
+
+    .audio-toggle-btn {
+      background: rgba(22, 2, 6, 0.9);
+      border: 1px solid var(--border-gold);
+      color: var(--gold-cyber);
+      font-family: 'Orbitron', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.5rem 0.9rem;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      letter-spacing: 0.08em;
+      transition: all 0.2s ease;
+    }
+
+    .audio-toggle-btn:hover {
+      background: rgba(255, 209, 92, 0.15);
+      border-color: #ffffff;
+      transform: scale(1.04);
     }
 
     .blinking-dot {
@@ -243,6 +280,7 @@
       text-shadow: 0 0 25px rgba(255, 26, 75, 0.6);
       margin-bottom: 0.75rem;
       word-break: break-word;
+      text-align: center;
     }
 
     .hero-title .gradient-text {
@@ -268,16 +306,17 @@
       max-width: 680px;
       margin: 0 auto;
       padding: 0 0.5rem;
+      text-align: center;
     }
 
-    /* Live Countdown HUD */
+    /* Countdown HUD */
     .countdown-card {
       background: var(--bg-maroon-card);
       border: 1px solid var(--border-cyber);
       border-radius: 14px;
       backdrop-filter: blur(16px);
       padding: 1.3rem;
-      margin-bottom: 1.5rem;
+      margin: 2rem 0 1.5rem;
       box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6), inset 0 0 18px rgba(255, 26, 75, 0.1);
       position: relative;
       overflow: hidden;
@@ -356,6 +395,36 @@
       text-transform: uppercase;
     }
 
+    .cal-btn-wrap {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .btn-cal-sync {
+      background: rgba(255, 209, 92, 0.12);
+      border: 1px solid var(--gold-cyber);
+      color: var(--gold-cyber);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 0.65rem 1.2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      letter-spacing: 0.08em;
+      transition: all 0.25s ease;
+    }
+
+    .btn-cal-sync:hover {
+      background: var(--gold-cyber);
+      color: #0b0103;
+      box-shadow: 0 0 20px rgba(255, 209, 92, 0.5);
+      transform: translateY(-2px);
+    }
+
     /* Budget Progress Bar */
     .budget-card {
       background: var(--bg-maroon-card);
@@ -419,7 +488,7 @@
       letter-spacing: 0.05em;
     }
 
-    /* Ticket & Clearance Section */
+    /* Ticket Pass & Clearance Section */
     .terminal-section {
       background: linear-gradient(160deg, rgba(35, 4, 10, 0.96), rgba(15, 2, 5, 0.98));
       border: 1.5px solid var(--gold-cyber);
@@ -477,36 +546,91 @@
       margin-top: 0.35rem;
     }
 
-    .price-badge-box {
+    /* Interactive Pass Calculator */
+    .calculator-hud {
       background: rgba(10, 1, 3, 0.95);
-      border: 1px solid var(--border-gold);
-      border-radius: 8px;
-      padding: 0.75rem 1.3rem;
-      text-align: left;
+      border: 1.5px solid var(--border-gold);
+      border-radius: 12px;
+      padding: 1.2rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
 
-    @media (min-width: 680px) {
-      .price-badge-box {
-        text-align: right;
+    .calculator-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    @media (min-width: 600px) {
+      .calculator-row {
+        flex-direction: row;
       }
     }
 
-    .price-caption {
+    .counter-control {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: rgba(28, 4, 9, 0.9);
+      border: 1px solid var(--maroon-neon);
+      border-radius: 8px;
+      padding: 0.3rem 0.6rem;
+    }
+
+    .btn-counter {
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 26, 75, 0.25);
+      border: 1px solid var(--maroon-neon);
+      color: #ffffff;
+      font-family: 'Orbitron', monospace;
+      font-weight: 800;
+      font-size: 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .btn-counter:hover {
+      background: var(--maroon-neon);
+      transform: scale(1.08);
+    }
+
+    .counter-val {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--gold-cyber);
+      min-width: 2rem;
+      text-align: center;
+    }
+
+    .calc-total-box {
+      text-align: right;
+    }
+
+    .calc-total-lbl {
       font-family: 'Rajdhani', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 700;
+      font-size: 0.75rem;
       color: var(--text-muted);
-      letter-spacing: 0.14em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
     }
 
-    .price-value {
+    .calc-total-val {
       font-family: 'Orbitron', monospace;
-      font-size: clamp(1.6rem, 4vw, 2.3rem);
+      font-size: clamp(1.4rem, 3.8vw, 1.9rem);
       font-weight: 900;
       color: var(--gold-cyber);
-      line-height: 1.1;
-      text-shadow: 0 0 15px rgba(255, 209, 92, 0.5);
+      text-shadow: 0 0 15px rgba(255, 209, 92, 0.4);
     }
 
     .bank-grid {
@@ -618,10 +742,6 @@
       box-shadow: 0 0 15px rgba(255, 26, 75, 0.5);
     }
 
-    .btn-copy-action:active {
-      transform: scale(0.95);
-    }
-
     .verification-block {
       background: rgba(12, 1, 3, 0.85);
       border: 1px solid rgba(255, 26, 75, 0.28);
@@ -714,10 +834,6 @@
       transform: translateY(-3px);
     }
 
-    .btn-upload-slip:active {
-      transform: scale(0.97);
-    }
-
     /* Paid Poll Callout Box */
     .poll-callout-box {
       background: rgba(22, 2, 6, 0.92);
@@ -777,10 +893,6 @@
       color: #0d0104;
       box-shadow: 0 0 32px rgba(255, 209, 92, 0.6);
       transform: translateY(-3px);
-    }
-
-    .btn-poll-action:active {
-      transform: scale(0.97);
     }
 
     /* 3 Details Cards */
@@ -889,11 +1001,7 @@
       transform: translateY(-2px);
     }
 
-    .btn-maps-action:active {
-      transform: scale(0.96);
-    }
-
-    /* MEDIA SHOWCASE SECTIONS */
+    /* MEDIA SHOWCASE SECTIONS WITH KINETIC SCROLL PARALLAX */
     .showcase-section {
       background: linear-gradient(180deg, rgba(26, 3, 8, 0.94) 0%, rgba(12, 1, 4, 0.98) 100%);
       border: 1px solid var(--border-gold);
@@ -955,7 +1063,6 @@
       position: relative;
     }
 
-    /* Laser Line Sweep on Hover */
     .photo-card::before {
       content: '';
       position: absolute;
@@ -1005,16 +1112,19 @@
       }
     }
 
+    /* KINETIC PARALLAX IMAGE STYLING */
     .photo-card img {
       width: 100%;
-      height: 100%;
+      height: 115%;
+      margin-top: -7.5%;
       object-fit: cover;
       display: block;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+      transition: transform 0.15s ease-out;
     }
 
     .photo-card:hover img {
-      transform: scale(1.1);
+      transform: scale(1.08);
     }
 
     .photo-tag {
@@ -1039,6 +1149,79 @@
       border: 1px solid rgba(255, 209, 92, 0.35);
       padding: 0.15rem 0.4rem;
       border-radius: 4px;
+    }
+
+    /* FAQ ACCORDION SECTION */
+    .faq-section {
+      background: linear-gradient(180deg, rgba(22, 2, 6, 0.95) 0%, rgba(10, 1, 3, 0.98) 100%);
+      border: 1px solid var(--border-cyber);
+      border-radius: 14px;
+      padding: clamp(1.2rem, 3.5vw, 2.2rem);
+      margin-bottom: clamp(2rem, 5vw, 3.2rem);
+    }
+
+    .faq-accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin-top: 1.5rem;
+    }
+
+    .faq-item {
+      background: rgba(14, 2, 5, 0.8);
+      border: 1px solid rgba(255, 209, 92, 0.2);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .faq-item.open {
+      border-color: var(--gold-cyber);
+      box-shadow: 0 4px 20px rgba(255, 209, 92, 0.15);
+    }
+
+    .faq-question {
+      padding: 1rem 1.2rem;
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .faq-icon {
+      color: var(--gold-cyber);
+      font-size: 1.1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+      color: var(--maroon-neon);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), padding 0.35s ease;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      padding: 0 1.2rem;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 150px;
+      padding: 0 1.2rem 1.2rem;
     }
 
     /* Cyber Lightbox Modal */
@@ -1289,10 +1472,6 @@
       transform: translateY(-2px);
     }
 
-    .btn-member-wa:active {
-      transform: scale(0.96);
-    }
-
     /* Bug Reporting / Support Bar */
     .support-bar {
       background: linear-gradient(90deg, rgba(38, 4, 11, 0.9), rgba(12, 1, 3, 0.98));
@@ -1351,10 +1530,6 @@
       transform: translateY(-2px);
     }
 
-    .btn-support-link:active {
-      transform: scale(0.96);
-    }
-
     /* Toast Notification */
     .cyber-toast {
       position: fixed;
@@ -1404,7 +1579,10 @@
 </head>
 <body>
 
-  <!-- Ambient Visual Layers -->
+  <!-- Top Scroll Laser Progress -->
+  <div id="scroll-indicator" class="mobile-scroll-indicator"></div>
+
+  <!-- Visual Layers -->
   <div class="cyber-ambient"></div>
   <div class="grid-overlay"></div>
   <div class="hologram-scanline"></div>
@@ -1428,9 +1606,14 @@
   <div class="page-wrapper">
     
     <header class="reveal-elem">
-      <div class="hud-badge">
-        <span class="blinking-dot"></span>
-        <span>Reunion Protocol // Sri Bodhiraja College</span>
+      <div class="top-action-bar">
+        <div class="hud-badge">
+          <span class="blinking-dot"></span>
+          <span>Reunion Protocol // Sri Bodhiraja College</span>
+        </div>
+        <button class="audio-toggle-btn" id="audio-toggle" onclick="toggleCyberSound()">
+          <span>🔊</span> <span id="audio-lbl">AUDIO: ON</span>
+        </button>
       </div>
 
       <h1 class="hero-title">
@@ -1443,7 +1626,7 @@
       </p>
     </header>
 
-    <!-- Countdown Section -->
+    <!-- Countdown Section with One-Tap Calendar Sync -->
     <section class="countdown-card tech-box reveal-elem" aria-label="Event Countdown">
       <div class="countdown-top-bar">
         <span>// TARGET EVENT HORIZON</span>
@@ -1466,6 +1649,18 @@
           <div class="countdown-number" id="seconds">--</div>
           <div class="countdown-tag">Seconds</div>
         </div>
+      </div>
+      
+      <div class="cal-btn-wrap">
+        <a 
+          href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sri+Bodhiraja+College+Batch+Get-Together+2026&dates=20261015T103000Z/20261015T183000Z&details=Annual+Batch+Reunion.+Theme:+All+Black+Smart+Casual.+Ticket:+LKR+6,000.&location=Sri+Bodhiraja+College+Reunion+Venue" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="btn-cal-sync"
+          onclick="playBeep('confirm')"
+        >
+          <span>🗓️ Sync to Google Calendar</span> &rarr;
+        </a>
       </div>
     </section>
 
@@ -1494,7 +1689,7 @@
       </div>
     </section>
 
-    <!-- Tickets Section -->
+    <!-- Tickets & Interactive Pass Calculator -->
     <section class="terminal-section tech-box reveal-elem" id="tickets">
       <div class="terminal-header">
         <div class="terminal-title">
@@ -1502,9 +1697,30 @@
           <span class="terminal-status-tag">SECURE BANK TRANSFER PORTAL</span>
         </div>
         <div class="price-badge-box">
-          <div class="price-caption">Entry Fee</div>
+          <div class="price-caption">Pass Rate</div>
           <div class="price-value">LKR 6,000</div>
           <div style="font-size: 0.72rem; color: #ffbe2e;">PER PERSON // FULL ACCESS</div>
+        </div>
+      </div>
+
+      <div class="calculator-hud tech-box">
+        <div class="calculator-row">
+          <div>
+            <div style="font-family: 'Orbitron', monospace; font-size: 0.85rem; color: #ffffff; margin-bottom: 0.25rem;">
+              SELECT PASSES (TICKETS)
+            </div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Paying for yourself or multiple batchmates?</div>
+          </div>
+          <div class="counter-control">
+            <button class="btn-counter" onclick="changePasses(-1)">−</button>
+            <span class="counter-val" id="calc-qty">1</span>
+            <button class="btn-counter" onclick="changePasses(1)">+</button>
+          </div>
+        </div>
+
+        <div class="calculator-row" style="border-top: 1px dashed rgba(255, 209, 92, 0.25); padding-top: 0.8rem;">
+          <div class="calc-total-lbl">Total Payable Amount:</div>
+          <div class="calc-total-val" id="calc-total">LKR 6,000</div>
         </div>
       </div>
 
@@ -1574,7 +1790,7 @@
         <div class="steps-list">
           <div class="step-box">
             <span class="step-idx">1</span>
-            <span>Transfer <strong>LKR 6,000</strong> to either Commercial Bank or BOC.</span>
+            <span>Transfer amount to either Commercial Bank or BOC.</span>
           </div>
           <div class="step-box">
             <span class="step-idx">2</span>
@@ -1587,17 +1803,19 @@
         </div>
 
         <div class="action-buttons-wrap">
-          <!-- Step 1 Button: WhatsApp Slip Submission -->
+          <!-- WhatsApp Dynamic Slip Submission -->
           <a 
-            href="https://wa.me/94710715130?text=Hi%2C%20I%20have%20transferred%20the%20LKR%206%2C000%20ticket%20fee%20for%20the%20Sri%20Bodhiraja%20College%20Get-Together%202026.%20Here%20is%20my%20payment%20slip%3A" 
+            id="dynamic-slip-btn"
+            href="https://wa.me/94710715130?text=Hi%2C%20I%20have%20transferred%20the%20LKR%206%2C000%20fee%20(1%20pass)%20for%20the%20Sri%20Bodhiraja%20College%20Get-Together%202026.%20Here%20is%20my%20slip%3A" 
             target="_blank" 
             rel="noopener noreferrer" 
             class="btn-upload-slip"
+            onclick="playBeep('confirm')"
           >
-            <span>📤 SUBMIT SLIP VIA WHATSAPP</span> &rarr;
+            <span id="slip-btn-text">📤 SUBMIT 1 PASS SLIP VIA WHATSAPP (LKR 6,000)</span> &rarr;
           </a>
 
-          <!-- Step 2 Box: Google Form Paid Poll with Warning -->
+          <!-- Google Form Paid Poll -->
           <div class="poll-callout-box tech-box">
             <div class="poll-warning-banner">
               <span>⚠️</span>
@@ -1609,6 +1827,7 @@
               target="_blank" 
               rel="noopener noreferrer" 
               class="btn-poll-action"
+              onclick="playBeep('confirm')"
             >
               <span>🗳️ I HAVE PAID — VOTE ON PAYMENT POLL</span> &rarr;
             </a>
@@ -1644,6 +1863,7 @@
           target="_blank" 
           rel="noopener noreferrer" 
           class="btn-maps-action"
+          onclick="playBeep('click')"
         >
           <span>🛰 Launch Google Maps</span> &rarr;
         </a>
@@ -1667,7 +1887,7 @@
       </article>
     </main>
 
-    <!-- SECTION 1: Hotel & Venue Highlights Showcase -->
+    <!-- SECTION 1: Hotel & Venue Highlights Showcase (Parallax Enriched) -->
     <section class="showcase-section tech-box reveal-elem" aria-label="Venue Highlights">
       <div class="showcase-header">
         <h2>🏨 VENUE & HOTEL HIGHLIGHTS</h2>
@@ -1677,7 +1897,7 @@
       <div class="photo-grid-4">
         <div class="photo-card tech-box" onclick="openImageModal('pictures/115398042.jpg', 'Hotel Grounds // Panoramic View')">
           <div class="photo-img-wrap">
-            <img src="pictures/115398042.jpg" alt="Hotel Venue View 1" loading="lazy">
+            <img class="parallax-img" src="pictures/115398042.jpg" alt="Hotel Venue View 1" loading="lazy">
           </div>
           <div class="photo-tag">
             <span>Hotel Grounds</span>
@@ -1687,7 +1907,7 @@
 
         <div class="photo-card tech-box" onclick="openImageModal('pictures/286368146.jpg', 'Poolside & Lounge Area')">
           <div class="photo-img-wrap">
-            <img src="pictures/286368146.jpg" alt="Hotel Venue View 2" loading="lazy">
+            <img class="parallax-img" src="pictures/286368146.jpg" alt="Hotel Venue View 2" loading="lazy">
           </div>
           <div class="photo-tag">
             <span>Poolside & Lounge</span>
@@ -1697,7 +1917,7 @@
 
         <div class="photo-card tech-box" onclick="openImageModal('pictures/286368670-qfedp5dua75n4rf9lrgqv486tm3or7vebfz8igp2u8.jpg', 'Main Facility & Banquet Atmosphere')">
           <div class="photo-img-wrap">
-            <img src="pictures/286368670-qfedp5dua75n4rf9lrgqv486tm3or7vebfz8igp2u8.jpg" alt="Hotel Venue View 3" loading="lazy">
+            <img class="parallax-img" src="pictures/286368670-qfedp5dua75n4rf9lrgqv486tm3or7vebfz8igp2u8.jpg" alt="Hotel Venue View 3" loading="lazy">
           </div>
           <div class="photo-tag">
             <span>Main Facility</span>
@@ -1707,7 +1927,7 @@
 
         <div class="photo-card tech-box" onclick="openImageModal('pictures/426086122.jpg', 'Scenic Surroundings & Landscapes')">
           <div class="photo-img-wrap">
-            <img src="pictures/426086122.jpg" alt="Hotel Venue View 4" loading="lazy">
+            <img class="parallax-img" src="pictures/426086122.jpg" alt="Hotel Venue View 4" loading="lazy">
           </div>
           <div class="photo-tag">
             <span>Scenic Surroundings</span>
@@ -1717,7 +1937,7 @@
       </div>
     </section>
 
-    <!-- SECTION 2: All-Black Attire Inspiration Showcase -->
+    <!-- SECTION 2: All-Black Attire Inspiration Showcase (Parallax Enriched) -->
     <section class="showcase-section tech-box reveal-elem" aria-label="Dresscode Showcase">
       <div class="showcase-header">
         <h2>🕶️ DRESS CODE INSPIRATION // ALL-BLACK</h2>
@@ -1727,7 +1947,7 @@
       <div class="photo-grid-4">
         <div class="photo-card tech-box" onclick="openImageModal('dresscode/d27832ae85a86976075eba55b5ecfbfd.jpg', 'Stealth Casual Fit')">
           <div class="photo-img-wrap portrait">
-            <img src="dresscode/d27832ae85a86976075eba55b5ecfbfd.jpg" alt="Black Attire Style 1" loading="lazy">
+            <img class="parallax-img" src="dresscode/d27832ae85a86976075eba55b5ecfbfd.jpg" alt="Black Attire Style 1" loading="lazy">
           </div>
           <div class="photo-tag">
             <span>Stealth Casual</span>
@@ -1737,7 +1957,7 @@
 
         <div class="photo-card tech-box" onclick="openImageModal('dresscode/e81124469cbc99774aab8fdd461f3474.jpg', 'Smart Monochrome Look')">
           <div class="photo-img-wrap portrait">
-            <img src="dresscode/e81124469cbc99774aab8fdd461f3474.jpg" alt="Black Attire Style 2" loading="lazy">
+            <img class="parallax-img" src="dresscode/e81124469cbc99774aab8fdd461f3474.jpg" alt="Black Attire Style 2" loading="lazy">
           </div>
           <div class="photo-tag">
             <span>Smart Monochrome</span>
@@ -1747,7 +1967,7 @@
 
         <div class="photo-card tech-box" onclick="openImageModal('dresscode/images%20(1).jpg', 'Evening Elegant Aesthetic')">
           <div class="photo-img-wrap portrait">
-            <img src="dresscode/images%20(1).jpg" alt="Black Attire Style 3" loading="lazy">
+            <img class="parallax-img" src="dresscode/images%20(1).jpg" alt="Black Attire Style 3" loading="lazy">
           </div>
           <div class="photo-tag">
             <span>Evening Elegant</span>
@@ -1757,11 +1977,61 @@
 
         <div class="photo-card tech-box" onclick="openImageModal('dresscode/images.jpg', 'Classic Black Silhouette')">
           <div class="photo-img-wrap portrait">
-            <img src="dresscode/images.jpg" alt="Black Attire Style 4" loading="lazy">
+            <img class="parallax-img" src="dresscode/images.jpg" alt="Black Attire Style 4" loading="lazy">
           </div>
           <div class="photo-tag">
             <span>Classic Black Fit</span>
             <span class="badge-mini">STYLE // 04</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive FAQ Accordion -->
+    <section class="faq-section tech-box reveal-elem" aria-label="Event Frequently Asked Questions">
+      <div class="directory-title-wrap">
+        <h2>❓ FREQUENTLY ASKED QUESTIONS</h2>
+        <p>Got questions? Tap each panel for answers and clarifications</p>
+      </div>
+
+      <div class="faq-accordion">
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <button class="faq-question">
+            <span>When is the payment settlement deadline?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            Please make sure to finalize your payment transfer <strong>before October 6th, 2026</strong>. This helps the organizing committee lock down food portions, table reservations, and event arrangements with the venue.
+          </div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <button class="faq-question">
+            <span>Can I pay for multiple friends in one bank slip?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            Yes! Use the pass selector above to calculate your total (e.g. 2 passes = LKR 12,000). Transfer the total amount and WhatsApp the slip mentioning the full names of all members covered.
+          </div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <button class="faq-question">
+            <span>Is parking available at the venue?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            Yes, dedicated secure parking is available on-site for both bikes and cars.
+          </div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <button class="faq-question">
+            <span>What if I have dietary requirements or questions?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            Ping any member of our organizing committee listed in the directory below directly via WhatsApp anytime!
           </div>
         </div>
       </div>
@@ -1788,7 +2058,7 @@
             <span class="member-phone-txt">+94 71 071 5130</span>
             <button class="btn-copy-small" onclick="copyValue('+94710715130', null, 'Binudi\'s Number Copied!')" title="Copy Number" aria-label="Copy Binudi's Number">📋</button>
           </div>
-          <a href="https://wa.me/94710715130" target="_blank" rel="noopener noreferrer" class="btn-member-wa">
+          <a href="https://wa.me/94710715130" target="_blank" rel="noopener noreferrer" class="btn-member-wa" onclick="playBeep('click')">
             <span>💬 Chat on WhatsApp</span>
           </a>
         </div>
@@ -1806,7 +2076,7 @@
             <span class="member-phone-txt">+94 77 202 2589</span>
             <button class="btn-copy-small" onclick="copyValue('+94772022589', null, 'Sanula\'s Number Copied!')" title="Copy Number" aria-label="Copy Sanula's Number">📋</button>
           </div>
-          <a href="https://wa.me/94772022589" target="_blank" rel="noopener noreferrer" class="btn-member-wa">
+          <a href="https://wa.me/94772022589" target="_blank" rel="noopener noreferrer" class="btn-member-wa" onclick="playBeep('click')">
             <span>💬 Chat on WhatsApp</span>
           </a>
         </div>
@@ -1824,7 +2094,7 @@
             <span class="member-phone-txt">+94 76 387 4989</span>
             <button class="btn-copy-small" onclick="copyValue('+94763874989', null, 'Malindu\'s Number Copied!')" title="Copy Number" aria-label="Copy Malindu's Number">📋</button>
           </div>
-          <a href="https://wa.me/94763874989" target="_blank" rel="noopener noreferrer" class="btn-member-wa">
+          <a href="https://wa.me/94763874989" target="_blank" rel="noopener noreferrer" class="btn-member-wa" onclick="playBeep('click')">
             <span>💬 Chat on WhatsApp</span>
           </a>
         </div>
@@ -1842,7 +2112,7 @@
             <span class="member-phone-txt">+94 76 021 2854</span>
             <button class="btn-copy-small" onclick="copyValue('+94760212854', null, 'Sithil\'s Number Copied!')" title="Copy Number" aria-label="Copy Sithil's Number">📋</button>
           </div>
-          <a href="https://wa.me/94760212854" target="_blank" rel="noopener noreferrer" class="btn-member-wa">
+          <a href="https://wa.me/94760212854" target="_blank" rel="noopener noreferrer" class="btn-member-wa" onclick="playBeep('click')">
             <span>💬 Chat on WhatsApp</span>
           </a>
         </div>
@@ -1860,7 +2130,7 @@
             <span class="member-phone-txt">077 348 5204</span>
             <button class="btn-copy-small" onclick="copyValue('0773485204', null, 'Seneth\'s Number Copied!')" title="Copy Number" aria-label="Copy Seneth's Number">📋</button>
           </div>
-          <a href="https://wa.me/94773485204" target="_blank" rel="noopener noreferrer" class="btn-member-wa">
+          <a href="https://wa.me/94773485204" target="_blank" rel="noopener noreferrer" class="btn-member-wa" onclick="playBeep('click')">
             <span>💬 Chat on WhatsApp</span>
           </a>
         </div>
@@ -1877,6 +2147,7 @@
         target="_blank" 
         rel="noopener noreferrer" 
         class="btn-support-link"
+        onclick="playBeep('click')"
       >
         <span>💬 Report on WhatsApp</span>
       </a>
@@ -1895,15 +2166,149 @@
 
   <script>
     // =========================================================================
-    // 🛠️ ADMIN SETTINGS: EDIT THESE TWO LINES ON GITHUB WHEN SOMEONE PAYS!
+    // 🛠️️ ADMIN SETTINGS: EDIT THESE TWO LINES ON GITHUB WHEN SOMEONE PAYS!
     // =========================================================================
     const TARGET_BUDGET = 306000;  // Your goal in LKR
     const PAID_TICKETS  = 10;      // Change this number (e.g. 1, 2, 5, 10...)
     // =========================================================================
 
+    // =========================================================================
+    // 🔊 SYNTHESIZED CYBER AUDIO ENGINE
+    // =========================================================================
+    let audioEnabled = true;
+    let audioCtx = null;
+
+    function initAudioContext() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) audioCtx = new AudioContext();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playBeep(type = 'click') {
+      if (!audioEnabled) return;
+      try {
+        initAudioContext();
+        if (!audioCtx) return;
+
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        const now = audioCtx.currentTime;
+        if (type === 'click') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(620, now);
+          osc.frequency.exponentialRampToValueAtTime(140, now + 0.06);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.06);
+          osc.start(now);
+          osc.stop(now + 0.06);
+        } else if (type === 'confirm') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(440, now);
+          osc.frequency.setValueAtTime(880, now + 0.08);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.22);
+          osc.start(now);
+          osc.stop(now + 0.22);
+        }
+      } catch (e) {}
+    }
+
+    function toggleCyberSound() {
+      audioEnabled = !audioEnabled;
+      const lbl = document.getElementById("audio-lbl");
+      if (lbl) lbl.innerText = audioEnabled ? "AUDIO: ON" : "AUDIO: MUTED";
+      if (audioEnabled) playBeep('confirm');
+    }
+
+    // =========================================================================
+    // 📱 KINETIC MOBILE SCROLL ENGINE (Parallax + Progress Bar + Particle Boost)
+    // =========================================================================
+    let lastScrollY = window.scrollY;
+    let scrollVelocity = 0;
+    const scrollIndicator = document.getElementById('scroll-indicator');
+    const parallaxImages = document.querySelectorAll('.parallax-img');
+
+    function onScrollMotion() {
+      const currentScrollY = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      
+      // Top Laser Progress
+      if (docHeight > 0 && scrollIndicator) {
+        const pct = (currentScrollY / docHeight) * 100;
+        scrollIndicator.style.width = `${pct}%`;
+      }
+
+      // Parallax image shift on scroll
+      const viewHeight = window.innerHeight;
+      parallaxImages.forEach(img => {
+        const rect = img.getBoundingClientRect();
+        if (rect.top < viewHeight && rect.bottom > 0) {
+          const shift = ((rect.top / viewHeight) - 0.5) * 22; // subtle shift range (-11px to +11px)
+          img.style.transform = `translate3d(0, ${shift}px, 0)`;
+        }
+      });
+
+      scrollVelocity = (currentScrollY - lastScrollY);
+      lastScrollY = currentScrollY;
+    }
+
+    window.addEventListener('scroll', () => {
+      requestAnimationFrame(onScrollMotion);
+    }, { passive: true });
+
+    // =========================================================================
+    // 🎟️ PASS CALCULATOR
+    // =========================================================================
+    let currentPassCount = 1;
+    const PRICE_PER_PASS = 6000;
+
+    function changePasses(change) {
+      currentPassCount = Math.max(1, Math.min(25, currentPassCount + change));
+      playBeep('click');
+      updateCalculator();
+    }
+
+    function updateCalculator() {
+      const qtyEl = document.getElementById('calc-qty');
+      const totalEl = document.getElementById('calc-total');
+      const slipBtn = document.getElementById('dynamic-slip-btn');
+      const slipBtnText = document.getElementById('slip-btn-text');
+
+      const total = currentPassCount * PRICE_PER_PASS;
+      if (qtyEl) qtyEl.innerText = currentPassCount;
+      if (totalEl) totalEl.innerText = `LKR ${total.toLocaleString()}`;
+
+      if (slipBtn && slipBtnText) {
+        const passWord = currentPassCount === 1 ? '1 PASS' : `${currentPassCount} PASSES`;
+        slipBtnText.innerText = `📤 SUBMIT ${passWord} SLIP VIA WHATSAPP (LKR ${total.toLocaleString()})`;
+        
+        const message = `Hi, I have transferred the LKR ${total.toLocaleString()} fee for ${currentPassCount} pass(es) for the Sri Bodhiraja College Get-Together 2026. Here is my payment receipt/slip:`;
+        slipBtn.href = `https://wa.me/94710715130?text=${encodeURIComponent(message)}`;
+      }
+    }
+
+    // =========================================================================
+    // ❓ FAQ ACCORDION HANDLER
+    // =========================================================================
+    function toggleFaq(item) {
+      playBeep('click');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // =========================================================================
+    // 📊 BUDGET TRACKER
+    // =========================================================================
     function initBudgetTracker() {
-      const TICKET_PRICE = 6000;
-      const currentTotal = PAID_TICKETS * TICKET_PRICE;
+      const currentTotal = PAID_TICKETS * PRICE_PER_PASS;
       const pct = Math.min(100, Math.round((currentTotal / TARGET_BUDGET) * 100));
 
       const statCollected = document.getElementById("stat-collected");
@@ -1930,7 +2335,9 @@
       }
     }
 
-    // Scroll Observer for smooth reveals
+    // =========================================================================
+    // 📜 SCROLL OBSERVER
+    // =========================================================================
     function initScrollReveal() {
       const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
@@ -1944,8 +2351,11 @@
       document.querySelectorAll('.reveal-elem').forEach(el => observer.observe(el));
     }
 
-    // Interactive Image Lightbox
+    // =========================================================================
+    // 🖼️ LIGHTBOX MODAL
+    // =========================================================================
     function openImageModal(imgSrc, captionText) {
+      playBeep('confirm');
       const modal = document.getElementById('image-modal');
       const modalImg = document.getElementById('modal-img');
       const modalCaption = document.getElementById('modal-caption');
@@ -1957,6 +2367,7 @@
     }
 
     function closeImageModal() {
+      playBeep('click');
       const modal = document.getElementById('image-modal');
       modal.classList.remove('active');
       document.body.style.overflow = '';
@@ -1966,8 +2377,11 @@
       if (e.key === 'Escape') closeImageModal();
     });
 
-    // Modern Clipboard Handler
+    // =========================================================================
+    // 📋 CLIPBOARD HANDLER
+    // =========================================================================
     async function copyValue(text, btnElementId, successNotice) {
+      playBeep('confirm');
       const btn = btnElementId ? document.getElementById(btnElementId) : null;
       const toast = document.getElementById("cyber-toast");
       const toastText = document.getElementById("toast-text");
@@ -2014,7 +2428,9 @@
       }
     }
 
-    // Countdown Timer
+    // =========================================================================
+    // ⏳ COUNTDOWN TIMER
+    // =========================================================================
     const targetTimestamp = new Date("October 15, 2026 16:00:00").getTime();
 
     function refreshCountdown() {
@@ -2051,12 +2467,35 @@
     refreshCountdown();
 
     // =========================================================================
-    // 🌌 VISUAL UPGRADE: CONNECTED CYBER CONSTELLATION CANVAS
+    // 🌌 PARTICLE CANVAS WITH SCROLL VELOCITY DRIFT
     // =========================================================================
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
     let pWidth, pHeight;
     let particlesArray = [];
+    const mouse = { x: null, y: null, radius: 120 };
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+
+    window.addEventListener('touchmove', (e) => {
+      if (e.touches && e.touches[0]) {
+        mouse.x = e.touches[0].clientX;
+        mouse.y = e.touches[0].clientY;
+      }
+    }, { passive: true });
+
+    window.addEventListener('touchend', () => {
+      mouse.x = null;
+      mouse.y = null;
+    });
+
+    window.addEventListener('mouseout', () => {
+      mouse.x = null;
+      mouse.y = null;
+    });
 
     function resizeCanvas() {
       pWidth = canvas.width = window.innerWidth;
@@ -2081,15 +2520,32 @@
       }
 
       update() {
+        // Dampened scroll velocity adds drift to particles
+        const drift = Math.max(-4, Math.min(4, scrollVelocity * 0.15));
+        this.y += (this.speedY - drift);
         this.x += this.speedX;
-        this.y += this.speedY;
 
         if (this.y < 0) {
           this.y = pHeight;
           this.x = Math.random() * pWidth;
         }
+        if (this.y > pHeight) {
+          this.y = 0;
+          this.x = Math.random() * pWidth;
+        }
         if (this.x < 0) this.x = pWidth;
         if (this.x > pWidth) this.x = 0;
+
+        if (mouse.x != null && mouse.y != null) {
+          const dx = mouse.x - this.x;
+          const dy = mouse.y - this.y;
+          const distance = Math.hypot(dx, dy);
+          if (distance < mouse.radius) {
+            const force = (mouse.radius - distance) / mouse.radius;
+            this.x -= (dx / distance) * force * 3;
+            this.y -= (dy / distance) * force * 3;
+          }
+        }
       }
 
       draw() {
@@ -2136,6 +2592,10 @@
         particlesArray[i].draw();
       }
       drawConstellationLines();
+
+      // Smooth scroll velocity decay
+      scrollVelocity *= 0.92;
+
       requestAnimationFrame(renderParticles);
     }
 
@@ -2143,6 +2603,8 @@
       renderParticles();
       initBudgetTracker();
       initScrollReveal();
+      updateCalculator();
+      onScrollMotion();
     };
   </script>
 </body>
