@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
   <meta name="theme-color" content="#120205" />
   <title>Sri Bodhiraja College // Batch Get-Together 2026</title>
   
@@ -15,7 +15,7 @@
     :root {
       --bg-dark: #0a0103;
       --bg-maroon-dark: #160206;
-      --bg-maroon-card: rgba(28, 4, 9, 0.9);
+      --bg-maroon-card: rgba(26, 3, 8, 0.92);
       --bg-card-hover: rgba(45, 6, 14, 0.98);
       --maroon-neon: #ff1a4b;
       --maroon-glow: rgba(255, 26, 75, 0.45);
@@ -113,10 +113,10 @@
       position: fixed;
       top: 0;
       left: 0;
-      height: 3.5px;
+      height: 3px;
       width: 0%;
       background: linear-gradient(90deg, var(--maroon-neon), var(--gold-cyber));
-      box-shadow: 0 0 12px var(--maroon-neon);
+      box-shadow: 0 0 10px var(--maroon-neon);
       z-index: 9999;
       pointer-events: none;
       transition: width 0.08s ease-out;
@@ -132,16 +132,19 @@
       pointer-events: none;
     }
 
-    /* Sticky HUD Navigation */
+    /* =========================================================================
+       📱 MOBILE-FIRST NAVIGATION ENGINE
+       - Desktop: Clean Top Bar
+       - Mobile (<768px): Native Floating App Bottom Dock
+       ========================================================================= */
     .hud-navbar {
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 900;
       background: rgba(14, 2, 5, 0.94);
       backdrop-filter: blur(14px);
-      border-bottom: 1.5px solid var(--border-gold);
-      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.7);
-      padding: 0.6rem 1rem;
+      border-bottom: 1px solid var(--border-gold);
+      padding: 0.65rem 1rem;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -149,25 +152,10 @@
 
     .nav-tabs {
       display: flex;
-      gap: 0.45rem;
+      gap: 0.8rem;
       max-width: 1080px;
       width: 100%;
-      overflow-x: auto;
-      scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
-      justify-content: flex-start;
-      padding: 0.1rem 0;
-    }
-
-    .nav-tabs::-webkit-scrollbar {
-      display: none;
-    }
-
-    @media (min-width: 780px) {
-      .nav-tabs {
-        justify-content: center;
-        gap: 0.7rem;
-      }
+      justify-content: center;
     }
 
     .nav-tab-btn {
@@ -175,18 +163,16 @@
       border: 1px solid rgba(255, 26, 75, 0.35);
       color: var(--text-muted);
       font-family: 'Orbitron', monospace;
-      font-size: clamp(0.7rem, 2vw, 0.8rem);
+      font-size: 0.78rem;
       font-weight: 700;
       letter-spacing: 0.06em;
-      padding: 0.55rem 0.85rem;
-      border-radius: 6px;
+      padding: 0.55rem 0.95rem;
+      border-radius: 8px;
       cursor: pointer;
-      white-space: nowrap;
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.45rem;
       transition: all 0.25s ease;
-      flex-shrink: 0;
     }
 
     .nav-tab-btn:hover {
@@ -203,13 +189,76 @@
       font-weight: 900;
     }
 
+    /* 📱 MOBILE BOTTOM DOCK (Hidden on PC, active on mobile) */
+    @media (max-width: 767px) {
+      .hud-navbar {
+        position: fixed;
+        top: auto;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 1.5rem);
+        max-width: 480px;
+        padding: 0.45rem 0.55rem;
+        border: 1px solid rgba(255, 209, 92, 0.4);
+        border-radius: 20px;
+        background: rgba(18, 2, 6, 0.92);
+        backdrop-filter: blur(20px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85), 0 0 20px rgba(255, 26, 75, 0.25);
+        z-index: 9999;
+      }
+
+      .nav-tabs {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.25rem;
+        width: 100%;
+      }
+
+      .nav-tab-btn {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0.2rem;
+        padding: 0.45rem 0.1rem;
+        font-size: 0.58rem;
+        font-weight: 700;
+        letter-spacing: 0;
+        border-radius: 12px;
+        border: 1px solid transparent;
+        background: transparent;
+        color: #d1a4ac;
+      }
+
+      .nav-tab-btn span.tab-icon {
+        font-size: 1.15rem;
+        line-height: 1;
+      }
+
+      .nav-tab-btn span.tab-text {
+        font-size: 0.58rem;
+      }
+
+      .nav-tab-btn.active {
+        background: linear-gradient(135deg, rgba(255, 209, 92, 0.2), rgba(255, 26, 75, 0.35));
+        border-color: var(--gold-cyber);
+        color: #ffffff;
+        box-shadow: 0 0 12px rgba(255, 209, 92, 0.3);
+      }
+
+      /* Extra space at bottom of page so mobile dock doesn't cover content */
+      .page-wrapper {
+        padding-bottom: 6.5rem !important;
+      }
+    }
+
     .page-wrapper {
       position: relative;
       z-index: 10;
       width: 100%;
       max-width: 1080px;
       margin: 0 auto;
-      padding: clamp(1.2rem, 3.5vw, 2.5rem) clamp(1rem, 3.5vw, 2rem) 4rem;
+      padding: clamp(1.2rem, 3.5vw, 2.5rem) clamp(0.9rem, 3.5vw, 2rem) 4rem;
     }
 
     /* Tab Switcher Views */
@@ -223,7 +272,7 @@
     }
 
     @keyframes tabFadeIn {
-      0% { opacity: 0; transform: translateY(14px); }
+      0% { opacity: 0; transform: translateY(12px); }
       100% { opacity: 1; transform: translateY(0); }
     }
 
@@ -235,10 +284,9 @@
     .tech-box::before, .tech-box::after {
       content: '';
       position: absolute;
-      width: 10px;
-      height: 10px;
+      width: 8px;
+      height: 8px;
       pointer-events: none;
-      transition: all 0.3s ease;
       z-index: 4;
     }
 
@@ -256,25 +304,11 @@
       border-right: 2px solid var(--maroon-neon);
     }
 
-    .tech-box:hover::before {
-      width: 16px;
-      height: 16px;
-      border-color: #ffffff;
-      box-shadow: 0 0 8px var(--gold-cyber);
-    }
-
-    .tech-box:hover::after {
-      width: 16px;
-      height: 16px;
-      border-color: var(--gold-bright);
-      box-shadow: 0 0 8px var(--maroon-neon);
-    }
-
     /* Header Controls */
     .top-action-bar {
       display: flex;
       justify-content: center;
-      gap: 0.8rem;
+      gap: 0.6rem;
       margin-bottom: 1.2rem;
       flex-wrap: wrap;
     }
@@ -282,24 +316,18 @@
     .hud-badge {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1.1rem;
+      gap: 0.45rem;
+      padding: 0.45rem 0.95rem;
       background: rgba(43, 6, 13, 0.95);
       border: 1px solid var(--border-gold);
-      border-radius: 6px;
+      border-radius: 8px;
       font-family: 'Orbitron', monospace;
-      font-size: clamp(0.68rem, 2.2vw, 0.8rem);
+      font-size: clamp(0.68rem, 2.2vw, 0.78rem);
       font-weight: 700;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.1em;
       color: var(--gold-cyber);
-      box-shadow: 0 0 18px rgba(255, 209, 92, 0.25);
+      box-shadow: 0 0 15px rgba(255, 209, 92, 0.2);
       text-transform: uppercase;
-      animation: hudFloat 3.8s ease-in-out infinite alternate;
-    }
-
-    @keyframes hudFloat {
-      0% { transform: translateY(0); box-shadow: 0 0 15px rgba(255, 209, 92, 0.2); }
-      100% { transform: translateY(-5px); box-shadow: 0 0 30px rgba(255, 209, 92, 0.5); }
     }
 
     .audio-toggle-btn {
@@ -309,25 +337,21 @@
       font-family: 'Orbitron', monospace;
       font-size: 0.72rem;
       font-weight: 700;
-      padding: 0.5rem 0.9rem;
-      border-radius: 6px;
+      padding: 0.45rem 0.85rem;
+      border-radius: 8px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      letter-spacing: 0.08em;
-      transition: all 0.2s ease;
+      gap: 0.35rem;
     }
 
-    .audio-toggle-btn:hover {
-      background: rgba(255, 209, 92, 0.15);
-      border-color: #ffffff;
-      transform: scale(1.04);
+    .audio-toggle-btn:active {
+      transform: scale(0.95);
     }
 
     .blinking-dot {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: var(--maroon-neon);
       box-shadow: 0 0 10px var(--maroon-neon);
@@ -342,13 +366,13 @@
     .hero-title {
       font-family: 'Orbitron', sans-serif;
       font-weight: 900;
-      font-size: clamp(1.85rem, 6.4vw, 3.8rem);
+      font-size: clamp(1.75rem, 6.2vw, 3.6rem);
       line-height: 1.15;
       text-transform: uppercase;
       letter-spacing: 0.02em;
       color: #ffffff;
       text-shadow: 0 0 25px rgba(255, 26, 75, 0.6);
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.6rem;
       text-align: center;
     }
 
@@ -368,9 +392,9 @@
 
     .hero-subtitle {
       font-family: 'Rajdhani', sans-serif;
-      font-size: clamp(0.95rem, 2.5vw, 1.25rem);
+      font-size: clamp(0.92rem, 2.5vw, 1.2rem);
       font-weight: 600;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.04em;
       color: var(--text-muted);
       max-width: 680px;
       margin: 0 auto;
@@ -383,9 +407,9 @@
       border: 1px solid var(--border-gold);
       border-radius: 14px;
       backdrop-filter: blur(16px);
-      padding: 1.3rem;
-      margin-bottom: 1.8rem;
-      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
+      padding: clamp(1rem, 3.5vw, 1.4rem);
+      margin-bottom: 1.3rem;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.65);
     }
 
     .countdown-top-bar {
@@ -393,26 +417,25 @@
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.4rem;
       font-family: 'Orbitron', monospace;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: var(--gold-cyber);
-      letter-spacing: 0.12em;
-      padding-bottom: 0.75rem;
+      letter-spacing: 0.1em;
+      padding-bottom: 0.65rem;
       border-bottom: 1px solid rgba(255, 26, 75, 0.25);
-      margin-bottom: 1rem;
+      margin-bottom: 0.9rem;
     }
 
     .countdown-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.85rem;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
     }
 
-    @media (min-width: 600px) {
+    @media (max-width: 480px) {
       .countdown-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 1.1rem;
+        gap: 0.4rem;
       }
     }
 
@@ -420,97 +443,80 @@
       background: rgba(12, 1, 4, 0.9);
       border: 1px solid rgba(255, 209, 92, 0.3);
       border-radius: 8px;
-      padding: 0.95rem 0.4rem;
+      padding: 0.75rem 0.2rem;
       text-align: center;
-      position: relative;
-      transition: transform 0.3s ease, border-color 0.3s ease;
-    }
-
-    .countdown-box:hover {
-      transform: translateY(-4px);
-      border-color: var(--gold-cyber);
-    }
-
-    .countdown-box::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold-cyber), transparent);
     }
 
     .countdown-number {
       font-family: 'Orbitron', monospace;
       font-weight: 800;
-      font-size: clamp(1.65rem, 5.2vw, 2.6rem);
+      font-size: clamp(1.4rem, 4.8vw, 2.4rem);
       color: #ffffff;
       line-height: 1;
-      text-shadow: 0 0 15px var(--maroon-glow);
+      text-shadow: 0 0 12px var(--maroon-glow);
     }
 
     .countdown-tag {
       font-family: 'Rajdhani', sans-serif;
       font-weight: 700;
-      font-size: 0.72rem;
-      letter-spacing: 0.16em;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
       color: var(--text-muted);
-      margin-top: 0.45rem;
+      margin-top: 0.35rem;
       text-transform: uppercase;
     }
 
     .cal-btn-wrap {
-      margin-top: 1rem;
+      margin-top: 0.9rem;
       display: flex;
       justify-content: center;
     }
 
     .btn-cal-sync {
+      width: 100%;
       background: rgba(255, 209, 92, 0.12);
       border: 1px solid var(--gold-cyber);
       color: var(--gold-cyber);
       font-family: 'Orbitron', sans-serif;
-      font-size: 0.74rem;
+      font-size: 0.75rem;
       font-weight: 700;
-      padding: 0.65rem 1.2rem;
-      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      min-height: 48px;
+      border-radius: 8px;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 0.5rem;
-      letter-spacing: 0.08em;
-      transition: all 0.25s ease;
+      letter-spacing: 0.06em;
+      transition: all 0.2s ease;
     }
 
-    .btn-cal-sync:hover {
-      background: var(--gold-cyber);
-      color: #0b0103;
-      box-shadow: 0 0 20px rgba(255, 209, 92, 0.5);
-      transform: translateY(-2px);
+    .btn-cal-sync:active {
+      transform: scale(0.97);
     }
 
     /* Budget Progress Bar */
     .budget-bar-track {
       width: 100%;
-      height: 28px;
+      height: 26px;
       background: rgba(8, 1, 2, 0.98);
       border: 1px solid var(--border-cyber);
-      border-radius: 14px;
+      border-radius: 13px;
       overflow: hidden;
-      margin: 0.9rem 0;
-      box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.9);
+      margin: 0.75rem 0;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.9);
     }
 
     .budget-bar-fill {
       height: 100%;
       background: linear-gradient(90deg, #ff1a4b 0%, #ffd15c 50%, #22c55e 100%);
       background-size: 200% 100%;
-      border-radius: 14px;
+      border-radius: 13px;
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      padding-right: 12px;
+      padding-right: 10px;
       transition: width 1.3s cubic-bezier(0.2, 0.8, 0.2, 1);
       min-width: 3rem;
       animation: barGradientFlow 4s ease infinite;
@@ -524,7 +530,7 @@
 
     .budget-bar-fill span {
       font-family: 'Orbitron', monospace;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 800;
       color: #080103;
     }
@@ -533,66 +539,58 @@
     .calculator-hud {
       background: rgba(10, 1, 3, 0.95);
       border: 1.5px solid var(--border-gold);
-      border-radius: 12px;
-      padding: 1.2rem;
-      margin-bottom: 1.5rem;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1.2rem;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 0.8rem;
     }
 
     .calculator-row {
       display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
       justify-content: space-between;
       align-items: center;
-    }
-
-    @media (min-width: 600px) {
-      .calculator-row {
-        flex-direction: row;
-      }
+      gap: 0.5rem;
     }
 
     .counter-control {
       display: inline-flex;
       align-items: center;
-      gap: 0.8rem;
+      gap: 0.6rem;
       background: rgba(28, 4, 9, 0.9);
       border: 1px solid var(--maroon-neon);
       border-radius: 8px;
-      padding: 0.3rem 0.6rem;
+      padding: 0.25rem 0.5rem;
     }
 
     .btn-counter {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       background: rgba(255, 26, 75, 0.25);
       border: 1px solid var(--maroon-neon);
       color: #ffffff;
       font-family: 'Orbitron', monospace;
       font-weight: 800;
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       border-radius: 6px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.2s ease;
     }
 
-    .btn-counter:hover {
+    .btn-counter:active {
+      transform: scale(0.92);
       background: var(--maroon-neon);
-      transform: scale(1.08);
     }
 
     .counter-val {
       font-family: 'Orbitron', monospace;
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       font-weight: 800;
       color: var(--gold-cyber);
-      min-width: 2rem;
+      min-width: 1.8rem;
       text-align: center;
     }
 
@@ -600,8 +598,8 @@
     .bank-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 1.3rem;
-      margin-bottom: 1.5rem;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
     }
 
     @media (min-width: 720px) {
@@ -614,25 +612,19 @@
       background: rgba(16, 2, 5, 0.92);
       border: 1px solid rgba(255, 209, 92, 0.35);
       border-radius: 12px;
-      padding: 1.35rem;
+      padding: 1.1rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 1rem;
-      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.7);
-      transition: all 0.3s ease;
-    }
-
-    .bank-card:hover {
-      border-color: var(--gold-cyber);
-      transform: translateY(-4px);
+      gap: 0.85rem;
+      box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.7);
     }
 
     .account-bar {
       background: #080103;
       border: 1px solid var(--maroon-neon);
       border-radius: 8px;
-      padding: 0.6rem 0.8rem;
+      padding: 0.55rem 0.75rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -642,9 +634,9 @@
 
     .account-num-text {
       font-family: 'Orbitron', monospace;
-      font-size: clamp(1.05rem, 3.2vw, 1.35rem);
+      font-size: clamp(1.05rem, 3.2vw, 1.3rem);
       font-weight: 800;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       color: var(--gold-cyber);
     }
 
@@ -655,19 +647,18 @@
       font-family: 'Orbitron', sans-serif;
       font-size: 0.74rem;
       font-weight: 700;
-      padding: 0.6rem 0.9rem;
+      padding: 0.55rem 0.85rem;
       min-height: 44px;
       border-radius: 6px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.2s ease;
     }
 
-    .btn-copy-action:hover {
-      background: rgba(255, 26, 75, 0.45);
-      transform: scale(1.05);
+    .btn-copy-action:active {
+      transform: scale(0.94);
+      background: var(--maroon-neon);
     }
 
     .btn-upload-slip {
@@ -680,68 +671,62 @@
       font-family: 'Orbitron', sans-serif;
       font-size: clamp(0.78rem, 2.5vw, 0.92rem);
       font-weight: 800;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.04em;
       text-decoration: none;
-      padding: 1rem 1.4rem;
-      min-height: 50px;
-      border-radius: 8px;
-      box-shadow: 0 0 25px rgba(34, 197, 94, 0.4);
+      padding: 0.95rem 1.2rem;
+      min-height: 52px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
       border: 1px solid #4ade80;
       text-align: center;
       width: 100%;
-      transition: all 0.25s ease;
+      margin-top: 0.5rem;
     }
 
-    .btn-upload-slip:hover {
-      background: #16a34a;
-      box-shadow: 0 0 35px rgba(34, 197, 94, 0.7);
-      transform: translateY(-2px);
+    .btn-upload-slip:active {
+      transform: scale(0.97);
     }
 
     .poll-callout-box {
       background: rgba(22, 2, 6, 0.92);
       border: 1.5px solid var(--gold-cyber);
       border-radius: 10px;
-      padding: 1.15rem;
+      padding: 1rem;
       display: flex;
       flex-direction: column;
-      gap: 0.8rem;
-      margin-top: 1.2rem;
+      gap: 0.75rem;
+      margin-top: 1.1rem;
     }
 
     .btn-poll-action {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.6rem;
+      gap: 0.5rem;
       background: linear-gradient(135deg, rgba(255, 209, 92, 0.18), rgba(43, 6, 14, 0.92));
       color: var(--gold-cyber);
       font-family: 'Orbitron', sans-serif;
-      font-size: clamp(0.78rem, 2.5vw, 0.92rem);
+      font-size: clamp(0.75rem, 2.5vw, 0.88rem);
       font-weight: 800;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.04em;
       text-decoration: none;
-      padding: 1rem 1.4rem;
-      min-height: 50px;
+      padding: 0.85rem 1.2rem;
+      min-height: 48px;
       border-radius: 8px;
       border: 1px solid var(--gold-cyber);
       text-align: center;
-      transition: all 0.25s ease;
     }
 
-    .btn-poll-action:hover {
-      background: var(--gold-cyber);
-      color: #0d0104;
-      box-shadow: 0 0 32px rgba(255, 209, 92, 0.6);
-      transform: translateY(-2px);
+    .btn-poll-action:active {
+      transform: scale(0.97);
     }
 
-    /* Photo Galleries with Parallax */
+    /* Photo Galleries */
     .photo-grid-4 {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.2rem;
-      margin-top: 1.4rem;
+      gap: 1rem;
+      margin-top: 1.2rem;
     }
 
     .photo-card {
@@ -752,26 +737,22 @@
       display: flex;
       flex-direction: column;
       cursor: pointer;
-      position: relative;
-      transition: transform 0.35s ease, border-color 0.3s ease;
     }
 
-    .photo-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--gold-cyber);
-      box-shadow: 0 14px 28px rgba(255, 209, 92, 0.25);
+    .photo-card:active {
+      transform: scale(0.98);
     }
 
     .photo-img-wrap {
       width: 100%;
-      height: 240px;
+      height: 220px;
       overflow: hidden;
       position: relative;
       background: #000;
     }
 
     .photo-img-wrap.portrait {
-      height: 340px;
+      height: 310px;
     }
 
     .photo-card img {
@@ -801,33 +782,33 @@
     .roster-stats-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 0.75rem;
-      margin: 1.2rem 0;
+      gap: 0.55rem;
+      margin: 1rem 0;
     }
 
     .roster-stat-card {
       background: rgba(12, 1, 4, 0.9);
       border: 1px solid rgba(255, 209, 92, 0.25);
       border-radius: 8px;
-      padding: 0.75rem 0.4rem;
+      padding: 0.65rem 0.2rem;
       text-align: center;
     }
 
     .roster-stat-val {
       font-family: 'Orbitron', monospace;
-      font-size: clamp(1.2rem, 3.2vw, 1.8rem);
+      font-size: clamp(1.15rem, 3.2vw, 1.6rem);
       font-weight: 800;
       line-height: 1.1;
     }
 
     .roster-stat-lbl {
       font-family: 'Rajdhani', sans-serif;
-      font-size: 0.75rem;
+      font-size: 0.68rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
       color: var(--text-muted);
-      margin-top: 0.25rem;
+      margin-top: 0.2rem;
     }
 
     .roster-search-bar {
@@ -836,34 +817,31 @@
       border: 1.5px solid var(--border-gold);
       border-radius: 8px;
       padding: 0.8rem 1rem;
-      font-family: 'Orbitron', monospace;
-      font-size: 0.85rem;
+      min-height: 48px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
       color: #ffffff;
       outline: none;
-      margin-bottom: 1.2rem;
-      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+      margin-bottom: 1rem;
     }
 
     .roster-search-bar:focus {
       border-color: #4ade80;
-      box-shadow: 0 0 15px rgba(74, 222, 128, 0.3);
     }
 
     .roster-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 0.65rem;
-      max-height: 580px;
+      gap: 0.55rem;
+      max-height: 520px;
       overflow-y: auto;
-      padding-right: 0.4rem;
-      scrollbar-width: thin;
-      scrollbar-color: var(--maroon-neon) #090103;
+      padding-right: 0.2rem;
     }
 
     @media (min-width: 600px) {
       .roster-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 0.8rem;
+        gap: 0.75rem;
       }
     }
 
@@ -871,17 +849,11 @@
       background: rgba(16, 2, 5, 0.88);
       border: 1px solid rgba(255, 26, 75, 0.25);
       border-radius: 8px;
-      padding: 0.65rem 0.9rem;
+      padding: 0.65rem 0.85rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 0.6rem;
-      transition: transform 0.2s ease, border-color 0.2s ease;
-    }
-
-    .attendee-card:hover {
-      transform: translateY(-2px);
-      border-color: var(--gold-cyber);
+      gap: 0.5rem;
     }
 
     .attendee-card.paid {
@@ -892,30 +864,29 @@
     .attendee-name-box {
       display: flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.55rem;
     }
 
     .attendee-num {
       font-family: 'Orbitron', monospace;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: var(--text-muted);
-      min-width: 1.8rem;
+      min-width: 1.6rem;
     }
 
     .attendee-name {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       font-weight: 700;
       color: #ffffff;
     }
 
     .status-badge {
       font-family: 'Orbitron', monospace;
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       font-weight: 800;
-      padding: 0.25rem 0.6rem;
+      padding: 0.22rem 0.55rem;
       border-radius: 4px;
-      letter-spacing: 0.05em;
       white-space: nowrap;
     }
 
@@ -923,7 +894,6 @@
       background: rgba(34, 197, 94, 0.18);
       border: 1px solid #4ade80;
       color: #4ade80;
-      box-shadow: 0 0 10px rgba(74, 222, 128, 0.25);
     }
 
     .status-badge.ok {
@@ -942,8 +912,8 @@
     .faq-accordion {
       display: flex;
       flex-direction: column;
-      gap: 0.8rem;
-      margin-top: 1.4rem;
+      gap: 0.65rem;
+      margin-top: 1.2rem;
     }
 
     .faq-item {
@@ -951,29 +921,27 @@
       border: 1px solid rgba(255, 209, 92, 0.2);
       border-radius: 8px;
       overflow: hidden;
-      transition: all 0.3s ease;
     }
 
     .faq-item.open {
       border-color: var(--gold-cyber);
-      box-shadow: 0 4px 20px rgba(255, 209, 92, 0.15);
     }
 
     .faq-question {
-      padding: 1rem 1.2rem;
+      padding: 0.9rem 1rem;
       width: 100%;
       background: transparent;
       border: none;
       color: #ffffff;
       font-family: 'Orbitron', sans-serif;
-      font-size: 0.9rem;
+      font-size: 0.84rem;
       font-weight: 700;
       text-align: left;
       cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 1rem;
+      gap: 0.75rem;
     }
 
     .faq-icon {
@@ -990,35 +958,35 @@
     .faq-answer {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), padding 0.35s ease;
+      transition: max-height 0.35s ease, padding 0.35s ease;
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: var(--text-muted);
-      line-height: 1.6;
-      padding: 0 1.2rem;
+      line-height: 1.5;
+      padding: 0 1rem;
     }
 
     .faq-item.open .faq-answer {
-      max-height: 160px;
-      padding: 0 1.2rem 1.2rem;
+      max-height: 180px;
+      padding: 0 1rem 1rem;
     }
 
     /* Committee Grid */
     .committee-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.1rem;
-      margin-top: 1.2rem;
+      gap: 0.9rem;
+      margin-top: 1rem;
     }
 
     .member-item {
       background: rgba(16, 2, 5, 0.88);
       border: 1px solid rgba(255, 26, 75, 0.25);
       border-radius: 10px;
-      padding: 1.15rem;
+      padding: 1rem;
       display: flex;
       flex-direction: column;
-      gap: 0.9rem;
+      gap: 0.75rem;
     }
 
     .btn-member-wa {
@@ -1031,17 +999,15 @@
       color: #4ade80;
       text-decoration: none;
       font-family: 'Orbitron', sans-serif;
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       font-weight: 700;
-      padding: 0.65rem 0.9rem;
+      padding: 0.7rem 0.9rem;
+      min-height: 48px;
       border-radius: 6px;
-      transition: all 0.25s ease;
     }
 
-    .btn-member-wa:hover {
-      background: #25d366;
-      color: #072611;
-      box-shadow: 0 0 20px rgba(37, 211, 102, 0.5);
+    .btn-member-wa:active {
+      transform: scale(0.96);
     }
 
     /* Lightbox Modal */
@@ -1053,14 +1019,14 @@
       height: 100vh;
       background: rgba(8, 1, 3, 0.94);
       backdrop-filter: blur(14px);
-      z-index: 9999;
+      z-index: 99999;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 1.5rem;
+      padding: 1rem;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.35s ease;
+      transition: opacity 0.3s ease;
     }
 
     .cyber-modal.active {
@@ -1069,11 +1035,10 @@
     }
 
     .modal-content-wrap {
-      max-width: 90vw;
+      max-width: 95vw;
       max-height: 85vh;
       position: relative;
       border: 1.5px solid var(--gold-cyber);
-      box-shadow: 0 0 45px rgba(255, 209, 92, 0.4);
       border-radius: 12px;
       overflow: hidden;
       background: #000;
@@ -1081,16 +1046,16 @@
 
     .modal-content-wrap img {
       max-width: 100%;
-      max-height: 80vh;
+      max-height: 75vh;
       display: block;
       object-fit: contain;
     }
 
     .modal-caption {
-      padding: 0.8rem 1.2rem;
+      padding: 0.75rem 1rem;
       background: rgba(18, 2, 5, 0.95);
       font-family: 'Orbitron', monospace;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: var(--gold-cyber);
       text-align: center;
       border-top: 1px solid rgba(255, 26, 75, 0.3);
@@ -1098,42 +1063,43 @@
 
     .btn-close-modal {
       position: absolute;
-      top: 12px;
-      right: 12px;
-      background: rgba(255, 26, 75, 0.85);
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 26, 75, 0.88);
       border: 1px solid #ffffff;
       color: #ffffff;
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
+      font-size: 1rem;
       z-index: 10;
     }
 
     .cyber-toast {
       position: fixed;
-      bottom: 20px;
+      bottom: 85px; /* Sits above mobile dock */
       left: 50%;
-      transform: translateX(-50%) translateY(30px);
+      transform: translateX(-50%) translateY(20px);
       width: calc(100% - 2.5rem);
-      max-width: 380px;
+      max-width: 360px;
       background: #0d0104;
       border: 1px solid var(--gold-cyber);
-      box-shadow: 0 0 30px rgba(255, 209, 92, 0.55);
+      box-shadow: 0 0 25px rgba(255, 209, 92, 0.55);
       color: #ffffff;
-      padding: 0.9rem 1.3rem;
-      border-radius: 8px;
+      padding: 0.85rem 1.1rem;
+      border-radius: 10px;
       font-family: 'Orbitron', monospace;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      z-index: 10000;
+      z-index: 100000;
       opacity: 0;
       pointer-events: none;
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -1146,10 +1112,10 @@
 
     footer {
       text-align: center;
-      padding-top: 2rem;
+      padding-top: 1.8rem;
       border-top: 1px solid rgba(255, 26, 75, 0.22);
       font-family: 'Rajdhani', sans-serif;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: var(--text-muted);
     }
   </style>
@@ -1180,23 +1146,28 @@
     </div>
   </div>
 
-  <!-- Sticky Top Navigation Bar -->
+  <!-- Responsive HUD Navigation (Top Bar on PC / Floating Bottom Dock on Mobile) -->
   <nav class="hud-navbar">
     <div class="nav-tabs">
       <button class="nav-tab-btn active" onclick="switchTab('tab-overview', this)">
-        <span>🏠</span> OVERVIEW
+        <span class="tab-icon">🏠</span>
+        <span class="tab-text">HOME</span>
       </button>
       <button class="nav-tab-btn" onclick="switchTab('tab-hotel', this)">
-        <span>🏨</span> HOTEL & VENUE
+        <span class="tab-icon">🏨</span>
+        <span class="tab-text">VENUE</span>
       </button>
       <button class="nav-tab-btn" onclick="switchTab('tab-dresscode', this)">
-        <span>🕶️</span> DRESS CODE
+        <span class="tab-icon">🕶️</span>
+        <span class="tab-text">STYLE</span>
       </button>
       <button class="nav-tab-btn" onclick="switchTab('tab-roster', this)">
-        <span>📋</span> ROSTER
+        <span class="tab-icon">📋</span>
+        <span class="tab-text">ROSTER</span>
       </button>
       <button class="nav-tab-btn" onclick="switchTab('tab-committee', this)">
-        <span>👥</span> COMMITTEE & FAQ
+        <span class="tab-icon">👥</span>
+        <span class="tab-text">HELP</span>
       </button>
     </div>
   </nav>
@@ -1207,7 +1178,7 @@
       <div class="top-action-bar">
         <div class="hud-badge">
           <span class="blinking-dot"></span>
-          <span>Reunion Protocol // Sri Bodhiraja College</span>
+          <span>Bodhiraja Reunion 2026</span>
         </div>
         <button class="audio-toggle-btn" id="audio-toggle" onclick="toggleCyberSound()">
           <span>🔊</span> <span id="audio-lbl">AUDIO: ON</span>
@@ -1232,8 +1203,8 @@
       <!-- Countdown Section with One-Tap Calendar Sync -->
       <section class="card-panel tech-box" aria-label="Event Countdown">
         <div class="countdown-top-bar">
-          <span>// TARGET EVENT HORIZON</span>
-          <span id="countdown-status">STATUS: TIMELINE ACTIVE (TARGET 08:00 AM)</span>
+          <span>// COUNTDOWN TO START</span>
+          <span id="countdown-status" style="color:#4ade80;">OCTOBER 15 • 8:00 AM</span>
         </div>
         <div class="countdown-grid">
           <div class="countdown-box">
@@ -1246,11 +1217,11 @@
           </div>
           <div class="countdown-box">
             <div class="countdown-number" id="minutes">--</div>
-            <div class="countdown-tag">Minutes</div>
+            <div class="countdown-tag">Mins</div>
           </div>
           <div class="countdown-box">
             <div class="countdown-number" id="seconds">--</div>
-            <div class="countdown-tag">Seconds</div>
+            <div class="countdown-tag">Secs</div>
           </div>
         </div>
         
@@ -1262,15 +1233,15 @@
             class="btn-cal-sync"
             onclick="playBeep('confirm')"
           >
-            <span>🗓️ Sync to Google Calendar (08:00 AM - 04:00 PM)</span> &rarr;
+            <span>🗓️ Add to Google Calendar (08:00 AM - 04:00 PM)</span> &rarr;
           </a>
         </div>
       </section>
 
       <!-- Budget Tracker Section -->
       <section class="card-panel tech-box" aria-label="Event Treasury Progress">
-        <div class="countdown-top-bar" style="margin-bottom: 0.6rem;">
-          <span>// TREASURY CLEARANCE TARGET [KINDLY SETTLE PAYMENT BEFORE OCTOBER 6TH]</span>
+        <div class="countdown-top-bar" style="margin-bottom: 0.5rem;">
+          <span>// TREASURY CLEARANCE [SETTLE BEFORE OCT 6TH]</span>
           <span id="budget-status" style="color: var(--gold-cyber);">CALCULATING...</span>
         </div>
 
@@ -1280,7 +1251,7 @@
           </div>
         </div>
 
-        <div style="display:flex; justify-content:space-between; flex-wrap:wrap; font-family:'Rajdhani', sans-serif; font-size:0.95rem; font-weight:600;">
+        <div style="display:flex; justify-content:space-between; flex-wrap:wrap; font-family:'Rajdhani', sans-serif; font-size:0.95rem; font-weight:600; gap:0.4rem;">
           <div>
             <span style="color: var(--text-muted);">COLLECTED: </span>
             <strong id="stat-collected" style="color: #4ade80; font-family: 'Orbitron', monospace;">LKR 0</strong>
@@ -1294,14 +1265,14 @@
 
       <!-- Tickets & Interactive Pass Calculator -->
       <section class="card-panel tech-box" id="tickets">
-        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px dashed rgba(255,209,92,0.35); padding-bottom:1.2rem; margin-bottom:1.4rem; flex-wrap:wrap; gap:1rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px dashed rgba(255,209,92,0.35); padding-bottom:1rem; margin-bottom:1.2rem; flex-wrap:wrap; gap:0.6rem;">
           <div>
-            <h2 style="font-family:'Orbitron', sans-serif; font-size:1.35rem; color:#fff;">🎟️ TICKET PASS & CLEARANCE</h2>
-            <span style="color:#4ade80; background:rgba(34,197,94,0.15); border:1px solid rgba(74,222,128,0.4); padding:0.2rem 0.6rem; border-radius:4px; font-family:'Orbitron', monospace; font-size:0.68rem;">SECURE BANK TRANSFER PORTAL</span>
+            <h2 style="font-family:'Orbitron', sans-serif; font-size:1.2rem; color:#fff;">🎟️ TICKET PASSES</h2>
+            <span style="color:#4ade80; background:rgba(34,197,94,0.15); border:1px solid rgba(74,222,128,0.4); padding:0.2rem 0.5rem; border-radius:4px; font-family:'Orbitron', monospace; font-size:0.65rem;">ONLINE / CDM BANK TRANSFER</span>
           </div>
           <div style="text-align:right;">
-            <div style="font-family:'Orbitron', monospace; font-size:1.7rem; color:var(--gold-cyber); font-weight:900;">LKR 6,000</div>
-            <div style="font-size:0.72rem; color:#ffbe2e;">PER PERSON // FULL ACCESS</div>
+            <div style="font-family:'Orbitron', monospace; font-size:1.55rem; color:var(--gold-cyber); font-weight:900;">LKR 6,000</div>
+            <div style="font-size:0.7rem; color:#ffbe2e;">PER PERSON</div>
           </div>
         </div>
 
@@ -1309,10 +1280,10 @@
         <div class="calculator-hud tech-box">
           <div class="calculator-row">
             <div>
-              <div style="font-family:'Orbitron', monospace; font-size:0.85rem; color:#ffffff; margin-bottom:0.25rem;">
-                SELECT PASSES (TICKETS)
+              <div style="font-family:'Orbitron', monospace; font-size:0.8rem; color:#ffffff;">
+                SELECT PASSES
               </div>
-              <div style="font-size:0.8rem; color:var(--text-muted);">Paying for yourself or multiple batchmates?</div>
+              <div style="font-size:0.75rem; color:var(--text-muted);">Paying for friends too?</div>
             </div>
             <div class="counter-control">
               <button class="btn-counter" onclick="changePasses(-1)">−</button>
@@ -1321,9 +1292,9 @@
             </div>
           </div>
 
-          <div class="calculator-row" style="border-top: 1px dashed rgba(255, 209, 92, 0.25); padding-top: 0.8rem;">
-            <div style="font-family:'Rajdhani', sans-serif; font-size:0.85rem; color:var(--text-muted); text-transform:uppercase;">Total Payable Amount:</div>
-            <div style="font-family:'Orbitron', monospace; font-size:1.5rem; font-weight:900; color:var(--gold-cyber);" id="calc-total">LKR 6,000</div>
+          <div class="calculator-row" style="border-top: 1px dashed rgba(255, 209, 92, 0.25); padding-top: 0.7rem;">
+            <div style="font-family:'Rajdhani', sans-serif; font-size:0.82rem; color:var(--text-muted); text-transform:uppercase;">Total Payable:</div>
+            <div style="font-family:'Orbitron', monospace; font-size:1.35rem; font-weight:900; color:var(--gold-cyber);" id="calc-total">LKR 6,000</div>
           </div>
         </div>
 
@@ -1331,16 +1302,14 @@
           <!-- Commercial Bank -->
           <article class="bank-card tech-box">
             <div>
-              <div style="display:flex; justify-content:space-between; font-family:'Orbitron', monospace; font-size:0.7rem; color:var(--gold-cyber); margin-bottom:0.6rem;">
+              <div style="display:flex; justify-content:space-between; font-family:'Orbitron', monospace; font-size:0.68rem; color:var(--gold-cyber); margin-bottom:0.5rem;">
                 <span>GATEWAY // 01</span>
                 <span style="color:#4ade80;">ONLINE / CDM</span>
               </div>
-              <h3 style="font-family:'Orbitron', sans-serif; font-size:1.1rem; color:#fff; margin-bottom:0.6rem;">🏛️ Commercial Bank</h3>
-              <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase;">Account Beneficiary</div>
-              <div style="font-size:1.05rem; font-weight:700; color:#fff;">R.k. Seneth Randunu</div>
+              <h3 style="font-family:'Orbitron', sans-serif; font-size:1.05rem; color:#fff; margin-bottom:0.3rem;">🏛️ Commercial Bank</h3>
+              <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase;">Beneficiary: R.k. Seneth Randunu</div>
 
-              <div style="margin-top:0.8rem;">
-                <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase;">Account Number</div>
+              <div style="margin-top:0.6rem;">
                 <div class="account-bar">
                   <span class="account-num-text" id="acc-val-1">8031525615</span>
                   <button type="button" class="btn-copy-action" onclick="copyValue('8031525615', this, 'Commercial Bank Acc Copied!')">📋 COPY</button>
@@ -1352,16 +1321,14 @@
           <!-- BOC -->
           <article class="bank-card tech-box">
             <div>
-              <div style="display:flex; justify-content:space-between; font-family:'Orbitron', monospace; font-size:0.7rem; color:var(--gold-cyber); margin-bottom:0.6rem;">
+              <div style="display:flex; justify-content:space-between; font-family:'Orbitron', monospace; font-size:0.68rem; color:var(--gold-cyber); margin-bottom:0.5rem;">
                 <span>GATEWAY // 02</span>
                 <span style="color:var(--gold-cyber);">BOC DIGI / CDM</span>
               </div>
-              <h3 style="font-family:'Orbitron', sans-serif; font-size:1.1rem; color:#fff; margin-bottom:0.6rem;">🏛️ Bank of Ceylon (BOC)</h3>
-              <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase;">Account Beneficiary</div>
-              <div style="font-size:1.05rem; font-weight:700; color:#fff;">HMBBPemarathna</div>
+              <h3 style="font-family:'Orbitron', sans-serif; font-size:1.05rem; color:#fff; margin-bottom:0.3rem;">🏛️ Bank of Ceylon (BOC)</h3>
+              <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase;">Beneficiary: HMBBPemarathna</div>
 
-              <div style="margin-top:0.8rem;">
-                <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase;">Account Number</div>
+              <div style="margin-top:0.6rem;">
                 <div class="account-bar">
                   <span class="account-num-text" id="acc-val-2">73019351</span>
                   <button type="button" class="btn-copy-action" onclick="copyValue('73019351', this, 'BOC Bank Acc Copied!')">📋 COPY</button>
@@ -1371,7 +1338,7 @@
           </article>
         </div>
 
-        <!-- WhatsApp Slip Submission -->
+        <!-- WhatsApp Slip Submission Button -->
         <a 
           id="dynamic-slip-btn"
           href="https://wa.me/94710715130?text=Hi%2C%20I%20have%20transferred%20the%20LKR%206%2C000%20fee%20(1%20pass)%20for%20the%20Sri%20Bodhiraja%20College%20Get-Together%202026.%20Here%20is%20my%20slip%3A" 
@@ -1385,8 +1352,8 @@
 
         <!-- Paid Poll Callout Box -->
         <div class="poll-callout-box tech-box">
-          <div style="font-family:'Orbitron', monospace; font-size:0.74rem; color:#ffb3be; background:rgba(255,26,75,0.15); border:1px solid var(--maroon-neon); padding:0.5rem; border-radius:6px;">
-            ⚠️ <strong>IMPORTANT NOTICE:</strong> Do NOT open or submit this link if you haven't paid yet! Only submit <strong>AFTER</strong> your transfer is completed.
+          <div style="font-family:'Orbitron', monospace; font-size:0.7rem; color:#ffb3be; background:rgba(255,26,75,0.15); border:1px solid var(--maroon-neon); padding:0.5rem; border-radius:6px; line-height:1.4;">
+            ⚠️ <strong>NOTICE:</strong> Only submit this poll <strong>AFTER</strong> your bank transfer is completed.
           </div>
 
           <a 
@@ -1396,36 +1363,36 @@
             class="btn-poll-action"
             onclick="playBeep('confirm')"
           >
-            <span>🗳️ I HAVE PAID — VOTE ON PAYMENT POLL</span> &rarr;
+            <span>🗳️️ I HAVE PAID — VOTE ON PAYMENT POLL</span> &rarr;
           </a>
         </div>
       </section>
 
       <!-- Details 3 Cards -->
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:1.2rem;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:1rem;">
         <article class="card-panel tech-box" style="margin-bottom:0;">
-          <div style="font-family:'Orbitron', monospace; font-size:0.72rem; color:var(--gold-cyber);">SYS.PARAM // 01</div>
-          <h3 style="font-family:'Orbitron', sans-serif; font-size:1.15rem; color:#fff; margin-top:0.4rem;">📅 WHEN</h3>
-          <div style="font-size:1.15rem; font-weight:700; color:var(--gold-cyber); margin-top:0.5rem;">15th of October 2026</div>
-          <div style="font-size:0.95rem; font-weight:700; color:#4ade80; margin-top:0.2rem; font-family:'Orbitron', monospace;">08:00 AM – 04:00 PM</div>
-          <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.4rem;">Arrive sharp by 8:00 AM to catch the grand morning opening and full day celebrations!</p>
+          <div style="font-family:'Orbitron', monospace; font-size:0.7rem; color:var(--gold-cyber);">SYS.PARAM // 01</div>
+          <h3 style="font-family:'Orbitron', sans-serif; font-size:1.1rem; color:#fff; margin-top:0.3rem;">📅 WHEN</h3>
+          <div style="font-size:1.1rem; font-weight:700; color:var(--gold-cyber); margin-top:0.4rem;">15th of October 2026</div>
+          <div style="font-size:0.9rem; font-weight:700; color:#4ade80; margin-top:0.15rem; font-family:'Orbitron', monospace;">08:00 AM – 04:00 PM</div>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.35rem;">Arrive sharp by 8:00 AM to catch the grand opening.</p>
         </article>
 
         <article class="card-panel tech-box" style="margin-bottom:0;">
-          <div style="font-family:'Orbitron', monospace; font-size:0.72rem; color:var(--gold-cyber);">SYS.PARAM // 02</div>
-          <h3 style="font-family:'Orbitron', sans-serif; font-size:1.15rem; color:#fff; margin-top:0.4rem;">📍 LOCATION</h3>
-          <div style="font-size:1.15rem; font-weight:700; color:var(--gold-cyber); margin-top:0.5rem;">Private Destination</div>
-          <p style="font-size:0.9rem; color:var(--text-muted); margin-top:0.4rem;">Tap below to launch turn-by-turn directions in Google Maps.</p>
-          <a href="https://maps.app.goo.gl/VDsBdRY1WF9CARMa9" target="_blank" rel="noopener noreferrer" style="display:inline-block; margin-top:0.8rem; background:rgba(255,26,75,0.25); border:1px solid var(--maroon-neon); color:#fff; text-decoration:none; font-family:'Orbitron', monospace; font-size:0.78rem; font-weight:700; padding:0.55rem 0.9rem; border-radius:6px;" onclick="playBeep('click')">
+          <div style="font-family:'Orbitron', monospace; font-size:0.7rem; color:var(--gold-cyber);">SYS.PARAM // 02</div>
+          <h3 style="font-family:'Orbitron', sans-serif; font-size:1.1rem; color:#fff; margin-top:0.3rem;">📍 LOCATION</h3>
+          <div style="font-size:1.1rem; font-weight:700; color:var(--gold-cyber); margin-top:0.4rem;">Private Destination</div>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.35rem;">Tap below to launch directions in Google Maps.</p>
+          <a href="https://maps.app.goo.gl/VDsBdRY1WF9CARMa9" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; justify-content:center; width:100%; min-height:48px; margin-top:0.6rem; background:rgba(255,26,75,0.25); border:1px solid var(--maroon-neon); color:#fff; text-decoration:none; font-family:'Orbitron', monospace; font-size:0.78rem; font-weight:700; border-radius:6px;" onclick="playBeep('click')">
             🛰 Launch Google Maps &rarr;
           </a>
         </article>
 
         <article class="card-panel tech-box" style="margin-bottom:0;">
-          <div style="font-family:'Orbitron', monospace; font-size:0.72rem; color:var(--gold-cyber);">SYS.PARAM // 03</div>
-          <h3 style="font-family:'Orbitron', sans-serif; font-size:1.15rem; color:#fff; margin-top:0.4rem;">🕶️️ DRESS CODE</h3>
-          <div style="font-size:1.15rem; font-weight:700; color:var(--gold-cyber); margin-top:0.5rem;">ALL-BLACK ATTIRE</div>
-          <p style="font-size:0.9rem; color:var(--text-muted); margin-top:0.4rem;">Stealth smart-casual. Check out the dedicated <strong>Dress Code</strong> tab above for styling inspiration!</p>
+          <div style="font-family:'Orbitron', monospace; font-size:0.7rem; color:var(--gold-cyber);">SYS.PARAM // 03</div>
+          <h3 style="font-family:'Orbitron', sans-serif; font-size:1.1rem; color:#fff; margin-top:0.3rem;">🕶️ DRESS CODE</h3>
+          <div style="font-size:1.1rem; font-weight:700; color:var(--gold-cyber); margin-top:0.4rem;">ALL-BLACK ATTIRE</div>
+          <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.35rem;">Smart-casual monochrome wear across the whole day.</p>
         </article>
       </div>
 
@@ -1437,8 +1404,8 @@
     <div id="tab-hotel" class="tab-view">
       <section class="card-panel tech-box">
         <div style="text-align:center;">
-          <h2 style="font-family:'Orbitron', sans-serif; font-size:1.5rem; color:#fff;">🏨 VENUE & HOTEL HIGHLIGHTS</h2>
-          <p style="color:var(--text-muted); font-family:'Rajdhani', sans-serif; font-size:1rem; margin-top:0.3rem;">Tap any photo to expand into high-res cyber inspection mode.</p>
+          <h2 style="font-family:'Orbitron', sans-serif; font-size:1.35rem; color:#fff;">🏨 VENUE & HOTEL HIGHLIGHTS</h2>
+          <p style="color:var(--text-muted); font-family:'Rajdhani', sans-serif; font-size:0.95rem; margin-top:0.3rem;">Tap any photo to view full-screen.</p>
         </div>
 
         <div class="photo-grid-4">
@@ -1491,8 +1458,8 @@
     <div id="tab-dresscode" class="tab-view">
       <section class="card-panel tech-box">
         <div style="text-align:center;">
-          <h2 style="font-family:'Orbitron', sans-serif; font-size:1.5rem; color:#fff;">🕶️ ALL-BLACK ATTIRE STYLE GUIDE</h2>
-          <p style="color:var(--text-muted); font-family:'Rajdhani', sans-serif; font-size:1rem; margin-top:0.3rem;">Smart-casual monochrome silhouettes for the reunion. Tap any look to expand.</p>
+          <h2 style="font-family:'Orbitron', sans-serif; font-size:1.35rem; color:#fff;">🕶️ ALL-BLACK ATTIRE STYLE GUIDE</h2>
+          <p style="color:var(--text-muted); font-family:'Rajdhani', sans-serif; font-size:0.95rem; margin-top:0.3rem;">Smart-casual monochrome wear. Tap to view details.</p>
         </div>
 
         <div class="photo-grid-4">
@@ -1540,14 +1507,14 @@
     </div>
 
     <!-- =========================================================================
-         TAB 4: BATCH ATTENDEES ROSTER (EXACT COUNTS)
+         TAB 4: BATCH ATTENDEES ROSTER
          ========================================================================= -->
     <div id="tab-roster" class="tab-view">
       <section class="card-panel tech-box">
         <div style="text-align:center;">
-          <h2 style="font-family:'Orbitron', sans-serif; font-size:1.45rem; color:#fff;">📋 BATCH ROSTER & CLEARANCE</h2>
-          <p style="color:var(--text-muted); font-family:'Rajdhani', sans-serif; font-size:1rem; margin-top:0.3rem;">
-            Live attendance tracker. Search your name to check payment verification status.
+          <h2 style="font-family:'Orbitron', sans-serif; font-size:1.35rem; color:#fff;">📋 BATCH ATTENDANCE & STATUS</h2>
+          <p style="color:var(--text-muted); font-family:'Rajdhani', sans-serif; font-size:0.95rem; margin-top:0.25rem;">
+            Search your name below to verify your pass.
           </p>
         </div>
 
@@ -1555,28 +1522,28 @@
         <div class="roster-stats-grid">
           <div class="roster-stat-card">
             <div class="roster-stat-val" id="stat-roster-total" style="color:var(--gold-cyber);">0</div>
-            <div class="roster-stat-lbl">Confirmed Guests</div>
+            <div class="roster-stat-lbl">Confirmed</div>
           </div>
           <div class="roster-stat-card">
             <div class="roster-stat-val" id="stat-roster-paid" style="color:#4ade80;">0</div>
-            <div class="roster-stat-lbl">Paid (Cleared)</div>
+            <div class="roster-stat-lbl">Paid & Verified</div>
           </div>
           <div class="roster-stat-card">
             <div class="roster-stat-val" id="stat-roster-pending" style="color:#ff4d6d;">0</div>
-            <div class="roster-stat-lbl">Follow-ups</div>
+            <div class="roster-stat-lbl">Follow-up</div>
           </div>
         </div>
 
-        <!-- Search Input -->
+        <!-- Mobile Optimized Search Bar -->
         <input 
           type="text" 
           id="roster-search" 
           class="roster-search-bar" 
-          placeholder="🔍 Type your name to check status..."
+          placeholder="🔍 Type your name to search..."
           oninput="filterAttendees()"
         />
 
-        <!-- Attendees Scroll List -->
+        <!-- Attendees List -->
         <div class="roster-grid" id="roster-list-container">
           <!-- Dynamically populated from JS array -->
         </div>
@@ -1591,28 +1558,28 @@
       <!-- Interactive FAQ Accordion -->
       <section class="card-panel tech-box" aria-label="Event Frequently Asked Questions">
         <div style="text-align:center;">
-          <h2 style="font-family:'Orbitron', sans-serif; font-size:1.4rem; color:#fff;">❓ FREQUENTLY ASKED QUESTIONS</h2>
-          <p style="color:var(--text-muted); font-family:'Rajdhani', sans-serif; font-size:1rem; margin-top:0.3rem;">Tap each question to reveal answers and details</p>
+          <h2 style="font-family:'Orbitron', sans-serif; font-size:1.35rem; color:#fff;">❓ FREQUENTLY ASKED QUESTIONS</h2>
+          <p style="color:var(--text-muted); font-family:'Rajdhani', sans-serif; font-size:0.95rem; margin-top:0.25rem;">Tap each panel for answers and details</p>
         </div>
 
         <div class="faq-accordion">
           <div class="faq-item" onclick="toggleFaq(this)">
             <button class="faq-question">
-              <span>When is the payment settlement deadline?</span>
+              <span>When is the payment deadline?</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              Please make sure to finalize your payment transfer <strong>before October 6th, 2026</strong>. This helps the organizing committee lock down food portions, table reservations, and event arrangements with the venue.
+              Please finalize your transfer <strong>before October 6th, 2026</strong> so the committee can lock in meal orders and reservations.
             </div>
           </div>
 
           <div class="faq-item" onclick="toggleFaq(this)">
             <button class="faq-question">
-              <span>Can I pay for multiple friends in one bank slip?</span>
+              <span>Can I pay for multiple friends together?</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              Yes! Use the pass selector in the Overview tab to calculate your total (e.g. 2 passes = LKR 12,000). Transfer the total amount and WhatsApp the slip mentioning the full names of all members covered.
+              Yes! Use the pass selector in the Overview tab to calculate your total. Send the slip with all participant full names.
             </div>
           </div>
 
@@ -1622,17 +1589,17 @@
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              Yes, dedicated secure parking is available on-site for both bikes and cars.
+              Yes, dedicated secure parking is available on-site for both bikes and vehicles.
             </div>
           </div>
 
           <div class="faq-item" onclick="toggleFaq(this)">
             <button class="faq-question">
-              <span>What if I have dietary requirements or questions?</span>
+              <span>Need help or special dietary needs?</span>
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
-              Ping any member of our organizing committee listed below directly via WhatsApp anytime!
+              Reach out directly to any of our committee members listed below via WhatsApp anytime!
             </div>
           </div>
         </div>
@@ -1641,116 +1608,97 @@
       <!-- Organizing Committee Directory -->
       <section class="card-panel tech-box">
         <div style="text-align:center;">
-          <h2 style="font-family:'Orbitron', sans-serif; font-size:1.4rem; color:#fff;">📡 ORGANIZING COMMITTEE DIRECTORY</h2>
-          <p style="color:var(--text-muted); font-family:'Rajdhani', sans-serif; font-size:1rem; margin-top:0.3rem;">Ping any organizer directly on WhatsApp for passes, verification, or questions</p>
+          <h2 style="font-family:'Orbitron', sans-serif; font-size:1.35rem; color:#fff;">📡 COMMITTEE CONTACTS</h2>
+          <p style="color:var(--text-muted); font-family:'Rajdhani', sans-serif; font-size:0.95rem; margin-top:0.25rem;">Ping any organizer directly on WhatsApp</p>
         </div>
 
         <div class="committee-grid">
           <!-- Binudi -->
           <div class="member-item tech-box">
             <div style="display:flex; align-items:center; gap:0.75rem;">
-              <div style="width:40px; height:40px; border-radius:8px; background:rgba(255,26,75,0.25); border:1px solid var(--maroon-neon); display:flex; align-items:center; justify-content:center; font-family:'Orbitron', monospace; font-weight:800; color:var(--gold-cyber);">B</div>
+              <div style="width:42px; height:42px; border-radius:8px; background:rgba(255,26,75,0.25); border:1px solid var(--maroon-neon); display:flex; align-items:center; justify-content:center; font-family:'Orbitron', monospace; font-weight:800; color:var(--gold-cyber);">B</div>
               <div>
                 <div style="font-family:'Orbitron', sans-serif; font-weight:700; color:#fff;">Binudi</div>
                 <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase;">Organizing Committee</div>
               </div>
             </div>
-            <div style="display:flex; justify-content:space-between; align-items:center; background:#090103; padding:0.5rem 0.75rem; border-radius:6px; border:1px solid rgba(255,209,92,0.2);">
-              <span style="font-family:'Orbitron', monospace; font-size:0.86rem; color:var(--gold-cyber);">+94 71 071 5130</span>
-              <button style="background:none; border:none; cursor:pointer;" onclick="copyValue('+94710715130', null, 'Binudi\'s Number Copied!')">📋</button>
-            </div>
             <a href="https://wa.me/94710715130" target="_blank" rel="noopener noreferrer" class="btn-member-wa" onclick="playBeep('click')">
-              <span>💬 Chat on WhatsApp</span>
+              <span>💬 WhatsApp (+94 71 071 5130)</span>
             </a>
           </div>
 
           <!-- Sanula -->
           <div class="member-item tech-box">
             <div style="display:flex; align-items:center; gap:0.75rem;">
-              <div style="width:40px; height:40px; border-radius:8px; background:rgba(255,26,75,0.25); border:1px solid var(--maroon-neon); display:flex; align-items:center; justify-content:center; font-family:'Orbitron', monospace; font-weight:800; color:var(--gold-cyber);">S</div>
+              <div style="width:42px; height:42px; border-radius:8px; background:rgba(255,26,75,0.25); border:1px solid var(--maroon-neon); display:flex; align-items:center; justify-content:center; font-family:'Orbitron', monospace; font-weight:800; color:var(--gold-cyber);">S</div>
               <div>
                 <div style="font-family:'Orbitron', sans-serif; font-weight:700; color:#fff;">Sanula</div>
                 <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase;">Organizing Committee</div>
               </div>
             </div>
-            <div style="display:flex; justify-content:space-between; align-items:center; background:#090103; padding:0.5rem 0.75rem; border-radius:6px; border:1px solid rgba(255,209,92,0.2);">
-              <span style="font-family:'Orbitron', monospace; font-size:0.86rem; color:var(--gold-cyber);">+94 77 202 2589</span>
-              <button style="background:none; border:none; cursor:pointer;" onclick="copyValue('+94772022589', null, 'Sanula\'s Number Copied!')">📋</button>
-            </div>
             <a href="https://wa.me/94772022589" target="_blank" rel="noopener noreferrer" class="btn-member-wa" onclick="playBeep('click')">
-              <span>💬 Chat on WhatsApp</span>
+              <span>💬 WhatsApp (+94 77 202 2589)</span>
             </a>
           </div>
 
           <!-- Malindu -->
           <div class="member-item tech-box">
             <div style="display:flex; align-items:center; gap:0.75rem;">
-              <div style="width:40px; height:40px; border-radius:8px; background:rgba(255,26,75,0.25); border:1px solid var(--maroon-neon); display:flex; align-items:center; justify-content:center; font-family:'Orbitron', monospace; font-weight:800; color:var(--gold-cyber);">M</div>
+              <div style="width:42px; height:42px; border-radius:8px; background:rgba(255,26,75,0.25); border:1px solid var(--maroon-neon); display:flex; align-items:center; justify-content:center; font-family:'Orbitron', monospace; font-weight:800; color:var(--gold-cyber);">M</div>
               <div>
                 <div style="font-family:'Orbitron', sans-serif; font-weight:700; color:#fff;">Malindu</div>
                 <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase;">Organizing Committee</div>
               </div>
             </div>
-            <div style="display:flex; justify-content:space-between; align-items:center; background:#090103; padding:0.5rem 0.75rem; border-radius:6px; border:1px solid rgba(255,209,92,0.2);">
-              <span style="font-family:'Orbitron', monospace; font-size:0.86rem; color:var(--gold-cyber);">+94 76 387 4989</span>
-              <button style="background:none; border:none; cursor:pointer;" onclick="copyValue('+94763874989', null, 'Malindu\'s Number Copied!')">📋</button>
-            </div>
             <a href="https://wa.me/94763874989" target="_blank" rel="noopener noreferrer" class="btn-member-wa" onclick="playBeep('click')">
-              <span>💬 Chat on WhatsApp</span>
+              <span>💬 WhatsApp (+94 76 387 4989)</span>
             </a>
           </div>
 
           <!-- Sithil -->
           <div class="member-item tech-box">
             <div style="display:flex; align-items:center; gap:0.75rem;">
-              <div style="width:40px; height:40px; border-radius:8px; background:rgba(255,26,75,0.25); border:1px solid var(--maroon-neon); display:flex; align-items:center; justify-content:center; font-family:'Orbitron', monospace; font-weight:800; color:var(--gold-cyber);">S</div>
+              <div style="width:42px; height:42px; border-radius:8px; background:rgba(255,26,75,0.25); border:1px solid var(--maroon-neon); display:flex; align-items:center; justify-content:center; font-family:'Orbitron', monospace; font-weight:800; color:var(--gold-cyber);">S</div>
               <div>
                 <div style="font-family:'Orbitron', sans-serif; font-weight:700; color:#fff;">Sithil</div>
                 <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase;">Organizing Committee</div>
               </div>
             </div>
-            <div style="display:flex; justify-content:space-between; align-items:center; background:#090103; padding:0.5rem 0.75rem; border-radius:6px; border:1px solid rgba(255,209,92,0.2);">
-              <span style="font-family:'Orbitron', monospace; font-size:0.86rem; color:var(--gold-cyber);">+94 76 021 2854</span>
-              <button style="background:none; border:none; cursor:pointer;" onclick="copyValue('+94760212854', null, 'Sithil\'s Number Copied!')">📋</button>
-            </div>
             <a href="https://wa.me/94760212854" target="_blank" rel="noopener noreferrer" class="btn-member-wa" onclick="playBeep('click')">
-              <span>💬 Chat on WhatsApp</span>
+              <span>💬 WhatsApp (+94 76 021 2854)</span>
             </a>
           </div>
 
           <!-- Seneth -->
           <div class="member-item tech-box">
             <div style="display:flex; align-items:center; gap:0.75rem;">
-              <div style="width:40px; height:40px; border-radius:8px; background:rgba(255,26,75,0.25); border:1px solid var(--maroon-neon); display:flex; align-items:center; justify-content:center; font-family:'Orbitron', monospace; font-weight:800; color:var(--gold-cyber);">S</div>
+              <div style="width:42px; height:42px; border-radius:8px; background:rgba(255,26,75,0.25); border:1px solid var(--maroon-neon); display:flex; align-items:center; justify-content:center; font-family:'Orbitron', monospace; font-weight:800; color:var(--gold-cyber);">S</div>
               <div>
                 <div style="font-family:'Orbitron', sans-serif; font-weight:700; color:#fff;">Seneth</div>
                 <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase;">Organizing Committee</div>
               </div>
             </div>
-            <div style="display:flex; justify-content:space-between; align-items:center; background:#090103; padding:0.5rem 0.75rem; border-radius:6px; border:1px solid rgba(255,209,92,0.2);">
-              <span style="font-family:'Orbitron', monospace; font-size:0.86rem; color:var(--gold-cyber);">077 348 5204</span>
-              <button style="background:none; border:none; cursor:pointer;" onclick="copyValue('0773485204', null, 'Seneth\'s Number Copied!')">📋</button>
-            </div>
             <a href="https://wa.me/94773485204" target="_blank" rel="noopener noreferrer" class="btn-member-wa" onclick="playBeep('click')">
-              <span>💬 Chat on WhatsApp</span>
+              <span>💬 WhatsApp (077 348 5204)</span>
             </a>
           </div>
         </div>
       </section>
 
       <!-- Support Bar -->
-      <section class="card-panel tech-box" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
-        <div style="font-family:'Rajdhani', sans-serif; font-size:1rem; color:#fff;">
-          🛠️ Inform any site errors - <strong style="color:var(--gold-cyber);">Yovindu</strong> (0761830582)
+      <section class="card-panel tech-box" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.8rem;">
+        <div style="font-family:'Rajdhani', sans-serif; font-size:0.95rem; color:#fff;">
+          🛠 Inform any site errors - <strong style="color:var(--gold-cyber);">Yovindu</strong> (0761830582)
         </div>
         <a 
           href="https://wa.me/94761830582?text=Hi%20Yovindu%2C%20reporting%20an%20issue%20with%20the%20Batch%20Get-Together%20website%3A" 
           target="_blank" 
           rel="noopener noreferrer" 
           class="btn-member-wa"
+          style="width:100%;"
           onclick="playBeep('click')"
         >
-          <span>💬 Report on WhatsApp</span>
+          <span>💬 Report Error on WhatsApp</span>
         </a>
       </section>
 
@@ -1758,10 +1706,10 @@
 
     <footer>
       <p>
-        <span style="color:var(--gold-cyber); font-weight:700;">SRI BODHIRAJA COLLEGE</span> • BATCH GET-TOGETHER 2026
+        <span style="color:var(--gold-cyber); font-weight:700;">SRI BODHIRAJA COLLEGE</span> • BATCH 2026
       </p>
-      <p style="margin-top:0.35rem; font-size:0.8rem; color:#835259;">
-        TICKET LKR 6,000 // ALL-BLACK SMART CASUAL // 15TH OCTOBER 2026 (08:00 AM - 04:00 PM)
+      <p style="margin-top:0.35rem; font-size:0.78rem; color:#835259;">
+        TICKET LKR 6,000 // ALL-BLACK SMART CASUAL // 15TH OCTOBER 2026
       </p>
     </footer>
 
@@ -1769,7 +1717,7 @@
 
   <script>
     // =========================================================================
-    // 🛠️ ADMIN SETTINGS & ATTENDEES ROSTER: EDIT HERE ON GITHUB!
+    // 🛠️️ ADMIN SETTINGS & ATTENDEES ROSTER: EDIT HERE ON GITHUB!
     // =========================================================================
     // HOW TO UPDATE WHEN SOMEONE PAYS:
     // Simply change status to "paid" (e.g. { name: "Malindu", status: "paid" })
@@ -1779,17 +1727,17 @@
     // - "ok"      -> Confirmed Attendance, Pending Payment -> Gold Badge
     // - "pending" -> Follow-up Required (Pending / Calling / Ringing / Date)
     // =========================================================================
-    const TARGET_BUDGET = 300000;
+    const TARGET_BUDGET = 306000;
     const PRICE_PER_PASS = 6000;
 
     const ATTENDEE_LIST = [
       { name: "Binudi", status: "paid" },                 // 01) Ok (Paid)
-      { name: "Hasini", status: "ok" },              // 02) Pending
+      { name: "Hasini", status: "pending" },              // 02) Pending
       { name: "Sanula", status: "paid" },                 // 04) Ok (Paid)
       { name: "Yovindu", status: "paid" },                // 05) Ok (Paid)
       { name: "Malindu", status: "ok" },                  // 06) Ok
       { name: "Sithil", status: "paid" },                 // 07) Ok (Paid)
-     // { name: "Chamithi", status: "ok" },                 // 08) Ok
+      { name: "Chamithi", status: "ok" },                 // 08) Ok
       { name: "Akithmi", status: "paid" },                // 09) Ok (Paid)
       { name: "Amandi", status: "paid" },                 // 10) Ok (Paid)
       { name: "Ashen", status: "paid" },                  // 11) Ok (Paid)
@@ -1807,7 +1755,7 @@
       { name: "Geethma", status: "ok" },                  // 24) Ok
       { name: "Hirun", status: "ok" },                    // 25) Ok
       { name: "Gethmi", status: "ok" },                   // 26) Ok
-      { name: "Janindu", status: "ok" },             // 27) Pending
+      { name: "Janindu", status: "pending" },             // 27) Pending
       { name: "Janith", status: "paid" },                 // 28) Ok (Paid)
       { name: "Malsha", status: "paid" },                 // 29) Ok (Paid)
       { name: "Nadun", status: "ok" },                    // 30) Ok
@@ -1887,11 +1835,11 @@
     }
 
     function initRosterStats() {
-      // Confirmed Guests = Ok + Paid
+      // Confirmed Guests = Ok + Paid (50)
       const confirmedCount = ATTENDEE_LIST.filter(a => a.status === "paid" || a.status === "ok").length;
-      // Paid (Cleared) = Paid
+      // Paid (Cleared) = Paid (18)
       const paidCount = ATTENDEE_LIST.filter(a => a.status === "paid").length;
-      // Follow-ups / Pending
+      // Follow-ups / Pending (8)
       const followUpCount = ATTENDEE_LIST.filter(a => a.status !== "paid" && a.status !== "ok").length;
 
       const totalEl = document.getElementById("stat-roster-total");
@@ -2026,7 +1974,7 @@
       parallaxImages.forEach(img => {
         const rect = img.getBoundingClientRect();
         if (rect.top < viewHeight && rect.bottom > 0) {
-          const shift = ((rect.top / viewHeight) - 0.5) * 22;
+          const shift = ((rect.top / viewHeight) - 0.5) * 18;
           img.style.transform = `translate3d(0, ${shift}px, 0)`;
         }
       });
@@ -2129,7 +2077,7 @@
       if (toast && toastText) {
         toastText.innerText = successNotice || "Copied to Clipboard!";
         toast.classList.add("show");
-        setTimeout(() => toast.classList.remove("show"), 2400);
+        setTimeout(() => toast.classList.remove("show"), 2200);
       }
     }
 
@@ -2175,20 +2123,19 @@
       if (hoursEl) hoursEl.innerText = String(h).padStart(2, '0');
       if (minutesEl) minutesEl.innerText = String(m).padStart(2, '0');
       if (secondsEl) secondsEl.innerText = String(s).padStart(2, '0');
-      if (statusEl) statusEl.innerText = "STATUS: TIMELINE ACTIVE (TARGET 08:00 AM)";
     }
 
     setInterval(refreshCountdown, 1000);
     refreshCountdown();
 
     // =========================================================================
-    // 🌌 PARTICLE CANVAS WITH CONSTELLATION & MOUSE/TOUCH ATTRACTION
+    // 🌌 PARTICLE CANVAS
     // =========================================================================
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
     let pWidth, pHeight;
     let particlesArray = [];
-    const mouse = { x: null, y: null, radius: 120 };
+    const mouse = { x: null, y: null, radius: 100 };
 
     window.addEventListener('mousemove', (e) => {
       mouse.x = e.clientX;
@@ -2223,9 +2170,9 @@
       constructor() {
         this.x = Math.random() * pWidth;
         this.y = Math.random() * pHeight;
-        this.size = Math.random() * 2 + 0.8;
-        this.speedX = (Math.random() - 0.5) * 0.45;
-        this.speedY = -(Math.random() * 0.4 + 0.15);
+        this.size = Math.random() * 1.8 + 0.6;
+        this.speedX = (Math.random() - 0.5) * 0.35;
+        this.speedY = -(Math.random() * 0.35 + 0.1);
         this.color = Math.random() > 0.4 ? '255, 26, 75' : '255, 209, 92';
       }
 
@@ -2244,8 +2191,8 @@
           const distance = Math.hypot(dx, dy);
           if (distance < mouse.radius) {
             const force = (mouse.radius - distance) / mouse.radius;
-            this.x -= (dx / distance) * force * 3;
-            this.y -= (dy / distance) * force * 3;
+            this.x -= (dx / distance) * force * 2.5;
+            this.y -= (dy / distance) * force * 2.5;
           }
         }
       }
@@ -2259,7 +2206,7 @@
     }
 
     function initParticles() {
-      const count = window.innerWidth < 640 ? 32 : 55;
+      const count = window.innerWidth < 640 ? 28 : 50;
       for (let i = 0; i < count; i++) {
         particlesArray.push(new ConnectedParticle());
       }
@@ -2267,7 +2214,7 @@
     initParticles();
 
     function drawConstellationLines() {
-      const maxDistance = 110;
+      const maxDistance = 95;
       for (let a = 0; a < particlesArray.length; a++) {
         for (let b = a + 1; b < particlesArray.length; b++) {
           const dx = particlesArray[a].x - particlesArray[b].x;
@@ -2275,9 +2222,9 @@
           const dist = Math.hypot(dx, dy);
 
           if (dist < maxDistance) {
-            const alpha = (1 - dist / maxDistance) * 0.22;
+            const alpha = (1 - dist / maxDistance) * 0.18;
             ctx.strokeStyle = `rgba(255, 26, 75, ${alpha})`;
-            ctx.lineWidth = 0.8;
+            ctx.lineWidth = 0.7;
             ctx.beginPath();
             ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
             ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
