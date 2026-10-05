@@ -797,9 +797,7 @@
       border-top: 1px solid rgba(255, 26, 75, 0.2);
     }
 
-    /* =========================================================================
-       NEW: ATTENDEE ROSTER STYLES (CYBER GRID & SEARCH)
-       ========================================================================= */
+    /* Roster Styles */
     .roster-stats-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -1425,7 +1423,7 @@
 
         <article class="card-panel tech-box" style="margin-bottom:0;">
           <div style="font-family:'Orbitron', monospace; font-size:0.72rem; color:var(--gold-cyber);">SYS.PARAM // 03</div>
-          <h3 style="font-family:'Orbitron', sans-serif; font-size:1.15rem; color:#fff; margin-top:0.4rem;">🕶️ DRESS CODE</h3>
+          <h3 style="font-family:'Orbitron', sans-serif; font-size:1.15rem; color:#fff; margin-top:0.4rem;">🕶️️ DRESS CODE</h3>
           <div style="font-size:1.15rem; font-weight:700; color:var(--gold-cyber); margin-top:0.5rem;">ALL-BLACK ATTIRE</div>
           <p style="font-size:0.9rem; color:var(--text-muted); margin-top:0.4rem;">Stealth smart-casual. Check out the dedicated <strong>Dress Code</strong> tab above for styling inspiration!</p>
         </article>
@@ -1542,7 +1540,7 @@
     </div>
 
     <!-- =========================================================================
-         TAB 4: BATCH ATTENDEES ROSTER (NEW)
+         TAB 4: BATCH ATTENDEES ROSTER (EXACT COUNTS)
          ========================================================================= -->
     <div id="tab-roster" class="tab-view">
       <section class="card-panel tech-box">
@@ -1565,7 +1563,7 @@
           </div>
           <div class="roster-stat-card">
             <div class="roster-stat-val" id="stat-roster-pending" style="color:#ff4d6d;">0</div>
-            <div class="roster-stat-lbl">Unsettled</div>
+            <div class="roster-stat-lbl">Follow-ups</div>
           </div>
         </div>
 
@@ -1743,7 +1741,7 @@
       <!-- Support Bar -->
       <section class="card-panel tech-box" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
         <div style="font-family:'Rajdhani', sans-serif; font-size:1rem; color:#fff;">
-          🛠️️ Inform any site errors - <strong style="color:var(--gold-cyber);">Yovindu</strong> (0761830582)
+          🛠️ Inform any site errors - <strong style="color:var(--gold-cyber);">Yovindu</strong> (0761830582)
         </div>
         <a 
           href="https://wa.me/94761830582?text=Hi%20Yovindu%2C%20reporting%20an%20issue%20with%20the%20Batch%20Get-Together%20website%3A" 
@@ -1776,69 +1774,73 @@
     // HOW TO UPDATE WHEN SOMEONE PAYS:
     // Simply change status to "paid" (e.g. { name: "Malindu", status: "paid" })
     // The Treasury budget bar, total collected, and percentage will automatically calculate!
+    //
+    // - "paid"    -> Confirmed & Paid (Ok (Paid)) -> Highlighted Glowing Green
+    // - "ok"      -> Confirmed Attendance, Pending Payment -> Gold Badge
+    // - "pending" -> Follow-up Required (Pending / Calling / Ringing / Date)
     // =========================================================================
     const TARGET_BUDGET = 300000;
     const PRICE_PER_PASS = 6000;
 
     const ATTENDEE_LIST = [
-      { name: "Binudi", status: "paid" },
-      { name: "Hasini", status: "pending" },
-      { name: "Sanula", status: "paid" },
-      { name: "Yovindu", status: "paid" },
-      { name: "Malindu", status: "ok" },
-      { name: "Sithil", status: "paid" },
-      { name: "Chamithi", status: "ok" },
-      { name: "Akithmi", status: "paid" },
-      { name: "Amandi", status: "paid" },
-      { name: "Ashen", status: "paid" },
-      { name: "Chanchala", status: "ok" },
-      { name: "Chanuth", status: "8th of October" },
-      { name: "Chenadi", status: "paid" },
-      { name: "Daham", status: "ok" },
-      { name: "Dulmeth", status: "ok" },
-      { name: "Dewanmith", status: "ok" },
-      { name: "Dimuth", status: "paid" },
-      { name: "Dineth", status: "paid" },
-      { name: "Dinitha", status: "paid" },
-      { name: "Gauri", status: "ok" },
-      { name: "Gayathma", status: "paid" },
-      { name: "Geethma", status: "ok" },
-      { name: "Hirun", status: "ok" },
-      { name: "Gethmi", status: "ok" },
-      { name: "Janindu", status: "pending" },
-      { name: "Janith", status: "paid" },
-      { name: "Malsha", status: "paid" },
-      { name: "Nadun", status: "ok" },
-      { name: "Nehan", status: "ok" },
-      { name: "Pamithu", status: "ok" },
-      { name: "Pathum (Atagala)", status: "pending" },
-      { name: "Dahamya", status: "ok" },
-      { name: "Rashmika", status: "pending" },
-      { name: "Ravindu", status: "paid" },
-      { name: "Sanditha", status: "paid" },
-      { name: "Sithika", status: "paid" },
-      { name: "Senuth", status: "ok" },
-      { name: "Sharanya", status: "calling" },
-      { name: "Shashini", status: "paid" },
-      { name: "Sinadi", status: "ok" },
-      { name: "Tharini", status: "pending" },
-      { name: "Lokitha", status: "ringing" },
-      { name: "Kavindu", status: "ok" },
-      { name: "Chirantha", status: "ok" },
-      { name: "Seneth", status: "paid" },
-      { name: "Promodi", status: "ok" },
-      { name: "Amashi", status: "ok" },
-      { name: "Nadithya", status: "ok" },
-      { name: "Rakjitha", status: "ok" },
-      { name: "Dahami", status: "ok" },
-      { name: "Sandupama", status: "ok" },
-      { name: "Ruchini", status: "ok" },
-      { name: "Vidarshana", status: "ok" },
-      { name: "Deshan", status: "ok" },
-      { name: "Dilshan", status: "ok" },
-      { name: "Vihanga", status: "ok" },
-      { name: "Pasan", status: "ok" },
-      { name: "Yasith", status: "ok" }
+      { name: "Binudi", status: "paid" },                 // 01) Ok (Paid)
+      { name: "Hasini", status: "pending" },              // 02) Pending
+      { name: "Sanula", status: "paid" },                 // 04) Ok (Paid)
+      { name: "Yovindu", status: "paid" },                // 05) Ok (Paid)
+      { name: "Malindu", status: "ok" },                  // 06) Ok
+      { name: "Sithil", status: "paid" },                 // 07) Ok (Paid)
+      { name: "Chamithi", status: "ok" },                 // 08) Ok
+      { name: "Akithmi", status: "paid" },                // 09) Ok (Paid)
+      { name: "Amandi", status: "paid" },                 // 10) Ok (Paid)
+      { name: "Ashen", status: "paid" },                  // 11) Ok (Paid)
+      { name: "Chanchala", status: "ok" },                // 13) Ok
+      { name: "Chanuth", status: "pending" },              // 14) 8th of October
+      { name: "Chenadi", status: "paid" },                // 15) Ok (Paid)
+      { name: "Daham", status: "ok" },                    // 16) Ok
+      { name: "Dulmeth", status: "ok" },                  // 17) Ok
+      { name: "Dewanmith", status: "ok" },                // 18) Ok
+      { name: "Dimuth", status: "paid" },                 // 19) Ok (Paid)
+      { name: "Dineth", status: "paid" },                 // 20) Ok (Paid)
+      { name: "Dinitha", status: "paid" },                // 21) Ok (Paid)
+      { name: "Gauri", status: "ok" },                    // 22) Ok
+      { name: "Gayathma", status: "paid" },               // 23) Ok (Paid)
+      { name: "Geethma", status: "ok" },                  // 24) Ok
+      { name: "Hirun", status: "ok" },                    // 25) Ok
+      { name: "Gethmi", status: "ok" },                   // 26) Ok
+      { name: "Janindu", status: "pending" },             // 27) Pending
+      { name: "Janith", status: "paid" },                 // 28) Ok (Paid)
+      { name: "Malsha", status: "paid" },                 // 29) Ok (Paid)
+      { name: "Nadun", status: "ok" },                    // 30) Ok
+      { name: "Nehan", status: "ok" },                    // 31) Ok
+      { name: "Pamithu", status: "ok" },                  // 32) Ok
+      { name: "Pathum (Atagala)", status: "pending" },    // 33) Pending
+      { name: "Dahamya", status: "ok" },                  // 34) Ok
+      { name: "Rashmika", status: "pending" },            // 35) Pending
+      { name: "Ravindu", status: "paid" },                // 36) Ok (Paid)
+      { name: "Sanditha", status: "paid" },               // 37) Ok (Paid)
+      { name: "Sithika", status: "paid" },                // 38) Ok (Paid)
+      { name: "Senuth", status: "ok" },                   // 39) Ok
+      { name: "Sharanya", status: "pending" },            // 40) Calling
+      { name: "Shashini", status: "paid" },               // 41) Ok (Paid)
+      { name: "Sinadi", status: "ok" },                   // 42) Ok
+      { name: "Tharini", status: "pending" },             // 43) Pending
+      { name: "Lokitha", status: "pending" },             // 44) Ringing
+      { name: "Kavindu", status: "ok" },                  // 45) Ok
+      { name: "Chirantha", status: "ok" },                // 46) Ok
+      { name: "Seneth", status: "paid" },                 // 47) Ok (Paid)
+      { name: "Promodi", status: "ok" },                  // 48) Ok
+      { name: "Amashi", status: "ok" },                   // 49) Ok
+      { name: "Nadithya", status: "ok" },                 // 50) Ok
+      { name: "Rakjitha", status: "ok" },                 // 51) Ok
+      { name: "Dahami", status: "ok" },                   // 52) Ok
+      { name: "Sandupama", status: "ok" },                // 53) Ok
+      { name: "Ruchini", status: "ok" },                  // 54) Ok
+      { name: "Vidarshana", status: "ok" },               // 55) Ok
+      { name: "Deshan", status: "ok" },                   // 56) Ok
+      { name: "Dilshan", status: "ok" },                  // 57) Ok
+      { name: "Vihanga", status: "ok" },                  // 58) Ok
+      { name: "Pasan", status: "ok" },                    // 59) Ok
+      { name: "Yasith", status: "ok" }                    // 61) Ok
     ];
 
     // =========================================================================
@@ -1862,6 +1864,9 @@
         } else if (item.status.toLowerCase() === "ok") {
           displayStatus = "CONFIRMED (OK)";
           badgeClass = "ok";
+        } else {
+          displayStatus = item.status.toUpperCase();
+          badgeClass = "pending";
         }
 
         card.innerHTML = `
@@ -1882,17 +1887,20 @@
     }
 
     function initRosterStats() {
-      const total = ATTENDEE_LIST.length;
-      const paidCount = ATTENDEE_LIST.filter(a => a.status.toLowerCase() === "paid").length;
-      const pendingCount = total - paidCount;
+      // Confirmed Guests = Ok + Paid
+      const confirmedCount = ATTENDEE_LIST.filter(a => a.status === "paid" || a.status === "ok").length;
+      // Paid (Cleared) = Paid
+      const paidCount = ATTENDEE_LIST.filter(a => a.status === "paid").length;
+      // Follow-ups / Pending
+      const followUpCount = ATTENDEE_LIST.filter(a => a.status !== "paid" && a.status !== "ok").length;
 
       const totalEl = document.getElementById("stat-roster-total");
       const paidEl = document.getElementById("stat-roster-paid");
       const pendingEl = document.getElementById("stat-roster-pending");
 
-      if (totalEl) totalEl.innerText = total;
+      if (totalEl) totalEl.innerText = confirmedCount;
       if (paidEl) paidEl.innerText = paidCount;
-      if (pendingEl) pendingEl.innerText = pendingCount;
+      if (pendingEl) pendingEl.innerText = followUpCount;
 
       renderRoster(ATTENDEE_LIST);
       return paidCount;
