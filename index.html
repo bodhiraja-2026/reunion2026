@@ -109,7 +109,6 @@
       100% { top: 105%; }
     }
 
-    /* Top Scroll Progress Bar */
     .mobile-scroll-indicator {
       position: fixed;
       top: 0;
@@ -164,10 +163,10 @@
       display: none;
     }
 
-    @media (min-width: 680px) {
+    @media (min-width: 780px) {
       .nav-tabs {
         justify-content: center;
-        gap: 0.8rem;
+        gap: 0.7rem;
       }
     }
 
@@ -176,16 +175,16 @@
       border: 1px solid rgba(255, 26, 75, 0.35);
       color: var(--text-muted);
       font-family: 'Orbitron', monospace;
-      font-size: clamp(0.72rem, 2.2vw, 0.82rem);
+      font-size: clamp(0.7rem, 2vw, 0.8rem);
       font-weight: 700;
-      letter-spacing: 0.08em;
-      padding: 0.55rem 0.95rem;
+      letter-spacing: 0.06em;
+      padding: 0.55rem 0.85rem;
       border-radius: 6px;
       cursor: pointer;
       white-space: nowrap;
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.4rem;
       transition: all 0.25s ease;
       flex-shrink: 0;
     }
@@ -379,7 +378,6 @@
       text-align: center;
     }
 
-    /* Cards Style */
     .card-panel {
       background: var(--bg-maroon-card);
       border: 1px solid var(--border-gold);
@@ -390,7 +388,6 @@
       box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
     }
 
-    /* Countdown HUD */
     .countdown-top-bar {
       display: flex;
       flex-wrap: wrap;
@@ -701,7 +698,6 @@
       transform: translateY(-2px);
     }
 
-    /* Paid Poll Callout Box */
     .poll-callout-box {
       background: rgba(22, 2, 6, 0.92);
       border: 1.5px solid var(--gold-cyber);
@@ -740,7 +736,7 @@
       transform: translateY(-2px);
     }
 
-    /* Photo Galleries in Tabs with Parallax */
+    /* Photo Galleries with Parallax */
     .photo-grid-4 {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -799,6 +795,149 @@
       align-items: center;
       justify-content: space-between;
       border-top: 1px solid rgba(255, 26, 75, 0.2);
+    }
+
+    /* =========================================================================
+       NEW: ATTENDEE ROSTER STYLES (CYBER GRID & SEARCH)
+       ========================================================================= */
+    .roster-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin: 1.2rem 0;
+    }
+
+    .roster-stat-card {
+      background: rgba(12, 1, 4, 0.9);
+      border: 1px solid rgba(255, 209, 92, 0.25);
+      border-radius: 8px;
+      padding: 0.75rem 0.4rem;
+      text-align: center;
+    }
+
+    .roster-stat-val {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.2rem, 3.2vw, 1.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .roster-stat-lbl {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .roster-search-bar {
+      width: 100%;
+      background: #080103;
+      border: 1.5px solid var(--border-gold);
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      font-family: 'Orbitron', monospace;
+      font-size: 0.85rem;
+      color: #ffffff;
+      outline: none;
+      margin-bottom: 1.2rem;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .roster-search-bar:focus {
+      border-color: #4ade80;
+      box-shadow: 0 0 15px rgba(74, 222, 128, 0.3);
+    }
+
+    .roster-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.65rem;
+      max-height: 580px;
+      overflow-y: auto;
+      padding-right: 0.4rem;
+      scrollbar-width: thin;
+      scrollbar-color: var(--maroon-neon) #090103;
+    }
+
+    @media (min-width: 600px) {
+      .roster-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+      }
+    }
+
+    .attendee-card {
+      background: rgba(16, 2, 5, 0.88);
+      border: 1px solid rgba(255, 26, 75, 0.25);
+      border-radius: 8px;
+      padding: 0.65rem 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .attendee-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--gold-cyber);
+    }
+
+    .attendee-card.paid {
+      border-color: rgba(74, 222, 128, 0.4);
+      background: rgba(8, 28, 14, 0.65);
+    }
+
+    .attendee-name-box {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .attendee-num {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      min-width: 1.8rem;
+    }
+
+    .attendee-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .status-badge {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .status-badge.paid {
+      background: rgba(34, 197, 94, 0.18);
+      border: 1px solid #4ade80;
+      color: #4ade80;
+      box-shadow: 0 0 10px rgba(74, 222, 128, 0.25);
+    }
+
+    .status-badge.ok {
+      background: rgba(255, 209, 92, 0.12);
+      border: 1px solid var(--gold-cyber);
+      color: var(--gold-cyber);
+    }
+
+    .status-badge.pending {
+      background: rgba(255, 26, 75, 0.15);
+      border: 1px solid var(--maroon-neon);
+      color: #ff99aa;
     }
 
     /* FAQ Accordion */
@@ -1019,7 +1158,7 @@
 </head>
 <body>
 
-  <!-- Top Scroll Progress Laser Bar -->
+  <!-- Top Scroll Laser Progress -->
   <div id="scroll-indicator" class="mobile-scroll-indicator"></div>
 
   <!-- Ambient Visual Layers -->
@@ -1055,6 +1194,9 @@
       <button class="nav-tab-btn" onclick="switchTab('tab-dresscode', this)">
         <span>🕶️</span> DRESS CODE
       </button>
+      <button class="nav-tab-btn" onclick="switchTab('tab-roster', this)">
+        <span>📋</span> ROSTER
+      </button>
       <button class="nav-tab-btn" onclick="switchTab('tab-committee', this)">
         <span>👥</span> COMMITTEE & FAQ
       </button>
@@ -1089,7 +1231,7 @@
          ========================================================================= -->
     <div id="tab-overview" class="tab-view active">
       
-      <!-- Countdown Section with One-Tap Calendar Sync (08:00 AM - 04:00 PM) -->
+      <!-- Countdown Section with One-Tap Calendar Sync -->
       <section class="card-panel tech-box" aria-label="Event Countdown">
         <div class="countdown-top-bar">
           <span>// TARGET EVENT HORIZON</span>
@@ -1246,7 +1388,7 @@
         <!-- Paid Poll Callout Box -->
         <div class="poll-callout-box tech-box">
           <div style="font-family:'Orbitron', monospace; font-size:0.74rem; color:#ffb3be; background:rgba(255,26,75,0.15); border:1px solid var(--maroon-neon); padding:0.5rem; border-radius:6px;">
-            ⚠️️ <strong>IMPORTANT NOTICE:</strong> Do NOT open or submit this link if you haven't paid yet! Only submit <strong>AFTER</strong> your transfer is completed.
+            ⚠️ <strong>IMPORTANT NOTICE:</strong> Do NOT open or submit this link if you haven't paid yet! Only submit <strong>AFTER</strong> your transfer is completed.
           </div>
 
           <a 
@@ -1261,7 +1403,7 @@
         </div>
       </section>
 
-      <!-- Details 3 Cards (Updated with 08:00 AM - 04:00 PM) -->
+      <!-- Details 3 Cards -->
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:1.2rem;">
         <article class="card-panel tech-box" style="margin-bottom:0;">
           <div style="font-family:'Orbitron', monospace; font-size:0.72rem; color:var(--gold-cyber);">SYS.PARAM // 01</div>
@@ -1292,7 +1434,7 @@
     </div>
 
     <!-- =========================================================================
-         TAB 2: HOTEL & VENUE (Dedicated Gallery with Parallax)
+         TAB 2: HOTEL & VENUE
          ========================================================================= -->
     <div id="tab-hotel" class="tab-view">
       <section class="card-panel tech-box">
@@ -1346,7 +1488,7 @@
     </div>
 
     <!-- =========================================================================
-         TAB 3: DRESS CODE (Dedicated Style Guide with Parallax)
+         TAB 3: DRESS CODE
          ========================================================================= -->
     <div id="tab-dresscode" class="tab-view">
       <section class="card-panel tech-box">
@@ -1400,7 +1542,51 @@
     </div>
 
     <!-- =========================================================================
-         TAB 4: COMMITTEE & FREQUENTLY ASKED QUESTIONS
+         TAB 4: BATCH ATTENDEES ROSTER (NEW)
+         ========================================================================= -->
+    <div id="tab-roster" class="tab-view">
+      <section class="card-panel tech-box">
+        <div style="text-align:center;">
+          <h2 style="font-family:'Orbitron', sans-serif; font-size:1.45rem; color:#fff;">📋 BATCH ROSTER & CLEARANCE</h2>
+          <p style="color:var(--text-muted); font-family:'Rajdhani', sans-serif; font-size:1rem; margin-top:0.3rem;">
+            Live attendance tracker. Search your name to check payment verification status.
+          </p>
+        </div>
+
+        <!-- Roster Stat Chips -->
+        <div class="roster-stats-grid">
+          <div class="roster-stat-card">
+            <div class="roster-stat-val" id="stat-roster-total" style="color:var(--gold-cyber);">0</div>
+            <div class="roster-stat-lbl">Confirmed Guests</div>
+          </div>
+          <div class="roster-stat-card">
+            <div class="roster-stat-val" id="stat-roster-paid" style="color:#4ade80;">0</div>
+            <div class="roster-stat-lbl">Paid (Cleared)</div>
+          </div>
+          <div class="roster-stat-card">
+            <div class="roster-stat-val" id="stat-roster-pending" style="color:#ff4d6d;">0</div>
+            <div class="roster-stat-lbl">Unsettled</div>
+          </div>
+        </div>
+
+        <!-- Search Input -->
+        <input 
+          type="text" 
+          id="roster-search" 
+          class="roster-search-bar" 
+          placeholder="🔍 Type your name to check status..."
+          oninput="filterAttendees()"
+        />
+
+        <!-- Attendees Scroll List -->
+        <div class="roster-grid" id="roster-list-container">
+          <!-- Dynamically populated from JS array -->
+        </div>
+      </section>
+    </div>
+
+    <!-- =========================================================================
+         TAB 5: COMMITTEE & FREQUENTLY ASKED QUESTIONS
          ========================================================================= -->
     <div id="tab-committee" class="tab-view">
       
@@ -1557,7 +1743,7 @@
       <!-- Support Bar -->
       <section class="card-panel tech-box" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
         <div style="font-family:'Rajdhani', sans-serif; font-size:1rem; color:#fff;">
-          🛠️ Inform any site errors - <strong style="color:var(--gold-cyber);">Yovindu</strong> (0761830582)
+          🛠️️ Inform any site errors - <strong style="color:var(--gold-cyber);">Yovindu</strong> (0761830582)
         </div>
         <a 
           href="https://wa.me/94761830582?text=Hi%20Yovindu%2C%20reporting%20an%20issue%20with%20the%20Batch%20Get-Together%20website%3A" 
@@ -1585,11 +1771,163 @@
 
   <script>
     // =========================================================================
-    // 🛠️ ADMIN SETTINGS: EDIT THESE TWO LINES ON GITHUB WHEN SOMEONE PAYS!
+    // 🛠️ ADMIN SETTINGS & ATTENDEES ROSTER: EDIT HERE ON GITHUB!
     // =========================================================================
-    const TARGET_BUDGET = 306000;
-    const PAID_TICKETS  = 19;
+    // HOW TO UPDATE WHEN SOMEONE PAYS:
+    // Simply change status to "paid" (e.g. { name: "Malindu", status: "paid" })
+    // The Treasury budget bar, total collected, and percentage will automatically calculate!
     // =========================================================================
+    const TARGET_BUDGET = 300000;
+    const PRICE_PER_PASS = 6000;
+
+    const ATTENDEE_LIST = [
+      { name: "Binudi", status: "paid" },
+      { name: "Hasini", status: "pending" },
+      { name: "Sanula", status: "paid" },
+      { name: "Yovindu", status: "paid" },
+      { name: "Malindu", status: "ok" },
+      { name: "Sithil", status: "paid" },
+      { name: "Chamithi", status: "ok" },
+      { name: "Akithmi", status: "paid" },
+      { name: "Amandi", status: "paid" },
+      { name: "Ashen", status: "paid" },
+      { name: "Chanchala", status: "ok" },
+      { name: "Chanuth", status: "8th of October" },
+      { name: "Chenadi", status: "paid" },
+      { name: "Daham", status: "ok" },
+      { name: "Dulmeth", status: "ok" },
+      { name: "Dewanmith", status: "ok" },
+      { name: "Dimuth", status: "paid" },
+      { name: "Dineth", status: "paid" },
+      { name: "Dinitha", status: "paid" },
+      { name: "Gauri", status: "ok" },
+      { name: "Gayathma", status: "paid" },
+      { name: "Geethma", status: "ok" },
+      { name: "Hirun", status: "ok" },
+      { name: "Gethmi", status: "ok" },
+      { name: "Janindu", status: "pending" },
+      { name: "Janith", status: "paid" },
+      { name: "Malsha", status: "paid" },
+      { name: "Nadun", status: "ok" },
+      { name: "Nehan", status: "ok" },
+      { name: "Pamithu", status: "ok" },
+      { name: "Pathum (Atagala)", status: "pending" },
+      { name: "Dahamya", status: "ok" },
+      { name: "Rashmika", status: "pending" },
+      { name: "Ravindu", status: "paid" },
+      { name: "Sanditha", status: "paid" },
+      { name: "Sithika", status: "paid" },
+      { name: "Senuth", status: "ok" },
+      { name: "Sharanya", status: "calling" },
+      { name: "Shashini", status: "paid" },
+      { name: "Sinadi", status: "ok" },
+      { name: "Tharini", status: "pending" },
+      { name: "Lokitha", status: "ringing" },
+      { name: "Kavindu", status: "ok" },
+      { name: "Chirantha", status: "ok" },
+      { name: "Seneth", status: "paid" },
+      { name: "Promodi", status: "ok" },
+      { name: "Amashi", status: "ok" },
+      { name: "Nadithya", status: "ok" },
+      { name: "Rakjitha", status: "ok" },
+      { name: "Dahami", status: "ok" },
+      { name: "Sandupama", status: "ok" },
+      { name: "Ruchini", status: "ok" },
+      { name: "Vidarshana", status: "ok" },
+      { name: "Deshan", status: "ok" },
+      { name: "Dilshan", status: "ok" },
+      { name: "Vihanga", status: "ok" },
+      { name: "Pasan", status: "ok" },
+      { name: "Yasith", status: "ok" }
+    ];
+
+    // =========================================================================
+    // 📋 ATTENDEE ROSTER ENGINE
+    // =========================================================================
+    function renderRoster(list) {
+      const container = document.getElementById("roster-list-container");
+      if (!container) return;
+      container.innerHTML = "";
+
+      list.forEach((item, index) => {
+        const isPaid = item.status.toLowerCase() === "paid";
+        const card = document.createElement("div");
+        card.className = `attendee-card ${isPaid ? 'paid' : ''}`;
+
+        let displayStatus = item.status;
+        let badgeClass = "pending";
+        if (isPaid) {
+          displayStatus = "PAID & VERIFIED ✓";
+          badgeClass = "paid";
+        } else if (item.status.toLowerCase() === "ok") {
+          displayStatus = "CONFIRMED (OK)";
+          badgeClass = "ok";
+        }
+
+        card.innerHTML = `
+          <div class="attendee-name-box">
+            <span class="attendee-num">${String(index + 1).padStart(2, '0')}</span>
+            <span class="attendee-name">${item.name}</span>
+          </div>
+          <span class="status-badge ${badgeClass}">${displayStatus}</span>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterAttendees() {
+      const term = document.getElementById("roster-search").value.toLowerCase();
+      const filtered = ATTENDEE_LIST.filter(a => a.name.toLowerCase().includes(term));
+      renderRoster(filtered);
+    }
+
+    function initRosterStats() {
+      const total = ATTENDEE_LIST.length;
+      const paidCount = ATTENDEE_LIST.filter(a => a.status.toLowerCase() === "paid").length;
+      const pendingCount = total - paidCount;
+
+      const totalEl = document.getElementById("stat-roster-total");
+      const paidEl = document.getElementById("stat-roster-paid");
+      const pendingEl = document.getElementById("stat-roster-pending");
+
+      if (totalEl) totalEl.innerText = total;
+      if (paidEl) paidEl.innerText = paidCount;
+      if (pendingEl) pendingEl.innerText = pendingCount;
+
+      renderRoster(ATTENDEE_LIST);
+      return paidCount;
+    }
+
+    // =========================================================================
+    // 📊 BUDGET TRACKER (AUTO-CALCULATED FROM ATTENDEE ROSTER!)
+    // =========================================================================
+    function initBudgetTracker(paidTicketsCount) {
+      const currentTotal = paidTicketsCount * PRICE_PER_PASS;
+      const pct = Math.min(100, Math.round((currentTotal / TARGET_BUDGET) * 100));
+
+      const statCollected = document.getElementById("stat-collected");
+      const statTarget = document.getElementById("stat-target");
+      const budgetPct = document.getElementById("budget-pct");
+      const budgetFill = document.getElementById("budget-fill");
+      const budgetStatus = document.getElementById("budget-status");
+
+      if (statCollected) statCollected.innerText = `LKR ${currentTotal.toLocaleString()}`;
+      if (statTarget) statTarget.innerText = `LKR ${TARGET_BUDGET.toLocaleString()}`;
+      if (budgetPct) budgetPct.innerText = `${pct}%`;
+      
+      setTimeout(() => {
+        if (budgetFill) budgetFill.style.width = `${pct}%`;
+      }, 200);
+
+      if (budgetStatus) {
+        if (pct >= 100) {
+          budgetStatus.innerText = "TARGET 100% SECURED 🎯";
+          budgetStatus.style.color = "#4ade80";
+        } else {
+          budgetStatus.innerText = `STATUS: ${paidTicketsCount} PASSES CLEARED (${pct}%)`;
+        }
+      }
+    }
 
     // =========================================================================
     // 🔊 SYNTHESIZED CYBER AUDIO ENGINE
@@ -1694,7 +2032,6 @@
     // 🎟️ PASS CALCULATOR
     // =========================================================================
     let currentPassCount = 1;
-    const PRICE_PER_PASS = 6000;
 
     function changePasses(change) {
       currentPassCount = Math.max(1, Math.min(25, currentPassCount + change));
@@ -1729,37 +2066,6 @@
       const isOpen = item.classList.contains('open');
       document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('open'));
       if (!isOpen) item.classList.add('open');
-    }
-
-    // =========================================================================
-    // 📊 BUDGET TRACKER
-    // =========================================================================
-    function initBudgetTracker() {
-      const currentTotal = PAID_TICKETS * PRICE_PER_PASS;
-      const pct = Math.min(100, Math.round((currentTotal / TARGET_BUDGET) * 100));
-
-      const statCollected = document.getElementById("stat-collected");
-      const statTarget = document.getElementById("stat-target");
-      const budgetPct = document.getElementById("budget-pct");
-      const budgetFill = document.getElementById("budget-fill");
-      const budgetStatus = document.getElementById("budget-status");
-
-      if (statCollected) statCollected.innerText = `LKR ${currentTotal.toLocaleString()}`;
-      if (statTarget) statTarget.innerText = `LKR ${TARGET_BUDGET.toLocaleString()}`;
-      if (budgetPct) budgetPct.innerText = `${pct}%`;
-      
-      setTimeout(() => {
-        if (budgetFill) budgetFill.style.width = `${pct}%`;
-      }, 200);
-
-      if (budgetStatus) {
-        if (pct >= 100) {
-          budgetStatus.innerText = "TARGET 100% SECURED 🎯";
-          budgetStatus.style.color = "#4ade80";
-        } else {
-          budgetStatus.innerText = `STATUS: ${PAID_TICKETS} PASSES CLEARED (${pct}%)`;
-        }
-      }
     }
 
     // =========================================================================
@@ -1833,7 +2139,6 @@
       const secondsEl = document.getElementById("seconds");
       const statusEl = document.getElementById("countdown-status");
 
-      // Event Active or Concluded
       if (now >= startTimestamp) {
         if (daysEl) daysEl.innerText = "00";
         if (hoursEl) hoursEl.innerText = "00";
@@ -1852,7 +2157,6 @@
         return;
       }
 
-      // Countdown to 08:00 AM
       const difference = startTimestamp - now;
       const d = Math.floor(difference / (1000 * 60 * 60 * 24));
       const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -1922,6 +2226,7 @@
         this.x += this.speedX;
 
         if (this.y < 0) this.y = pHeight;
+        if (this.y > pHeight) this.y = 0;
         if (this.x < 0) this.x = pWidth;
         if (this.x > pWidth) this.x = 0;
 
@@ -1986,7 +2291,8 @@
 
     window.onload = function () {
       renderParticles();
-      initBudgetTracker();
+      const verifiedPaidCount = initRosterStats();
+      initBudgetTracker(verifiedPaidCount);
       updateCalculator();
       onScrollMotion();
     };
