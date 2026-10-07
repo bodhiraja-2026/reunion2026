@@ -132,11 +132,7 @@
       pointer-events: none;
     }
 
-    /* =========================================================================
-       📱 MOBILE-FIRST NAVIGATION ENGINE
-       - Desktop: Clean Top Bar
-       - Mobile (<768px): Native Floating App Bottom Dock
-       ========================================================================= */
+    /* Navigation */
     .hud-navbar {
       position: sticky;
       top: 0;
@@ -189,12 +185,12 @@
       font-weight: 900;
     }
 
-    /* 📱 MOBILE BOTTOM DOCK (Hidden on PC, active on mobile) */
+    /* Mobile Bottom Dock */
     @media (max-width: 767px) {
       .hud-navbar {
         position: fixed;
         top: auto;
-        bottom: 12px;
+        bottom: calc(12px + env(safe-area-inset-bottom, 0px));
         left: 50%;
         transform: translateX(-50%);
         width: calc(100% - 1.5rem);
@@ -246,7 +242,6 @@
         box-shadow: 0 0 12px rgba(255, 209, 92, 0.3);
       }
 
-      /* Extra space at bottom of page so mobile dock doesn't cover content */
       .page-wrapper {
         padding-bottom: 6.5rem !important;
       }
@@ -261,7 +256,6 @@
       padding: clamp(1.2rem, 3.5vw, 2.5rem) clamp(0.9rem, 3.5vw, 2rem) 4rem;
     }
 
-    /* Tab Switcher Views */
     .tab-view {
       display: none;
       animation: tabFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -276,7 +270,6 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* Tech Corner Accents */
     .tech-box {
       position: relative;
     }
@@ -304,7 +297,6 @@
       border-right: 2px solid var(--maroon-neon);
     }
 
-    /* Header Controls */
     .top-action-bar {
       display: flex;
       justify-content: center;
@@ -1082,7 +1074,7 @@
 
     .cyber-toast {
       position: fixed;
-      bottom: 85px; /* Sits above mobile dock */
+      bottom: calc(85px + env(safe-area-inset-bottom, 0px));
       left: 50%;
       transform: translateX(-50%) translateY(20px);
       width: calc(100% - 2.5rem);
@@ -1140,7 +1132,7 @@
   <!-- Interactive Lightbox Modal -->
   <div id="image-modal" class="cyber-modal" onclick="closeImageModal()">
     <div class="modal-content-wrap tech-box" onclick="event.stopPropagation()">
-      <button class="btn-close-modal" onclick="closeImageModal()">✕</button>
+      <button type="button" class="btn-close-modal" onclick="closeImageModal()">✕</button>
       <img id="modal-img" src="" alt="Full view">
       <div id="modal-caption" class="modal-caption"></div>
     </div>
@@ -1149,23 +1141,23 @@
   <!-- Responsive HUD Navigation (Top Bar on PC / Floating Bottom Dock on Mobile) -->
   <nav class="hud-navbar">
     <div class="nav-tabs">
-      <button class="nav-tab-btn active" onclick="switchTab('tab-overview', this)">
+      <button type="button" class="nav-tab-btn active" onclick="switchTab('tab-overview', this)">
         <span class="tab-icon">🏠</span>
         <span class="tab-text">HOME</span>
       </button>
-      <button class="nav-tab-btn" onclick="switchTab('tab-hotel', this)">
+      <button type="button" class="nav-tab-btn" onclick="switchTab('tab-hotel', this)">
         <span class="tab-icon">🏨</span>
         <span class="tab-text">VENUE</span>
       </button>
-      <button class="nav-tab-btn" onclick="switchTab('tab-dresscode', this)">
+      <button type="button" class="nav-tab-btn" onclick="switchTab('tab-dresscode', this)">
         <span class="tab-icon">🕶️</span>
         <span class="tab-text">STYLE</span>
       </button>
-      <button class="nav-tab-btn" onclick="switchTab('tab-roster', this)">
+      <button type="button" class="nav-tab-btn" onclick="switchTab('tab-roster', this)">
         <span class="tab-icon">📋</span>
         <span class="tab-text">ROSTER</span>
       </button>
-      <button class="nav-tab-btn" onclick="switchTab('tab-committee', this)">
+      <button type="button" class="nav-tab-btn" onclick="switchTab('tab-committee', this)">
         <span class="tab-icon">👥</span>
         <span class="tab-text">HELP</span>
       </button>
@@ -1180,7 +1172,7 @@
           <span class="blinking-dot"></span>
           <span>Bodhiraja Reunion 2026</span>
         </div>
-        <button class="audio-toggle-btn" id="audio-toggle" onclick="toggleCyberSound()">
+        <button type="button" class="audio-toggle-btn" id="audio-toggle" onclick="toggleCyberSound()">
           <span>🔊</span> <span id="audio-lbl">AUDIO: ON</span>
         </button>
       </div>
@@ -1227,13 +1219,13 @@
         
         <div class="cal-btn-wrap">
           <a 
-            href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sri+Bodhiraja+College+Batch+Get-Together+2026&dates=20261015T023000Z/20261015T103000Z&details=Annual+Batch+Reunion.+Time:+8:00+AM+-+4:00+PM.+Theme:+All+Black+Smart+Casual.+Ticket:+LKR+6,000.&location=Sri+Bodhiraja+College+Reunion+Venue" 
+            href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sri+Bodhiraja+College+Batch+Get-Together+2026&dates=20261015T023000Z/20261015T113000Z&details=Annual+Batch+Reunion.+Time:+8:00+AM+-+5:00+PM.+Theme:+All+Black+Smart+Casual.+Ticket:+LKR+6,000.&location=Sri+Bodhiraja+College+Reunion+Venue" 
             target="_blank" 
             rel="noopener noreferrer" 
             class="btn-cal-sync"
             onclick="playBeep('confirm')"
           >
-            <span>🗓️ Add to Google Calendar (08:00 AM - 04:00 PM)</span> &rarr;
+            <span>🗓️ Add to Google Calendar (08:00 AM - 05:00 PM)</span> &rarr;
           </a>
         </div>
       </section>
@@ -1258,7 +1250,7 @@
           </div>
           <div>
             <span style="color: var(--text-muted);">TARGET: </span>
-            <strong id="stat-target" style="color: var(--gold-cyber); font-family: 'Orbitron', monospace;">LKR 300,000</strong>
+            <strong id="stat-target" style="color: var(--gold-cyber); font-family: 'Orbitron', monospace;">LKR 318,000</strong>
           </div>
         </div>
       </section>
@@ -1286,9 +1278,9 @@
               <div style="font-size:0.75rem; color:var(--text-muted);">Paying for friends too?</div>
             </div>
             <div class="counter-control">
-              <button class="btn-counter" onclick="changePasses(-1)">−</button>
+              <button type="button" class="btn-counter" onclick="changePasses(-1)">−</button>
               <span class="counter-val" id="calc-qty">1</span>
-              <button class="btn-counter" onclick="changePasses(1)">+</button>
+              <button type="button" class="btn-counter" onclick="changePasses(1)">+</button>
             </div>
           </div>
 
@@ -1363,7 +1355,7 @@
             class="btn-poll-action"
             onclick="playBeep('confirm')"
           >
-            <span>🗳️️ I HAVE PAID — VOTE ON PAYMENT POLL</span> &rarr;
+            <span>🗳 I HAVE PAID — VOTE ON PAYMENT POLL</span> &rarr;
           </a>
         </div>
       </section>
@@ -1374,7 +1366,7 @@
           <div style="font-family:'Orbitron', monospace; font-size:0.7rem; color:var(--gold-cyber);">SYS.PARAM // 01</div>
           <h3 style="font-family:'Orbitron', sans-serif; font-size:1.1rem; color:#fff; margin-top:0.3rem;">📅 WHEN</h3>
           <div style="font-size:1.1rem; font-weight:700; color:var(--gold-cyber); margin-top:0.4rem;">15th of October 2026</div>
-          <div style="font-size:0.9rem; font-weight:700; color:#4ade80; margin-top:0.15rem; font-family:'Orbitron', monospace;">08:00 AM – 04:00 PM</div>
+          <div style="font-size:0.9rem; font-weight:700; color:#4ade80; margin-top:0.15rem; font-family:'Orbitron', monospace;">08:00 AM – 05:00 PM</div>
           <p style="font-size:0.85rem; color:var(--text-muted); margin-top:0.35rem;">Arrive sharp by 8:00 AM to catch the grand opening.</p>
         </article>
 
@@ -1564,7 +1556,7 @@
 
         <div class="faq-accordion">
           <div class="faq-item" onclick="toggleFaq(this)">
-            <button class="faq-question">
+            <button type="button" class="faq-question">
               <span>When is the payment deadline?</span>
               <span class="faq-icon">+</span>
             </button>
@@ -1574,7 +1566,7 @@
           </div>
 
           <div class="faq-item" onclick="toggleFaq(this)">
-            <button class="faq-question">
+            <button type="button" class="faq-question">
               <span>Can I pay for multiple friends together?</span>
               <span class="faq-icon">+</span>
             </button>
@@ -1584,7 +1576,7 @@
           </div>
 
           <div class="faq-item" onclick="toggleFaq(this)">
-            <button class="faq-question">
+            <button type="button" class="faq-question">
               <span>Is parking available at the venue?</span>
               <span class="faq-icon">+</span>
             </button>
@@ -1594,7 +1586,7 @@
           </div>
 
           <div class="faq-item" onclick="toggleFaq(this)">
-            <button class="faq-question">
+            <button type="button" class="faq-question">
               <span>Need help or special dietary needs?</span>
               <span class="faq-icon">+</span>
             </button>
@@ -1717,15 +1709,7 @@
 
   <script>
     // =========================================================================
-    // 🛠️️ ADMIN SETTINGS & ATTENDEES ROSTER: EDIT HERE ON GITHUB!
-    // =========================================================================
-    // HOW TO UPDATE WHEN SOMEONE PAYS:
-    // Simply change status to "paid" (e.g. { name: "Malindu", status: "paid" })
-    // The Treasury budget bar, total collected, and percentage will automatically calculate!
-    //
-    // - "paid"    -> Confirmed & Paid (Ok (Paid)) -> Highlighted Glowing Green
-    // - "ok"      -> Confirmed Attendance, Pending Payment -> Gold Badge
-    // - "pending" -> Follow-up Required (Pending / Calling / Ringing / Date)
+    // 🛠 ADMIN SETTINGS & ATTENDEES ROSTER: EDIT HERE ON GITHUB!
     // =========================================================================
     const TARGET_BUDGET = 318000;
     const PRICE_PER_PASS = 6000;
@@ -1737,58 +1721,58 @@
       { name: "Yovindu", status: "paid" },                // 05) Ok (Paid)
       { name: "Malindu", status: "ok" },                  // 06) Ok
       { name: "Sithil", status: "paid" },                 // 07) Ok (Paid)
-      { name: "Chamithi", status: "paid" },                 // 08) Ok
+      { name: "Chamithi", status: "paid" },               // 08) Ok
       { name: "Akithmi", status: "paid" },                // 09) Ok (Paid)
       { name: "Amandi", status: "paid" },                 // 10) Ok (Paid)
       { name: "Ashen", status: "paid" },                  // 11) Ok (Paid)
       { name: "Chanchala", status: "ok" },                // 13) Ok
       { name: "Chanuth", status: "ok" },              // 14) 8th of October
       { name: "Chenadi", status: "paid" },                // 15) Ok (Paid)
-      { name: "Daham", status: "paid" },                    // 16) Ok
-      { name: "Dulmeth", status: "paid" },                  // 17) Ok
-      { name: "Dewanmith", status: "paid" },                // 18) Ok
+      { name: "Daham", status: "paid" },                  // 16) Ok
+      { name: "Dulmeth", status: "paid" },                // 17) Ok
+      { name: "Dewanmith", status: "paid" },              // 18) Ok
       { name: "Dimuth", status: "paid" },                 // 19) Ok (Paid)
       { name: "Dineth", status: "paid" },                 // 20) Ok (Paid)
       { name: "Dinitha", status: "paid" },                // 21) Ok (Paid)
-     // { name: "Gauri", status: "ok" },                    // 22) Ok
+     // { name: "Gauri", status: "ok" },                  // 22) Ok
       { name: "Gayathma", status: "paid" },               // 23) Ok (Paid)
-      { name: "Geethma", status: "paid" },                  // 24) Ok
-      { name: "Hirun", status: "paid" },                    // 25) Ok
-      { name: "Gethmi", status: "paid" },                   // 26) Ok
+      { name: "Geethma", status: "paid" },                // 24) Ok
+      { name: "Hirun", status: "paid" },                  // 25) Ok
+      { name: "Gethmi", status: "paid" },                 // 26) Ok
       { name: "Janindu", status: "paid" },             // 27) Pending
       { name: "Janith", status: "paid" },                 // 28) Ok (Paid)
       { name: "Malsha", status: "paid" },                 // 29) Ok (Paid)
-      { name: "Nadun", status: "paid" },                    // 30) Ok
-      { name: "Nehan", status: "paid" },                    // 31) Ok
-     // { name: "Pamithu", status: "ok" },                  // 32) Ok
+      { name: "Nadun", status: "paid" },                  // 30) Ok
+      { name: "Nehan", status: "paid" },                  // 31) Ok
+     // { name: "Pamithu", status: "ok" },                // 32) Ok
       { name: "Pathum (Atagala)", status: "paid" },    // 33) Pending
-      { name: "Dahamya", status: "paid" },                  // 34) Ok
-     // { name: "Rashmika", status: "pending" },            // 35) Pending
+      { name: "Dahamya", status: "paid" },                // 34) Ok
+     // { name: "Rashmika", status: "pending" },          // 35) Pending
       { name: "Ravindu", status: "paid" },                // 36) Ok (Paid)
       { name: "Sanditha", status: "paid" },               // 37) Ok (Paid)
       { name: "Sithika", status: "paid" },                // 38) Ok (Paid)
-      { name: "Senuth(henakandaya)", status: "paid" },                   // 39) Ok
+      { name: "Senuth(henakandaya)", status: "paid" },    // 39) Ok
       { name: "Sharanya", status: "pending" },            // 40) Calling
       { name: "Shashini", status: "paid" },               // 41) Ok (Paid)
       { name: "Sinadi", status: "ok" },                   // 42) Ok
       { name: "Tharini", status: "ok" },             // 43) Pending
       { name: "Lokitha", status: "ok" },             // 44) Ringing
-     // { name: "Kavindu", status: "ok" },                  // 45) Ok
-      { name: "Chirantha", status: "paid" },                // 46) Ok
+     // { name: "Kavindu", status: "ok" },                // 45) Ok
+      { name: "Chirantha", status: "paid" },              // 46) Ok
       { name: "Seneth", status: "paid" },                 // 47) Ok (Paid)
-      { name: "Promodi", status: "paid" },                  // 48) Ok
-      { name: "Amashi", status: "paid" },                   // 49) Ok
-      { name: "Nadithya", status: "paid" },                 // 50) Ok
-      { name: "Rakjitha", status: "paid" },                 // 51) Ok
+      { name: "Promodi", status: "paid" },                // 48) Ok
+      { name: "Amashi", status: "paid" },                 // 49) Ok
+      { name: "Nadithya", status: "paid" },               // 50) Ok
+      { name: "Rakjitha", status: "paid" },               // 51) Ok
       { name: "Dahami", status: "ok" },                   // 52) Ok
-      { name: "Sandupama", status: "paid" },                // 53) Ok
-     // { name: "Ruchini", status: "ok" },                  // 54) Ok
-      { name: "Vidarshana", status: "paid" },               // 55) Ok
+      { name: "Sandupama", status: "paid" },              // 53) Ok
+     // { name: "Ruchini", status: "ok" },                // 54) Ok
+      { name: "Vidarshana", status: "paid" },             // 55) Ok
       { name: "Deshan", status: "ok" },                   // 56) Ok
-     // { name: "Dilshan", status: "ok" },                  // 57) Ok
-      { name: "Vihanga", status: "paid" },                  // 58) Ok
-      { name: "Pasan", status: "paid" },                    // 59) Ok
-     // { name: "Yasith", status: "ok" },                   // 61) Ok
+     // { name: "Dilshan", status: "ok" },                // 57) Ok
+      { name: "Vihanga", status: "paid" },                // 58) Ok
+      { name: "Pasan", status: "paid" },                  // 59) Ok
+     // { name: "Yasith", status: "ok" },                  // 61) Ok
       { name: "Sades", status: "paid" },
       { name: "Shennone", status: "paid" },
      // { name: "Rashini", status: "paid" },
@@ -1832,17 +1816,23 @@
     }
 
     function filterAttendees() {
-      const term = document.getElementById("roster-search").value.toLowerCase();
+      const term = document.getElementById("roster-search").value.trim().toLowerCase();
       const filtered = ATTENDEE_LIST.filter(a => a.name.toLowerCase().includes(term));
+      const container = document.getElementById("roster-list-container");
+
+      if (filtered.length === 0 && container) {
+        container.innerHTML = `
+          <div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--text-muted); font-family: 'Rajdhani', sans-serif;">
+            ⚠️ No batchmates found matching "<strong>${term}</strong>"
+          </div>`;
+        return;
+      }
       renderRoster(filtered);
     }
 
     function initRosterStats() {
-      // Confirmed Guests = Ok + Paid (50)
       const confirmedCount = ATTENDEE_LIST.filter(a => a.status === "paid" || a.status === "ok").length;
-      // Paid (Cleared) = Paid (18)
       const paidCount = ATTENDEE_LIST.filter(a => a.status === "paid").length;
-      // Follow-ups / Pending (8)
       const followUpCount = ATTENDEE_LIST.filter(a => a.status !== "paid" && a.status !== "ok").length;
 
       const totalEl = document.getElementById("stat-roster-total");
@@ -1858,7 +1848,7 @@
     }
 
     // =========================================================================
-    // 📊 BUDGET TRACKER (AUTO-CALCULATED FROM ATTENDEE ROSTER!)
+    // 📊 BUDGET TRACKER
     // =========================================================================
     function initBudgetTracker(paidTicketsCount) {
       const currentTotal = paidTicketsCount * PRICE_PER_PASS;
@@ -1889,33 +1879,34 @@
     }
 
     // =========================================================================
-    // 🔊 SYNTHESIZED CYBER AUDIO ENGINE
+    // 🔊 AUDIO ENGINE
     // =========================================================================
     let audioEnabled = true;
     let audioCtx = null;
 
-    function initAudioContext() {
+    function getAudioContext() {
       if (!audioCtx) {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        if (AudioContext) audioCtx = new AudioContext();
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) audioCtx = new AudioContextClass();
       }
       if (audioCtx && audioCtx.state === 'suspended') {
         audioCtx.resume();
       }
+      return audioCtx;
     }
 
     function playBeep(type = 'click') {
       if (!audioEnabled) return;
       try {
-        initAudioContext();
-        if (!audioCtx) return;
+        const ctx = getAudioContext();
+        if (!ctx) return;
 
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
         osc.connect(gain);
-        gain.connect(audioCtx.destination);
+        gain.connect(ctx.destination);
 
-        const now = audioCtx.currentTime;
+        const now = ctx.currentTime;
         if (type === 'click') {
           osc.type = 'triangle';
           osc.frequency.setValueAtTime(620, now);
@@ -2085,10 +2076,10 @@
     }
 
     // =========================================================================
-    // ⏳ COUNTDOWN TIMER (08:00 AM START - 04:00 PM FINISH)
+    // ⏳ COUNTDOWN TIMER (08:00 AM START - 05:00 PM FINISH)
     // =========================================================================
     const startTimestamp = new Date("October 15, 2026 08:00:00").getTime();
-    const endTimestamp   = new Date("October 15, 2026 16:00:00").getTime();
+    const endTimestamp   = new Date("October 15, 2026 17:00:00").getTime();
 
     function refreshCountdown() {
       const now = new Date().getTime();
@@ -2106,7 +2097,7 @@
 
         if (statusEl) {
           if (now < endTimestamp) {
-            statusEl.innerText = "STATUS: EVENT IN SESSION (08:00 AM - 04:00 PM) 🎉";
+            statusEl.innerText = "STATUS: EVENT IN SESSION (08:00 AM - 05:00 PM) 🎉";
             statusEl.style.color = "#4ade80";
           } else {
             statusEl.innerText = "STATUS: MISSION ACCOMPLISHED / EVENT CONCLUDED";
